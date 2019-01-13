@@ -146,6 +146,7 @@ img::-moz-selection {
 }
 
 @media (min-width: 992px) {
+
   #mainNav {
     padding-top: 25px;
     padding-bottom: 25px;
@@ -223,6 +224,7 @@ header.masthead .intro-text .intro-heading {
     margin-bottom: 50px;
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   }
+
 }
 
 .service-heading {
@@ -692,4 +694,17 @@ ul.social-buttons li a {
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
   background-color: #49b3f4;
+}
+.logo{
+  animation: logo 3s;
+  max-height: 90px;
+}
+
+@keyframes logo{
+  from{
+    max-height: 250px;
+  }
+  to{
+    max-height: 90px;
+  }
 }
