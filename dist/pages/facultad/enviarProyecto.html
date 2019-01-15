@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DDCurricular Facultad - Dashboard</title>
+    <title>DESCO Facultad - Dashboard</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,23 +31,14 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">DDCurricular - Dashboard</a>
+      <a class="navbar-brand mr-1" href="index.html">Pagina principal</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
 
       <!-- Navbar Search -->
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+   
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
@@ -83,7 +74,7 @@
             <a class="dropdown-item" href="#">Settings</a>
             <a class="dropdown-item" href="#">Activity Log</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">DDCurricularnectarse</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Desconectarse</a>
           </div>
         </li>
       </ul>
@@ -97,7 +88,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>Inicio</span>
           </a>
         </li>
         <li class="nav-item active">
@@ -106,22 +97,7 @@
             <span>Enviar Proyecto</span>
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.html">404 Page</a>
-            <a class="dropdown-item active" href="blank.html">Blank Page</a>
-          </div>
-        </li>
+       
       </ul>
 
       <div id="content-wrapper">
@@ -132,147 +108,51 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
               <!--a href="#">Dashboard</a-->
-              Dashboard - Facultad
+              Solicitud
             </li>
           </ol>
 
           <!-- Page Content -->
-          <h1>Insertar Proyecto DDCurricular</h1>
+          <h1>Enviar solicitud</h1>
           <hr>
           <form method="post" action="/uploadProject" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="nombreProyecto" class="form-control" placeholder="Nombre del Proyecto" required autofocus name="nombreProyecto">
-                <label for="nombreProyecto">Nombre del Proyecto</label>
+                <input type="text" id="nombreCarrera" class="form-control" placeholder="Nombre del Proyecto" name="nombreCarrera">
+                <label for="nombreCarrera">Nombre de la carrera</label>
               </div>
             </div>
-
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="orgResponsable" class="form-control" placeholder="Organización Responsable" required name="orgResponsable">
-                <label for="orgResponsable">Organización Responsable</label>
+                <input type="text" id="Asunto" class="form-control" placeholder="Asunto"  name="Asunto">
+                <label for="nombreProyecto">Asunto</label>
               </div>
             </div>
-
-            <div class="form-group">
-              <label for="inputResponsables">Responsables del proyecto</label>
-              <textarea class="form-control" id="responsables" name="responsables"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="ubicacionGeografica">Ubicación Geográfica</label>
-              <textarea class="form-control" id="ubicacionGeografica" name="ubicacionGeografica"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="beneficiariosDirectos">Beneficiarios Directos</label>
-              <textarea class="form-control" id="beneficiariosDirectos" name="beneficiariosDirectos"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="beneficiariosIndirectos">Beneficiarios Indirectos</label>
-              <textarea class="form-control" id="beneficiariosIndirectos" name="beneficiariosIndirectos"></textarea>
-            </div>
-
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="tipoProyecto" class="form-control" placeholder="Tipo de Proyecto" required name="tipoProyecto">
-                <label for="tipoProyecto">Tipo de Proyecto</label>
+                <input type="text" id="Dependecia" class="form-control" placeholder="Dependecia"   name="Dependecia">
+                <label for="Dependecia">Dependecia</label>
               </div>
             </div>
-
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="areaAtencion" class="form-control" placeholder="Area de atención del proyecto" required name="areaAtencion">
-                <label for="areaAtencion">Area de atención del proyecto</label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="duracionProyecto" class="form-control" placeholder="Duración del proyecto" required name="duracionProyecto">
-                <label for="duracionProyecto">Duración del proyecto</label>
-              </div>
-            </div>
-
-            <label for="anoInicio">Fecha Inicio del Proyecto</label>
-            <div class="form-row">
-
-              <div class="form-group col-md-4">
-                <select id="anoInicio" name="anoInicio" class="form-control ano">
-                  <option value='' selected>Año</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-4">
-                <select id="mesInicio" name="mesInicio" class="form-control mes">
-                  <option value='' selected>Mes</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-4">
-                <select id="diaInicio" name="diaInicio" class="form-control dia">
-                  <option value='' selected>Día</option>
-                  <option value=0>Incierto</option>
-                </select>
-              </div>
-
-            </div>
-
-
-            <label for="anoFin">Fecha Finalizacion del Proyecto</label>
-
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <select id="anoFin" name="anoFin" class="form-control ano">
-                  <option value='' selected>Año</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-4">
-                <select id="mesFin" name="mesFin" class="form-control mes">
-                  <option value='' selected>Mes</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-4">
-                <select id="diaFin" name="diaFin" class="form-control dia">
-                  <option value='' selected>Día</option>
-                  <option value=0>Incierto</option>
-                </select>
-              </div>
-
-            </div>
-
-            <div class="form-group">
-              <label for="objGeneral">Objetivo General</label>
-              <textarea class="form-control" id="objGeneral" name="objGeneral"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="objsEspecificos">Objetivos Específicos</label>
-              <textarea class="form-control" id="objsEspecificos" name="objsEspecificos"></textarea>
-            </div>
-
 
             <div class="form-group">
               <div class="form-row">
-
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="tipo">Tipo de Proyecto</label>
+                    <label class="input-group-text" for="tipo">Tipo</label>
                   </div>
                   <select required name="tipo" class="custom-select" id="tipo">
                     <option value="">Seleccione...</option>
-                    <option value="1">de Servicio Comunitario</option>
-                    <option value="2">de Extensión</option>
+                    <option value="1">Pregrado</option>
+                    <option value="2">Postgrado</option>
+                    <option value="3">Diplomado</option>
                   </select>
                 </div>
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">Proyecto</span>
+                    <span class="input-group-text">Documento</span>
                   </div>
                   <div class="custom-file">
                     <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
@@ -293,7 +173,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © DDCurricular 2018</span>
+              <span>Copyright © DESCO 2018</span>
             </div>
           </div>
         </footer>
@@ -327,7 +207,11 @@
         </div>
       </div>
     </div>
-
+    <style type="text/css">
+    h1{
+      text-align: center;
+    }
+    </style>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -342,7 +226,7 @@
     <script src="js/select2.min.js"></script>
     <script src="js/i18n/es.js"></script>
 
-    <script src="js/DDCurricular-reactive-fa-enviar.js"></script>
+    <script src="js/desco-reactive-fa-enviar.js"></script>
 
   </body>
 
