@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   $('.fecha').text((new Date().toLocaleString()));
-  
+
   let dataProyectos = []
   let user;
   let tabla = $('#dataTable').DataTable({
@@ -51,6 +51,58 @@ $(document).ready(function() {
       $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
     },
   });
+  //////////////////////////////////////////////////////////////////////////////
+
+  let tablaDDC = $('#dataTableDDC').DataTable({
+    ajax: '/getProyectosDDC',
+    columns: [
+      { data: 'id' },
+      { data: 'nombreProyecto' },
+      { data: 'Asunto' },
+      { data: 'Dependencia' },
+      { data: 'tipo' },
+      { data: 'status' },
+    ],
+    order: [[0, 'desc']],
+    createdRow: function (row, data, dataIndex) {
+      switch (data.tipo) {
+        case 1: data.tipo = 'Pregrado'; break;
+        case 2: data.tipo = 'Postgrado'; break;
+        case 3: data.tipo = 'Diplomado'; break;
+      }
+
+      switch (data.status) {
+        case 0: data.status = 'esperando correccion'; break;
+        case 1: data.status = 'recibido'; break;
+        case 2: data.status = 'para revisar'; break;
+        case 3: data.status = 'rechazado por desco'; break;
+        case 4: data.status = 'validado'; break;
+        case 5: data.status = 'rechazado por consejo'; break;
+        case 6: data.status = 'aprobado'; break;
+        case 7: data.status = 'finalizado'; break;
+      }
+    },
+    rowCallback: function (row, data) {
+      if (data.tipo == 'Servicio Comunitario') {
+        $('td:eq(4)', row).html('Servicio Comunitario');
+      } else if (data.tipo == 'Extensión') {
+        $('td:eq(4)', row).html('Extensión');
+      }
+      switch (data.status) {
+        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
+        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
+        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
+        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'validado': $('td:eq(5)', row).html('validado'); break;
+        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
+        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+      }
+      $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
+    },
+  });
+
+  //////////////////////////////////////////////////////////////////////////////
 
   tabla.on('xhr', function () {
     dataProyectos = tabla.ajax.json().data;
@@ -133,7 +185,7 @@ $(document).ready(function() {
           filesByTipo.push(res.data.filter(x => x.tipo == nTipos[i]));
         }
         fields.filesHeads.innerHTML = cabeceraHtml;
-        // Obtenemos el maximo doc.numero 
+        // Obtenemos el maximo doc.numero
         let maxNumero = Math.max.apply(Math, res.data.map(x => x.numero));
         let htmlFiles = '';
         for (let k = 0; k < maxNumero; k++) {
@@ -173,13 +225,13 @@ $(document).ready(function() {
 
         // Si es para revisar v
         if(status2Num(rowData.status) == 0) {
-          plusesHtml = plusesHtml + 
+          plusesHtml = plusesHtml +
           `<form method="post" action="/actualizarDocs" enctype="multipart/form-data">
           <input class="d-none" type="text" name="nombreProyecto" value="${rowData.nombreProyecto}"/>
           <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
           <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
           for(let i = 0; i < maxNumero; i++){
-            plusesHtml = plusesHtml + 
+            plusesHtml = plusesHtml +
             `<div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">Archivo ${i+1}</span>
@@ -190,16 +242,16 @@ $(document).ready(function() {
             </div>
           </div>`
           }
-          plusesHtml = plusesHtml + 
+          plusesHtml = plusesHtml +
           `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
           </form>`;
         }
-        
+
         fields.pluses.innerHTML = plusesHtml;
-        
+
         // Si esta aprobado
         if(status2Num(rowData.status) >= 6) {
-          fields.pluses.innerHTML = fields.pluses.innerHTML + 
+          fields.pluses.innerHTML = fields.pluses.innerHTML +
           `<div class="text-right text-white">
             <a id="showParticipantes" class="btn btn-info 2ndModal" ${status2Num(rowData.status) == 6 ? 'style="float: left; margin-right: 5px;"' : ''}>Ver participantes</a>
             <a id="showAvances" class="btn btn-info 2ndModal" ${status2Num(rowData.status) == 6 ? 'style="float: left; margin-right: 5px;"' : ''}>Ver avances</a>
@@ -212,7 +264,7 @@ $(document).ready(function() {
               <a id="finalizarProyecto" class="btn btn-danger 2ndModal">Finalizar proyecto</a>
             </div>`;
           }
-        
+
           $('.2ndModal').on('click', function(ev) {
             ev.preventDefault();
             let altura = document.getElementById('projectModal').scrollTop;
@@ -263,7 +315,7 @@ $(document).ready(function() {
               </tr>
             </thead>
             <tbody class="text-center">
-            
+
           `
           $('#participantesModalTitle').text(rowData.nombreProyecto);
           $.ajax({
@@ -303,7 +355,7 @@ $(document).ready(function() {
               avancesHtml = avancesHtml + `
                 <h6>Avance ${i+1} <small>${(new Date(res.data[i].fecha)).toLocaleDateString()}</small></h6>
                 <div>
-                  
+
                 </div>
                 <div>
                   ${res.data[i].nota}
@@ -320,7 +372,7 @@ $(document).ready(function() {
             document.getElementById('avancesModalBody').innerHTML = avancesHtml;
           });
         }); // fin evento aparicion avances modal
-        
+
         addParticipantesModal.off('show.bs.modal').on('show.bs.modal', function() {
           document.getElementById('addParticipantesRefProyecto').value = rowData.id;
            // cuando cambia el tipo de participante al agregar participante
@@ -360,11 +412,11 @@ $(document).ready(function() {
           });
           $('#addParticipantesModalTitle').text(rowData.nombreProyecto);
         })
-        
+
         addAvancesModal.off('show.bs.modal').on('show.bs.modal', function() {
           $('#addAvancesModalTitle').text(rowData.nombreProyecto);
         })
-        
+
         finalizarModal.off('show.bs.modal').on('show.bs.modal', function() {
           $('#finalizarProyectoTitle').text(rowData.nombreProyecto);
           //let finalizarHtml = '';
@@ -406,7 +458,7 @@ $(document).ready(function() {
     'Noviembre',
     'Diciembre',
   ]
-  
+
   // Set años
   for(let i = currDate.getFullYear() - 10; i <= currDate.getFullYear(); i++) {
     let opt = document.createElement('option');
@@ -427,7 +479,7 @@ $(document).ready(function() {
     opt.text = months[i];
     document.getElementById('mesInicio').appendChild(opt);
   }
-  
+
   //Set dias inicio
   $('#mesInicio').change( function() {
     let diasSelect = document.getElementById('diaInicio');
@@ -440,7 +492,7 @@ $(document).ready(function() {
     }
   })
 
- 
+
 
   function diasEn(mes) {
     switch(Number(mes)){
@@ -488,16 +540,16 @@ $(document).ready(function() {
 
   function uniqueArrayDocsObjects( ar ) {
     var j = {};
-  
+
     ar.forEach( function(v) {
       j[v.refAvance+ '::' + typeof v.refAvance] = v.refAvance;
     });
-  
+
     return Object.keys(j).map(function(v){
       return j[v];
     });
-  } 
- 
+  }
+
   $('textarea').each(function () {
     this.setAttribute('style', 'height:60px;overflow-y:hidden;');
   }).on('input', function () {
