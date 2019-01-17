@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     ext = ext[ext.length - 1];
     // En dado que el nombre del archivo tenga un timestamp como el usado aqui, se le quita el viejo stamp
     let nombre = req.body.nombreProyecto.replace(/-[0-9]{13}/,'');
-    // En el nombre del archivo se sustituyen los espacios por _ 
+    // En el nombre del archivo se sustituyen los espacios por _
     cb(null,`${ nombre.replace(/ /g, '_') }-${ Date.now() }.${ext}`);
   }
 })
@@ -46,7 +46,7 @@ const asyncMiddleware = fn =>
       .catch(next);
   };
 
-//rol: 
+//rol:
 //// 1: Admin
 //// 2: Desco
 //// 3: Facultad
@@ -116,6 +116,20 @@ app.get('/getProyectos', asyncMiddleware( async (req, res) => {
       data = await pool.query('SELECT * FROM proyectos WHERE email=?',[req.session.user]);
     } else {
       data = await pool.query('SELECT * FROM proyectos');
+    }
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 2, 3)) {
+    let data;
+    if(req.session.rol == 3) {
+      data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+    } else {
+      data = await pool.query('SELECT * FROM carreras');
     }
     res.json({ data });
   } else {
@@ -395,7 +409,7 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
       /* 3: rechazado por desco
       /* 4: validado
       /* 5: rechazado por consejo
-      /* 6: aprobado 
+      /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
       //nota
@@ -425,6 +439,59 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
 
 }) );
 
+
+app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  if (await isValidSessionAndRol(req,3)) {
+    let proyData = [
+      req.session.user, // email
+      req.body.nombreProyecto,
+      req.body.Asunto,
+      req.body.Dependencia,
+      req.body.tipo,
+      /* ^ tipo-------------------------
+      /* 1: Pregrado
+      /* 2: Postgrado
+      /* 3: Diplomado
+      /* ------------------------------*/
+      1,
+      /* ^ status-----------------------
+      /* 0: esperando correccion
+      /* 1: recibido
+      /* 2: para revisar
+      /* 3: rechazado por desco
+      /* 4: validado
+      /* 5: rechazado por consejo
+      /* 6: aprobado
+      /* 7: finalizado
+      /* ------------------------- */
+      //nota
+      //avances -> 0
+    ]
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,?,?,?,?,?,NULL,0)', proyData);
+    for(let i = 0; i < req.files.length; i++) {
+      let docData = [
+        //id: 0: auto
+        qryRes.insertId,
+        //refAvance: NULL
+        req.files[i].path,
+        req.files[i].filename,
+        (new Date()).toISOString().split('T')[0], // Obtiene solo la fecha en formato yyyy-mm-dd
+        //tipo: inicio, actualizado, etc.
+        i+1,
+      ];
+      console.log(docData);
+      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,2,?)', docData);
+    }
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+
+
+}) );
 // Else
 
 app.get('*', function(req, res) {
