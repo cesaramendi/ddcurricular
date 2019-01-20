@@ -17,15 +17,15 @@ $(document).ready(function() {
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       if (data.tipo == 1) {
-        data.tipo = 'Servicio Comunitario';
+        data.tipo = 'Pregrado';
       } else if (data.tipo == 2) {
-        data.tipo = 'Extensión';
+        data.tipo = 'Postgrado';
       }
       switch (data.status) {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado '; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -33,16 +33,16 @@ $(document).ready(function() {
       }
     },
     rowCallback: function (row, data) {
-      if (data.tipo == 'Servicio Comunitario') {
-        $('td:eq(4)', row).html('Servicio Comunitario');
-      } else if (data.tipo == 'Extensión') {
-        $('td:eq(4)', row).html('Extensión');
+      if (data.tipo == 'Pregrado') {
+        $('td:eq(4)', row).html('Pregrado');
+      } else if (data.tipo == 'Postgrado') {
+        $('td:eq(4)', row).html('Postgrado');
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado '); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -75,7 +75,7 @@ $(document).ready(function() {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado '; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -83,16 +83,16 @@ $(document).ready(function() {
       }
     },
     rowCallback: function (row, data) {
-      if (data.tipo == 'Servicio Comunitario') {
-        $('td:eq(4)', row).html('Servicio Comunitario');
-      } else if (data.tipo == 'Extensión') {
-        $('td:eq(4)', row).html('Extensión');
+      if (data.tipo == 'Pregrado') {
+        $('td:eq(4)', row).html('Pregrado');
+      } else if (data.tipo == 'Postgrado') {
+        $('td:eq(4)', row).html('Pregrado');
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado '); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
