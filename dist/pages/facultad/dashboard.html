@@ -49,7 +49,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">Inicio</a>
+      <a class="navbar-brand mr-1" href="index.html">DESCO - Dashboard</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -115,7 +115,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Inicio</span>
+            <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item active">
@@ -124,7 +124,22 @@
             <span>Enviar Proyecto</span>
           </a>
         </li>
-
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">Login Screens:</h6>
+            <a class="dropdown-item" href="login.html">Login</a>
+            <a class="dropdown-item" href="register.html">Register</a>
+            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Other Pages:</h6>
+            <a class="dropdown-item" href="404.html">404 Page</a>
+            <a class="dropdown-item" href="blank.html">Blank Page</a>
+          </div>
+        </li>
       </ul>
 
       <div id="content-wrapper">
@@ -133,14 +148,14 @@
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active">Inicio</li>
+            <li class="breadcrumb-item active">Dashboard - Facultad</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Lista de solicitudes</div>
+              Lista de proyectos</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -148,6 +163,8 @@
                     <tr>
                       <th>id</th>
                       <th>Nombre</th>
+                      <th>Primer responsable</th>
+                      <th>Ubicación</th>
                       <th>Tipo</th>
                       <th>Estatus</th>
                     </tr>
@@ -156,6 +173,8 @@
                     <tr>
                       <th>id</th>
                       <th>Nombre</th>
+                      <th>Primer responsable</th>
+                      <th>Ubicación</th>
                       <th>Tipo</th>
                       <th>Estatus</th>
                     </tr>
@@ -175,7 +194,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © 2018</span>
+              <span>Copyright © DESCO 2018</span>
             </div>
           </div>
         </footer>
@@ -281,7 +300,7 @@
                 </select>
               </div>
 
-
+              
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="tipoParticipante">Tipo de participante</label>
@@ -306,10 +325,10 @@
               <div class="form-group">
                 <label for="fechaNac">Fecha de nacimiento</label>
                 <input type="text" id="fechaNac" class="form-control" placeholder="dd/mm/aaaa" required autofocus name="fechaNac">
-
+                
               </div>
-
-
+              
+              
 
             </div>
 
@@ -317,7 +336,7 @@
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
               <input type="submit" class="btn btn-primary" value="Enviar">
             </div>
-
+             
           </form>
         </div>
       </div>
@@ -336,7 +355,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-
+          
           <form method="POST" action="/subirAvance" enctype="multipart/form-data">
             <div class="modal-body">
               <input id="addAvancesNombreProyecto" class="d-none" name="nombreProyecto"/>
@@ -345,13 +364,13 @@
 
               <label for="anoInicio">Fecha de culminación del avance</label>
               <div class="form-row">
-
+                
                 <div class="form-group col-md-4">
                   <select required id="anoInicio" name="anoInicio" class="form-control ano">
                     <option value='' selected>Año</option>
                   </select>
                 </div>
-
+                
                 <div class="form-group col-md-4">
                   <select required id="mesInicio" name="mesInicio" class="form-control mes">
                     <option value='' selected>Mes</option>
@@ -363,7 +382,7 @@
                     <option value='' selected>Día</option>
                   </select>
                 </div>
-
+                
               </div>
               <label for="notaAvance">Notas sobre el avance</label>
               <textarea id="notaAvance" name="notaAvance" class="form-control"></textarea>
@@ -499,7 +518,7 @@
               </tbody>
             </table>
             <div id="projectModalPluses">
-
+              
             </div>
           </div>
           <div class="modal-footer">
