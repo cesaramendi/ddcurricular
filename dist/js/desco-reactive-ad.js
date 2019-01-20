@@ -14,18 +14,18 @@ $(document).ready(function() {
       if (data.rol == 1) {
         data.rol = 'Administrador';
       } else if (data.rol == 2) {
-        data.rol = 'DESCO';
-      } else if (data.rol == 3) {
         data.rol = 'Facultad';
+      } else if (data.rol == 3) {
+        data.rol = 'Usuario';
       }
     },
     rowCallback: function(row, data) {
       if (data.rol == 'Administrador'){
         $('td:eq(1)', row).html('Administrador');
-      } else if (data.rol == 'DESCO'){
-        $('td:eq(1)', row).html('DESCO');
       } else if (data.rol == 'Facultad'){
         $('td:eq(1)', row).html('Facultad');
+      } else if (data.rol == 'Usuario'){
+        $('td:eq(1)', row).html('Usuario');
       }
     },
   });
