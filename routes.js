@@ -383,15 +383,15 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
-      req.body.nombreProyecto,
-      req.body.orgResponsable,
-      req.body.responsables,
-      req.body.ubicacionGeografica,
-      req.body.beneficiariosDirectos,
-      req.body.beneficiariosIndirectos,
-      req.body.tipoProyecto,
-      req.body.areaAtencion,
-      req.body.duracionProyecto,
+      req.body.nombreCarrera,
+      "",
+      req.session.user,
+      "",
+      "",
+      "",
+      req.body.tipo,
+      "",
+      "",
       `${req.body.anoInicio}-${req.body.mesInicio}-${req.body.diaInicio}`,//fecha inicio
       `${req.body.anoFin}-${req.body.mesFin}-${req.body.diaFin}`,//fechafin
       req.body.objGeneral,
@@ -440,7 +440,7 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
 }) );
 
 
-app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
   console.log(req.body);
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {

@@ -14,7 +14,7 @@ $(document).ready(function() {
       if (data.rol == 1) {
         data.rol = 'Administrador';
       } else if (data.rol == 2) {
-        data.rol = 'Facultad';
+        data.rol = 'Curriculum';
       } else if (data.rol == 3) {
         data.rol = 'Usuario';
       }
@@ -22,8 +22,8 @@ $(document).ready(function() {
     rowCallback: function(row, data) {
       if (data.rol == 'Administrador'){
         $('td:eq(1)', row).html('Administrador');
-      } else if (data.rol == 'Facultad'){
-        $('td:eq(1)', row).html('Facultad');
+      } else if (data.rol == 'Curriculum'){
+        $('td:eq(1)', row).html('Curriculum');
       } else if (data.rol == 'Usuario'){
         $('td:eq(1)', row).html('Usuario');
       }
