@@ -14,17 +14,17 @@ $(document).ready(function() {
       if (data.rol == 1) {
         data.rol = 'Administrador';
       } else if (data.rol == 2) {
-        data.rol = 'Curriculum';
+        data.rol = 'DESCO';
       } else if (data.rol == 3) {
-        data.rol = 'Usuario';
+        data.rol = 'Facultad';
       }
     },
     rowCallback: function(row, data) {
       if (data.rol == 'Administrador'){
         $('td:eq(1)', row).html('Administrador');
-      } else if (data.rol == 'Curriculum'){
+      } else if (data.rol == 'DESCO'){
         $('td:eq(1)', row).html('Curriculum');
-      } else if (data.rol == 'Usuario'){
+      } else if (data.rol == 'Facultad'){
         $('td:eq(1)', row).html('Usuario');
       }
     },

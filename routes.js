@@ -64,7 +64,41 @@ app.get('/dashboard', (req, res) => {
     forbid(res);
   }
 })
+app.get('/enviarSolicicitudA', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicicitudA.html');
+}))
 
+app.get('/Reporte', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/Reporte.html');
+}))
+app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
+  if(true) {
+    send(res, 'facultad/enviarProyecto.html');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
+  console.log('req.bodya');
+  console.log(req.body);
+   let data = [
+      "req.body.Identificacion",
+      "req.body.nombreS",
+      "req.body.Solicitante",
+      "req.body.lugar",
+      "req.body.Cantidad",
+      "req.body.FechaP",
+      "req.body.Tipo",
+      "req.body.Introducion",
+    ]
+ // await pool.query('INSERT INTO SolicitudDeA VALUES(0,?,?,?,?,?,?,?,?)', data);
+   console.log(data);
+
+    res.redirect('/success');
+
+ 
+}))
 app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
     send(res, 'facultad/enviarProyecto.html');

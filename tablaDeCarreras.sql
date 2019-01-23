@@ -27,3 +27,17 @@ CREATE TABLE carreras(
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+CREATE TABLE SolicitudDeA(
+   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  identidicacion                   VARCHAR(35) NOT NULL,
+  titulo          VARCHAR(300) NOT NULL,
+  solicitante          VARCHAR(300) NOT NULL,
+  lugar          VARCHAR(300) NOT NULL,
+  cantidadP          int NOT NULL,
+  fecha         date,
+  tipo                    TINYINT UNSIGNED NOT NULL,
+  inntroducion                    VARCHAR(300)  NOT NULL,
+  status int NOT NULL,
+  PRIMARY KEY(id)
+
+);

@@ -94,22 +94,24 @@
         <li class="nav-item active">
           <a class="nav-link" href="/enviarProyecto">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Enviar Aval</span>
+            <span>Aval</span>
           </a>
         </li>
           <li class="nav-item active">
           <a class="nav-link" href="/enviarSolicicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitud de servicio de Asesoria</span>
+            <span>servicio de Asesoria</span>
           </a>
         </li>
-       
          <li class="nav-item active">
-          <a class="nav-link" href="/enviarProyecto">
+          <a class="nav-link" href="/Reporte">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Enviar Aval</span>
+            <span>Reportes</span>
           </a>
         </li>
+  
+       
+  
        
        
       </ul>
@@ -129,37 +131,50 @@
           <!-- Page Content -->
           <h1>Enviar solicitud de asesorias</h1>
           <hr>
-          <form method="post" action="/uploadProject" enctype="multipart/form-data">
+          <form method="post" action="/enviarSolicicitudA" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="nombreCarrera" class="form-control" placeholder="Nombre del Proyecto" name="nombreCarrera">
+                <input type="text" id="nombreS" class="form-control" placeholder="Nombre del Proyecto" name="nombreS">
                 <label for="nombreS">Titulo de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="Asunto" class="form-control" placeholder="Asunto"  name="Asunto">
-                <label for="nombreProyecto">Asunto</label>
+                <input type="text" id="Identificacion" class="form-control" placeholder="Identificacion"  name="Identificacion">
+                <label for="Identificacion">Identificacion</label>
+              </div>
+            </div>
+             <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Solicitante" class="form-control" placeholder="Solicitante"  name="Solicitante">
+                <label for="Solicitante">Solicitante</label>
+              </div>
+            </div>
+             <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Lugar" class="form-control" placeholder="Lugar"  name="Lugar">
+                <label for="Lugar">Lugar de cordinacion</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="date" id="FechaI" class="form-control" placeholder="Asunto"  name="Asunto">
-                <label for="nombreProyecto">Fecha de inicio</label>
+                <input type="" id="Cantidad" class="form-control" placeholder="Cantidad"  name="Cantidad">
+                <label for="Cantidad">Cantidad de participantes</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="date" id="FechaI" class="form-control" placeholder="FechaP"  name="FechaP">
+                <label for="FechaP">Fecha propuesta</label>
               </div>
             </div>
               <div class="form-group">
-              <div class="form-label-group">
-                <input type="date" id="FechaF" class="form-control" placeholder="Asunto"  name="Asunto">
-                <label for="nombreProyecto">Fecha de Final</label>
-              </div>
-            </div>
-       
-         
+
+          
         <div class="form-group">
-          <label for="comment">Decripcion</label>
-          <textarea class="form-control" rows="5" id="Decripcion"></textarea>
+          <label for="comment">Introducion</label>
+          <textarea class="form-control" rows="5" id="Introducion"></textarea>
         </div>
             <div class="form-group">
               <div class="form-row">
@@ -242,7 +257,7 @@
     <script src="js/select2.min.js"></script>
     <script src="js/i18n/es.js"></script>
 
-    <script src="js/desco-reactive-fa-enviar.js"></script>
+
 
   </body>
 

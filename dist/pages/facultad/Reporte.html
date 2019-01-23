@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Inicio</title>
+    <title>Inicio </title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,17 +56,6 @@
       </button>
 
       <!-- Navbar Search -->
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
@@ -127,7 +116,7 @@
           <li class="nav-item active">
           <a class="nav-link" href="/enviarSolicicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Asesoria</span>
+            <span>Servicio de Asesoria</span>
           </a>
         </li>
         <li class="nav-item active">
@@ -143,35 +132,36 @@
 
 
       <div id="content-wrapper">
-
+       
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"></li>
+            <li class="breadcrumb-item active">Reportes</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Lista de solicitudes Aval</div>
+             Proyectos por facultad</div>
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
-                      <th>id</th>
-                      <th>Nombre</th>
-                      <th>Solicitante</th>
-                      <th>diseñado por</th>
-                      <th>Tipo</th>
-                      <th>Estatus</th>
+                
+                       <tr>
+                      <td>Facultad</td>
+                      <td>Cantidad</th>
+                   
+                     
+                   
                     </tr>
+               
                   </thead>
-                  <tfoot>
-                    
-                  </tfoot>
+                 
+                 
                 </table>
               </div>
             </div>
@@ -180,26 +170,56 @@
             </div>
           </div>
 
-          <div class="card mb-3">
+        </div>
+           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Lista de solicitudes de asecorias</div>
+             Proyetos por tipo</div>
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
-                      <th>id</th>
-                      <th>Nombre</th>
-                      <th>Solicitante</th>
-                      <th>Introducion</th>
-                      <th>Tipo</th>
-                      <th>Estatus</th>
+                
+                       <tr>
+                      <td>Tipo</td>
+                      <td>Cantidad</th>
+                   
+                     
+                   
                     </tr>
+               
                   </thead>
-                  <tfoot>
-                    
-                  </tfoot>
+                 
+                 
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">
+              Última actualización: <span class="fecha"></span>
+            </div>
+          </div>
+<div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+             Proyetos por estatus</div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                
+                       <tr>
+                      <td>Estatus</td>
+                      <td>Cantidad</th>
+                   
+                     
+                   
+                    </tr>
+               
+                  </thead>
+                 
+                 
                 </table>
               </div>
             </div>
@@ -208,13 +228,14 @@
             </div>
           </div>
         </div>
+
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright </span>
+              <span>Copyright © </span>
             </div>
           </div>
         </footer>
@@ -307,30 +328,32 @@
                 <td>Nombre:</td>
                 <td colspan="3" id="projectModalNombre"></td>
               </tr>
-              <tr>
-                <td>Organización Responsable:</td>
+              <div class="dis"> 
+              <tr class="dis">
+                <td class="dis" ></td>
                 <td colspan="3" id="projectModalOrgResponsable"></td>
               </tr>
+               </div>
               <tr>
-                <td>Responsables:</td>
+                <td></td>
                 <td colspan="3" id="projectModalResponsables"></td>
               </tr>
               <tr>
-                <td>Diseñado por:</td>
+                <td></td>
                 <td colspan="3" id="projectModalUbGeo"></td>
               </tr>
               <tr>
-                <td>Cordinado por</td>
+                <td></td>
                 <td colspan="3" id="projectModalBenefD"></td>
               </tr>
               <tr>
-                <td>Introducion:</td>
+                <td></td>
                 <td colspan="3" id="projectModalBenefI"></td>
               </tr>
               <tr>
-                <td>Tipo de Proyecto:</td>
+                <td></td>
                 <td id="projectModalTipoP"></td>
-                <td>Duración del proyecto:</td>
+                <td></td>
                 <td id="projectModalDuracion"></td>
               </tr>
               <tr>
@@ -371,11 +394,18 @@
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.js"></script>
 
     <script src="js/datatables.min.js"></script>
-    <script src="js/desco-reactive-de.js"></script>
+    
+   
+ <style type="text/css">
+.dis{
+    display: none;
+  }
+ </style>
 
   </body>
 
