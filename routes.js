@@ -300,6 +300,10 @@ app.post('/register', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/enviarSolicicitudA', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicicitudA.html');
+}))
+
 app.post('/subirAval', asyncMiddleware(async (req, res) =>{
   if (await isValidSessionAndRol(req, 2)) {
 
@@ -383,12 +387,12 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
-      req.body.nombreCarrera,
+      req.body.nombreS,
       "",
       req.session.user,
       "",
-      "",
-      "",
+      req.body.Carrera,
+      req.body.Decripcion,
       req.body.tipo,
       "",
       "",
@@ -446,7 +450,7 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
-      req.body.nombreProyecto,
+      req.body.nombreS,
       req.body.Asunto,
       req.body.Dependencia,
       req.body.tipo,

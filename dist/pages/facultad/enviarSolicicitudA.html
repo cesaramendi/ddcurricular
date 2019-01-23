@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DESCO Facultad - Dashboard</title>
+    <title>Asesorias</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -91,19 +91,26 @@
             <span>Inicio</span>
           </a>
         </li>
-          <li class="nav-item active">
+        <li class="nav-item active">
           <a class="nav-link" href="/enviarProyecto">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Enviar Aval</span>
           </a>
         </li>
-        <li class="nav-item active">
+          <li class="nav-item active">
           <a class="nav-link" href="/enviarSolicicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitud de servicio de Asesoria</span>
           </a>
         </li>
-      
+       
+         <li class="nav-item active">
+          <a class="nav-link" href="/enviarProyecto">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Enviar Aval</span>
+          </a>
+        </li>
+       
        
       </ul>
 
@@ -120,20 +127,14 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>Enviar solicitud</h1>
+          <h1>Enviar solicitud de asesorias</h1>
           <hr>
           <form method="post" action="/uploadProject" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
                 <input type="text" id="nombreCarrera" class="form-control" placeholder="Nombre del Proyecto" name="nombreCarrera">
-                <label for="nombre">Titulo de la solicitud</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Carrera" class="form-control" placeholder="Dependecia"   name="Dependecia">
-                <label for="Dependecia">Carrera</label>
+                <label for="nombreS">Titulo de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
@@ -144,8 +145,14 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="Dependecia" class="form-control" placeholder="Dependecia"   name="Dependecia">
-                <label for="Dependecia">Dependecia</label>
+                <input type="date" id="FechaI" class="form-control" placeholder="Asunto"  name="Asunto">
+                <label for="nombreProyecto">Fecha de inicio</label>
+              </div>
+            </div>
+              <div class="form-group">
+              <div class="form-label-group">
+                <input type="date" id="FechaF" class="form-control" placeholder="Asunto"  name="Asunto">
+                <label for="nombreProyecto">Fecha de Final</label>
               </div>
             </div>
        
@@ -162,21 +169,12 @@
                   </div>
                   <select required name="tipo" class="custom-select" id="tipo">
                     <option value="">Seleccione...</option>
-                    <option value="1">Pregrado</option>
-                    <option value="2">Postgrado</option>
-                    <option value="3">Diplomado</option>
+                    <option value="1">Curso</option>
+                    <option value="2">Taller</option>
+                    <option value="3">Formacion</option>
                   </select>
                 </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Documento</span>
-                  </div>
-                  <div class="custom-file">
-                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
-                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
-                  </div>
-                </div>
 
               </div>
               <span id="errorPlace"></span>
