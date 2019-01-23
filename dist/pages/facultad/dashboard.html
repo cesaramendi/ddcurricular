@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Inicio</title>
+    <title>DDC - Inicio</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -125,18 +125,19 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarProyecto">
+          <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Enviar Solicitud de asesorias</span>
           </a>
-       </li>
-      <li class="nav-item active">
-          <a class="nav-link" href="/enviarProyecto">
+        </li>
+        </li>
+          <li class="nav-item active">
+          <a class="nav-link" href="/enviarActualizacion">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Enviar Proyecto</span>
+            <span>Enviar Actualizacion</span>
           </a>
-       </li>
-   
+        </li>
+
       </ul>
 
       <div id="content-wrapper">
@@ -228,7 +229,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <div class="modal-title" id="participantesModalLabel">
-             
+
               <h6 id="participantesModalTitle"></h6>
             </div>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -249,7 +250,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <div class="modal-title" id="addParticipantesModalLabel">
-            
+
               <h6 id="addParticipantesModalTitle"></h6>
             </div>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -293,7 +294,7 @@
                 </select>
               </div>
 
-              
+
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="tipoParticipante">Tipo de participante</label>
@@ -318,10 +319,10 @@
               <div class="form-group">
                 <label for="fechaNac">Fecha de nacimiento</label>
                 <input type="text" id="fechaNac" class="form-control" placeholder="dd/mm/aaaa" required autofocus name="fechaNac">
-                
+
               </div>
-              
-              
+
+
 
             </div>
 
@@ -329,7 +330,7 @@
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
               <input type="submit" class="btn btn-primary" value="Enviar">
             </div>
-             
+
           </form>
         </div>
       </div>
@@ -348,7 +349,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          
+
           <form method="POST" action="/subirAvance" enctype="multipart/form-data">
             <div class="modal-body">
               <input id="addAvancesNombreProyecto" class="d-none" name="nombreProyecto"/>
@@ -357,13 +358,13 @@
 
               <label for="anoInicio">Fecha de culminación del avance</label>
               <div class="form-row">
-                
+
                 <div class="form-group col-md-4">
                   <select required id="anoInicio" name="anoInicio" class="form-control ano">
                     <option value='' selected>Año</option>
                   </select>
                 </div>
-                
+
                 <div class="form-group col-md-4">
                   <select required id="mesInicio" name="mesInicio" class="form-control mes">
                     <option value='' selected>Mes</option>
@@ -375,7 +376,7 @@
                     <option value='' selected>Día</option>
                   </select>
                 </div>
-                
+
               </div>
               <label for="notaAvance">Notas sobre el avance</label>
               <textarea id="notaAvance" name="notaAvance" class="form-control"></textarea>
@@ -466,7 +467,7 @@
                 <td colspan="3" id="projectModalNombre"></td>
               </tr>
               <tr>
-               
+
                 <td colspan="3" id="projectModalOrgResponsable"></td>
               </tr>
               <tr>
@@ -474,21 +475,21 @@
                 <td colspan="3" id="projectModalResponsables"></td>
               </tr>
               <tr>
-                
+
                 <td colspan="3" id="projectModalUbGeo"></td>
               </tr>
               <tr>
-              
+
                 <td colspan="3" id="projectModalBenefD"></td>
               </tr>
               <tr>
-               
+
                 <td colspan="3" id="projectModalBenefI"></td>
               </tr>
               <tr>
                 <td>Tipo de Proyecto:</td>
                 <td id="projectModalTipoP"></td>
-               
+
                 <td id="projectModalDuracion"></td>
               </tr>
               <tr>
@@ -498,11 +499,11 @@
                 <td id="projectModalFechaF"></td>
               </tr>
               <tr>
-             
+
                 <td colspan="3" id="projectModalObjGeneral"></td>
               </tr>
               <tr>
-                
+
                 <td colspan="3" id="projectModalObjsEspecificos"></td>
               </tr>
               <tr id="projectModalFilesHeads">
@@ -511,7 +512,7 @@
               </tbody>
             </table>
             <div id="projectModalPluses">
-              
+
             </div>
           </div>
           <div class="modal-footer">
