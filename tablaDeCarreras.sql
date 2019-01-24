@@ -37,13 +37,13 @@ CREATE TABLE asesorias(
   email                   VARCHAR(35) NOT NULL,
   titulo                   VARCHAR(300) NOT NULL,
   apellidoSolicitanteA     VARCHAR(300) NOT NULL,
-  nombreSolicitanteA
+  nombreSolicitanteA       VARCHAR(300) NOT NULL,
   lugar                    VARCHAR(300) NOT NULL,
-  cantidadP                TINYINT UNSIGNED NOT NULL,
+  cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
   fecha                    DATE,
   tipo                     TINYINT UNSIGNED NOT NULL,
-  introduccion                    VARCHAR(300)  NOT NULL,
-  status int NOT NULL,
+  introduccion             VARCHAR(300) NOT NULL,
+  status                   TINYINT UNSIGNED NOT NULL,
   PRIMARY KEY(id),
   INDEX fk_asesoria_email_idx (email DESC),
     CONSTRAINT fk_asesoria_email
