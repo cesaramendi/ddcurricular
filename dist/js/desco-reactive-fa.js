@@ -3,9 +3,9 @@ $(document).ready(function() {
   $('.fecha').text((new Date().toLocaleString()));
 
   let dataProyectos = []
-  let user;
+  let user;/*
   let tabla = $('#dataTable').DataTable({
-    ajax: '/getProyectos',
+    ajax: '/getProyectosDDC',
     columns: [
       { data: 'id' },
       { data: 'nombreProyecto' },
@@ -50,16 +50,16 @@ $(document).ready(function() {
       }
       $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
     },
-  });
+  });*/
   //////////////////////////////////////////////////////////////////////////////
 
-  let tablaDDC = $('#dataTableDDC').DataTable({
+  let tabla = $('#dataTable').DataTable({
     ajax: '/getProyectosDDC',
     columns: [
       { data: 'id' },
-      { data: 'nombreProyecto' },
-      { data: 'Asunto' },
-      { data: 'Dependencia' },
+      { data: 'nombreSolicitud' },
+      { data: 'disenno' },
+      { data: 'coordinador' },
       { data: 'tipo' },
       { data: 'status' },
     ],
@@ -83,10 +83,10 @@ $(document).ready(function() {
       }
     },
     rowCallback: function (row, data) {
-      if (data.tipo == 'Servicio Comunitario') {
-        $('td:eq(4)', row).html('Servicio Comunitario');
-      } else if (data.tipo == 'Extensión') {
-        $('td:eq(4)', row).html('Extensión');
+      switch (data.tipo) {
+        case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
+        case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
+        case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
@@ -98,7 +98,7 @@ $(document).ready(function() {
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
-      $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
+      $('td:eq(2)', row).html(data.disenno.split('\n')[0]);
     },
   });
 

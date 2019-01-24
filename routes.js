@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     let ext = file.originalname.split('.');
     ext = ext[ext.length - 1];
     // En dado que el nombre del archivo tenga un timestamp como el usado aqui, se le quita el viejo stamp
-    let nombre = req.body.nombreProyecto.replace(/-[0-9]{13}/,'');
+    let nombre = req.body.nombreSolicitud.replace(/-[0-9]{13}/,'');
     // En el nombre del archivo se sustituyen los espacios por _
     cb(null,`${ nombre.replace(/ /g, '_') }-${ Date.now() }.${ext}`);
   }
@@ -64,8 +64,8 @@ app.get('/dashboard', (req, res) => {
     forbid(res);
   }
 })
-app.get('/enviarSolicicitudA', asyncMiddleware( async(req, res) => {
-   send(res, 'facultad/enviarSolicicitudA.html');
+app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudA.html');
 }))
 
 app.get('/Reporte', asyncMiddleware( async(req, res) => {
@@ -97,7 +97,7 @@ app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
 
     res.redirect('/success');
 
- 
+
 }))
 app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
@@ -142,7 +142,7 @@ app.get('/getUsers', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
-
+/*
 app.get('/getProyectos', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
@@ -156,7 +156,7 @@ app.get('/getProyectos', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
-
+*/
 app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
@@ -334,7 +334,7 @@ app.post('/register', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
+app.post('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudA.html');
 }))
 
@@ -482,16 +482,22 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
 }) );
 
 
-app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
   console.log(req.body);
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
-      req.body.nombreS,
-      req.body.Asunto,
-      req.body.Dependencia,
+      req.body.nombreSolicitud,
       req.body.tipo,
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
+      req.body.disenno,
+      req.body.coordinador,
+      req.body.introduccion,
+      req.body.participantes,
+      req.body.descripcion,
+
       /* ^ tipo-------------------------
       /* 1: Pregrado
       /* 2: Postgrado
@@ -511,7 +517,7 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
       //nota
       //avances -> 0
     ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,?,?,?,?,?,NULL,0)', proyData);
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,?,?,?,?,?,?,?,?,?,?)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -557,7 +563,7 @@ async function verificarUser(req) {
 
 async function verificarAutoridad(req, id) {
 
-  let resp = await pool.query('SELECT id,email FROM proyectos WHERE id=? AND email=?', [id,req.session.user]);
+  let resp = await pool.query('SELECT id,email FROM carreras WHERE id=? AND email=?', [id,req.session.user]);
   return resp.length ? true : false;
 }
 

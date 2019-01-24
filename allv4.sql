@@ -90,7 +90,7 @@ CREATE TABLE documentos(
   INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
   CONSTRAINT fk_documentos_refProyecto
     FOREIGN KEY (refProyecto)
-    REFERENCES proyectos (id)
+    REFERENCES carreras (id) --se camcio "proyectos" a "carreras"
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   INDEX fk_documentos_refAvance_idx (refAvance DESC),

@@ -101,7 +101,7 @@
 
           <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item  active">
           <a class="nav-link" href="/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Inicio</span>
@@ -110,29 +110,32 @@
         <li class="nav-item active">
           <a class="nav-link" href="/enviarProyecto">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Aval</span>
+            <span>Enviar Aval</span>
           </a>
         </li>
-          <li class="nav-item active">
-          <a class="nav-link" href="/enviarSolicicitudA">
+        <li class="nav-item active">
+          <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Servicio de Asesoria</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/Reporte">
+          <a class="nav-link" href="/enviarActualizacion">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Enviar Actualizacion</span>
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Reportes</span>
           </a>
         </li>
-  
-       
-       
       </ul>
 
 
       <div id="content-wrapper">
-       
+
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
@@ -150,18 +153,18 @@
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                
+
                        <tr>
                       <td>Facultad</td>
                       <td>Cantidad</th>
-                   
-                     
-                   
+
+
+
                     </tr>
-               
+
                   </thead>
-                 
-                 
+
+
                 </table>
               </div>
             </div>
@@ -180,18 +183,18 @@
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                
+
                        <tr>
                       <td>Tipo</td>
                       <td>Cantidad</th>
-                   
-                     
-                   
+
+
+
                     </tr>
-               
+
                   </thead>
-                 
-                 
+
+
                 </table>
               </div>
             </div>
@@ -208,18 +211,18 @@
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                
+
                        <tr>
                       <td>Estatus</td>
                       <td>Cantidad</th>
-                   
-                     
-                   
+
+
+
                     </tr>
-               
+
                   </thead>
-                 
-                 
+
+
                 </table>
               </div>
             </div>
@@ -328,7 +331,7 @@
                 <td>Nombre:</td>
                 <td colspan="3" id="projectModalNombre"></td>
               </tr>
-              <div class="dis"> 
+              <div class="dis">
               <tr class="dis">
                 <td class="dis" ></td>
                 <td colspan="3" id="projectModalOrgResponsable"></td>
@@ -376,7 +379,7 @@
               </tbody>
             </table>
             <div id="projectModalPluses">
-              
+
             </div>
           </div>
           <div class="modal-footer">
@@ -399,8 +402,8 @@
     <script src="js/sb-admin.js"></script>
 
     <script src="js/datatables.min.js"></script>
-    
-   
+
+
  <style type="text/css">
 .dis{
     display: none;

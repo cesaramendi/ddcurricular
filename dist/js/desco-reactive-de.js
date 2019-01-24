@@ -4,6 +4,7 @@ $(document).ready(function () {
 
   let dataProyectos = []
   let user;
+  /*
   let tabla = $('#dataTable').DataTable({
     ajax: '/getProyectos',
     columns: [
@@ -51,7 +52,61 @@ $(document).ready(function () {
       $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
     },
   });
+*/
 
+/////////////////////////////////////////////////////////////////////////////
+
+
+  let tabla = $('#dataTable').DataTable({
+    ajax: '/getProyectosDDC',
+    columns: [
+      { data: 'id' },
+      { data: 'nombreSolicitud' },
+      { data: 'disenno' },
+      { data: 'coordinador' },
+      { data: 'tipo' },
+      { data: 'status' },
+    ],
+    order: [[0, 'desc']],
+    createdRow: function (row, data, dataIndex) {
+      switch (data.tipo) {
+        case 1: data.tipo = 'Pregrado'; break;
+        case 2: data.tipo = 'Postgrado'; break;
+        case 3: data.tipo = 'Diplomado'; break;
+      }
+
+      switch (data.status) {
+        case 0: data.status = 'esperando correccion'; break;
+        case 1: data.status = 'recibido'; break;
+        case 2: data.status = 'para revisar'; break;
+        case 3: data.status = 'rechazado por desco'; break;
+        case 4: data.status = 'validado'; break;
+        case 5: data.status = 'rechazado por consejo'; break;
+        case 6: data.status = 'aprobado'; break;
+        case 7: data.status = 'finalizado'; break;
+      }
+    },
+    rowCallback: function (row, data) {
+      switch (data.tipo) {
+        case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
+        case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
+        case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
+      }
+      switch (data.status) {
+        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
+        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
+        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
+        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'validado': $('td:eq(5)', row).html('validado'); break;
+        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
+        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+      }
+      $('td:eq(2)', row).html(data.disenno.split('\n')[0]);
+    },
+  });
+
+///////////////////////////////////////////////////////////////////////////////
   tabla.on('xhr', function () {
     dataProyectos = tabla.ajax.json().data;
   });
@@ -128,7 +183,7 @@ $(document).ready(function () {
           filesByTipo.push(res.data.filter(x => x.tipo == nTipos[i]));
         }
         fields.filesHeads.innerHTML = cabeceraHtml;
-        // Obtenemos el maximo doc.numero 
+        // Obtenemos el maximo doc.numero
         let maxNumero = Math.max.apply(Math, res.data.map(x => x.numero));
         let htmlFiles = '';
         for (let k = 0; k < maxNumero; k++) {
@@ -189,7 +244,7 @@ $(document).ready(function () {
           ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
         </form>`;
 
-      
+
         // Si está aprobado & no ha subido el aval
         if (status2Num(rowData.status) >= 6 && !(filesByTipo.find(x => x[0].tipo == 3)) ) { // Falta modificar para que ingrese aval, no cualquier archivo
           plusesHtml = plusesHtml +
@@ -217,12 +272,12 @@ $(document).ready(function () {
 
         // Si esta aprobado
         if(status2Num(rowData.status) >= 6) {
-          fields.pluses.innerHTML = fields.pluses.innerHTML + 
+          fields.pluses.innerHTML = fields.pluses.innerHTML +
           `<div class="text-right text-white">
-           
-         
+
+
           </div>`;
-        
+
           $('.2ndModal').on('click', function(ev) {
             ev.preventDefault();
             let altura = document.getElementById('projectModal').scrollTop;
@@ -267,7 +322,7 @@ $(document).ready(function () {
               </tr>
             </thead>
             <tbody class="text-center">
-            
+
           `
           $('#participantesModalTitle').text(rowData.nombreProyecto);
           $.ajax({
@@ -305,7 +360,7 @@ $(document).ready(function () {
               avancesHtml = avancesHtml + `
                 <h6>Avance ${i+1} <small>${(new Date(res.data[i].fecha)).toLocaleDateString()}</small></h6>
                 <div>
-                  
+
                 </div>
                 <div>
                   ${res.data[i].nota}
@@ -373,14 +428,14 @@ $(document).ready(function () {
 
   function uniqueArrayDocsObjects( ar ) {
     var j = {};
-  
+
     ar.forEach( function(v) {
       j[v.refAvance+ '::' + typeof v.refAvance] = v.refAvance;
     });
-  
+
     return Object.keys(j).map(function(v){
       return j[v];
     });
-  } 
+  }
 
 });
