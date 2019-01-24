@@ -2,7 +2,8 @@ $(document).ready(function() {
 
   $('.fecha').text((new Date().toLocaleString()));
 
-  let dataProyectos = []
+  let dataProyectos = [];
+  let datasesorias = []
   let user;/*
   let tabla = $('#dataTable').DataTable({
     ajax: '/getProyectosDDC',
@@ -51,6 +52,60 @@ $(document).ready(function() {
       $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
     },
   });*/
+  //////////////////////////////////////////////////////////////////////////////
+  let tablaA = $('#dataTableAsesoria').DataTable({
+    ajax: '/getAsesorias',
+    columns: [
+      { data: 'id' },
+      { data: 'titulo' },
+      { data: 'apellidoSolicitanteA' },
+      { data: 'lugar' },
+      { data: 'tipo' },
+      { data: 'status' },
+    ],
+    order: [[0, 'desc']],
+    createdRow: function (row, data, dataIndex) {
+      switch (data.tipo) {
+        case 1: data.tipo = 'Curso'; break;
+        case 2: data.tipo = 'Taller'; break;
+        case 3: data.tipo = 'Formacion'; break;
+      }
+
+      switch (data.status) {
+        case 0: data.status = 'esperando correccion'; break;
+        case 1: data.status = 'recibido'; break;
+        case 2: data.status = 'para revisar'; break;
+        case 3: data.status = 'rechazado por desco'; break;
+        case 4: data.status = 'validado'; break;
+        case 5: data.status = 'rechazado por consejo'; break;
+        case 6: data.status = 'aprobado'; break;
+        case 7: data.status = 'finalizado'; break;
+      }
+    },
+    rowCallback: function (row, data) {
+      switch (data.tipo) {
+        case 'Curso': $('td:eq(4)', row).html('Curso'); break;
+        case 'Taller': $('td:eq(4)', row).html('Taller'); break;
+        case 'Formacion': $('td:eq(4)', row).html('Formacion'); break;
+      }
+      switch (data.status) {
+        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
+        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
+        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
+        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'validado': $('td:eq(5)', row).html('validado'); break;
+        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
+        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+      }
+      $('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
+    },
+  });
+
+  tablaA.on('xhr', function () {
+    datasesorias = tablaA.ajax.json().data;
+  });
+
   //////////////////////////////////////////////////////////////////////////////
 
   let tabla = $('#dataTable').DataTable({

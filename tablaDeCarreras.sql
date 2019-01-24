@@ -5,7 +5,7 @@ CREATE TABLE carreras(
   tipo                    TINYINT UNSIGNED NOT NULL,
   -- 1: Pregrado
   -- 2: Postgrado
-  -- 2: Diplomado
+  -- 3: Diplomado
   apellidoSolicitante     VARCHAR(100) NOT NULL,
   nombreSolicitante       VARCHAR(100) NOT NULL,
   disenno                 VARCHAR(100) NOT NULL,
@@ -42,6 +42,9 @@ CREATE TABLE asesorias(
   cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
   fecha                    DATE,
   tipo                     TINYINT UNSIGNED NOT NULL,
+  -- 1: Curso
+  -- 2: Taller
+  -- 3: Formacion
   introduccion             VARCHAR(300) NOT NULL,
   status                   TINYINT UNSIGNED NOT NULL,
   PRIMARY KEY(id),

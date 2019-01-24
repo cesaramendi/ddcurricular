@@ -171,6 +171,20 @@ app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/getAsesorias', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 2, 3)) {
+    let data;
+    if(req.session.rol == 3) {
+      data = await pool.query('SELECT * FROM asesorias WHERE email=?',[req.session.user]);
+    } else {
+      data = await pool.query('SELECT * FROM asesorias');
+    }
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/login', (req, res) => {
   if(req.session.isPopulated) {
     res.redirect('/dashboard');
