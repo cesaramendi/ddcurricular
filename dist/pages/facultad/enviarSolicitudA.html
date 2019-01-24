@@ -132,47 +132,47 @@
           <!-- Page Content -->
           <h1>Enviar solicitud de asesorias</h1>
           <hr>
-          <form method="post" action="/enviarSolicicitudA" enctype="multipart/form-data">
+          <form method="post" action="/uploadSolicicitudAsesoria" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
+                <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
                 <label for="titulo">Titulo de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
              <div class="form-label-group">
-               <input type="text" id="apellidoSolicitanteA" class="form-control" placeholder="apellidoSolicitanteA"  name="apellidoSolicitanteA">
+               <input required type="text" id="apellidoSolicitanteA" class="form-control" placeholder="apellidoSolicitanteA"  name="apellidoSolicitanteA">
                <label for="apellidoSolicitanteA">Apellido de solicitante</label>
              </div>
            </div>
              <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
+                <input required type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
                 <label for="nombreSolicitanteA">Nombre de solicitante</label>
               </div>
             </div>
              <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="Lugar" class="form-control" placeholder="Lugar"  name="Lugar">
-                <label for="Lugar">Lugar de cordinacion</label>
+                <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
+                <label for="lugar">Lugar de cordinacion</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="" id="Cantidad" class="form-control" placeholder="Cantidad"  name="Cantidad">
+                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
                 <label for="Cantidad">Cantidad de participantes</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="date" id="FechaP" class="form-control" placeholder="FechaP"  name="FechaP">
+                <input required type="date" id="FechaP" class="form-control" placeholder="FechaP"  name="fecha">
                 <label for="FechaP">Fecha propuesta</label>
               </div>
             </div>
         <div class="form-group">
-          <label for="comment">Introducion</label>
-          <textarea class="form-control" rows="5" id="Introducion"></textarea>
+          <label for="Introducion">Introducion</label>
+          <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
         </div>
             <div class="form-group">
               <div class="form-row">

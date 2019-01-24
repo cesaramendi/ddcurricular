@@ -514,8 +514,6 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
-      //nota
-      //avances -> 0
     ]
     let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,?,?,?,?,?,?,?,?,?,?)', proyData);
     for(let i = 0; i < req.files.length; i++) {
@@ -540,6 +538,48 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
 
 
 }) );
+
+app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  if (await isValidSessionAndRol(req,3)) {
+    let asesoData = [
+      req.session.user, // email
+      req.body.titulo,
+      req.body.apellidoSolicitanteA,
+      req.body.nombreSolicitanteA,
+      req.body.lugar,
+      req.body.cantidadParticipantes,
+      req.body.fecha,
+      req.body.tipo,
+      /* ^ tipo-------------------------
+      /* 1: Curso
+      /* 2: Taller
+      /* 3: Formacion
+      /* ------------------------------*/
+      req.body.introduccion,
+      1,
+      /* ^ status-----------------------
+      /* 0: esperando correccion
+      /* 1: recibido
+      /* 2: para revisar
+      /* 3: rechazado por desco
+      /* 4: validado
+      /* 5: rechazado por consejo
+      /* 6: aprobado
+      /* 7: finalizado
+      /* ------------------------- */
+    ]
+    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,?,?,?,?,?,?,?,?,?)', asesoData);
+
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+
+
+}) );
+
 // Else
 
 app.get('*', function(req, res) {
