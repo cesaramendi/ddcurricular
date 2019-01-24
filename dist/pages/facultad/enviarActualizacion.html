@@ -9,11 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-<<<<<<< HEAD
-    <title></title>
-=======
-    <title>DDC - Aval</title>
->>>>>>> 557147accf5b887d8918416d1a196efb28b62637
+    <title>DDC - Actualizar</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -96,9 +92,9 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/enviarProyecto">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Aval</span>
+            <span>Enviar Aval</span>
           </a>
         </li>
         <li class="nav-item active">
@@ -109,28 +105,13 @@
         </li>
         </li>
           <li class="nav-item active">
-          <a class="nav-link" href="/enviarActualizacion">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-plus-square"></i>
-<<<<<<< HEAD
-            <span>servicio de Asesoria</span>
-          </a>
-        </li>
-         <li class="nav-item active">
-          <a class="nav-link" href="/Reporte">
-            <i class="fas fa-fw fa-plus-square"></i>
-            <span>Reportes</span>
-          </a>
-        </li>
-  
-      
-       
-=======
             <span>Enviar Actualizacion</span>
           </a>
         </li>
 
 
->>>>>>> 557147accf5b887d8918416d1a196efb28b62637
       </ul>
 
       <div id="content-wrapper">
@@ -141,21 +122,46 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
               <!--a href="#">Dashboard</a-->
-              Aval
+              Solicitud
             </li>
           </ol>
 
           <!-- Page Content -->
-          <h1>Enviar solicitud</h1>
+          <h1>Enviar Actualizacion</h1>
           <hr>
           <form method="post" action="/uploadProject" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="nombreS" class="form-control" placeholder="Nombre del Proyecto" name="nombreS">
-                <label for="nombreS">Titulo de la solicitud</label>
+                <input type="text" id="nombreCarrera" class="form-control" placeholder="Nombre del Proyecto" name="nombreCarrera">
+                <label for="nombre">Titulo de la solicitud</label>
               </div>
             </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Carrera" class="form-control" placeholder="Dependecia"   name="Dependecia">
+                <label for="Dependecia">Carrera</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Asunto" class="form-control" placeholder="Asunto"  name="Asunto">
+                <label for="nombreProyecto">Asunto</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Dependecia" class="form-control" placeholder="Dependecia"   name="Dependecia">
+                <label for="Dependecia">Dependecia</label>
+              </div>
+            </div>
+
+
+        <div class="form-group">
+          <label for="comment">Decripcion</label>
+          <textarea class="form-control" rows="5" id="Decripcion"></textarea>
+        </div>
+            <div class="form-group">
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -168,53 +174,6 @@
                     <option value="3">Diplomado</option>
                   </select>
                 </div>
-              </div>
-
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Identificacion" class="form-control" placeholder="Identificacion"   name="Identificacion">
-                <label for="Identificacion">Identificacion</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Solicitante" class="form-control" placeholder="Solicitante"   name="Solicitante">
-                <label for="Solicitante">Solicitante</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Dise" class="form-control" placeholder="Diseño"   name="Dise">
-                <label for="Dise">Diseño curricular de:</label>
-              </div>
-            </div>
-<<<<<<< HEAD
-              <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Cordinado" class="form-control" placeholder="Cordinado"   name="Cordinado">
-                <label for="Cordinado">Cordinado por:</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="comment">Introducion</label>
-              <textarea class="form-control" rows="5" name="Introducion"  id="Introducion"></textarea>
-            </div>
-              <div class="form-group">
-              <label for="comment">Participantes:</label>
-              <textarea class="form-control" rows="5" id="Participantes"></textarea>
-            </div>
-       
-      
-=======
-
-
-        <div class="form-group">
-          <label for="comment">Decripcion</label>
-          <textarea class="form-control" rows="5" id="Decripcion"></textarea>
-        </div>
->>>>>>> 557147accf5b887d8918416d1a196efb28b62637
-            <div class="form-group">
-             
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">

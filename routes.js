@@ -334,8 +334,12 @@ app.post('/register', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.get('/enviarSolicicitudA', asyncMiddleware( async(req, res) => {
-   send(res, 'facultad/enviarSolicicitudA.html');
+app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudA.html');
+}))
+
+app.get('/enviarActualizacion', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarActualizacion.html');
 }))
 
 app.post('/subirAval', asyncMiddleware(async (req, res) =>{
