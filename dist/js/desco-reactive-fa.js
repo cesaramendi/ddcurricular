@@ -2,8 +2,10 @@ $(document).ready(function() {
 
   $('.fecha').text((new Date().toLocaleString()));
 
+  let data2 = [];
+  let data3 = [];
   let dataProyectos = [];
-  let datasesorias = []
+  let datasesorias = [];
   let user;/*
   let tabla = $('#dataTable').DataTable({
     ajax: '/getProyectosDDC',
