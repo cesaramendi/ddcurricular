@@ -69,6 +69,16 @@ app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
 }))
 
 app.get('/Reporte', asyncMiddleware( async(req, res) => {
+  if(req.session.rol == 1) {
+    send(res, 'admin/Reporte.html');
+  } else if(req.session.rol == 2) {
+    send(res, 'desco/Reporte.html');
+  } else if(req.session.rol == 3) {
+    send(res, 'facultad/Reporte.html');
+  } else {
+    forbid(res);
+  }
+
    send(res, 'facultad/Reporte.html');
 }))
 app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
@@ -157,6 +167,39 @@ app.get('/getProyectos', asyncMiddleware( async (req, res) => {
   }
 }) );
 */
+////////////////////////Reportes//////////////////////////////////////////////
+
+app.get('/getCarrerasCantTipos', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 2, 3)) {
+    let data;
+    if(req.session.rol == 3) {
+      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM carreras WHERE email=? GROUP BY tipo',[req.session.user]);
+      //data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+    } else {
+      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM carreras GROUP BY tipo');
+    }
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/getCarrerasCantStatus', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 2, 3)) {
+    let data;
+    if(req.session.rol == 3) {
+      data = await pool.query('SELECT status, COUNT(status) AS cant FROM carreras WHERE email=? GROUP BY status',[req.session.user]);
+      //data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+    } else {
+      data = await pool.query('SELECT status, COUNT(status) AS cant FROM carreras GROUP BY status');
+    }
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+///////////////////////////////////////////////////////////////////////////////
+
 app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
