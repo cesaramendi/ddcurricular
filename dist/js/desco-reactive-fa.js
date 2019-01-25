@@ -28,7 +28,7 @@ $(document).ready(function() {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -45,7 +45,7 @@ $(document).ready(function() {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -94,7 +94,7 @@ $(document).ready(function() {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -106,7 +106,7 @@ $(document).ready(function() {
         case 'esperando correccion': $('td:eq(0)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(0)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(0)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(0)', row).html('rechazado por desco'); break;
+        case 'rechazado por D.D.Curricular': $('td:eq(0)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(0)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(0)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(0)', row).html('aprobado'); break;
@@ -142,7 +142,7 @@ $(document).ready(function() {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -159,7 +159,7 @@ $(document).ready(function() {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -180,7 +180,7 @@ $(document).ready(function() {
     columns: [
       { data: 'id' },
       { data: 'nombreSolicitud' },
-      { data: 'disenno' },
+      { data: 'apellidoSolicitante'},
       { data: 'coordinador' },
       { data: 'tipo' },
       { data: 'status' },
@@ -197,7 +197,7 @@ $(document).ready(function() {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -214,13 +214,13 @@ $(document).ready(function() {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
-      $('td:eq(2)', row).html(data.disenno.split('\n')[0]);
+      $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
     },
   });
 
@@ -242,7 +242,21 @@ $(document).ready(function() {
 
       let fields = {};
       fields.id = document.getElementById('projectModalLabel');
-      fields.nombre = document.getElementById('projectModalNombre');
+      fields.nombreP = document.getElementById('projectModalNombre');
+      fields.tipoP = document.getElementById('projectModalTipoP');
+      fields.statusP = document.getElementById('projectModalStatusP');
+      fields.fechaP = document.getElementById('projectModalFechaP');
+      fields.solicitanteP = document.getElementById('projectModalSolicitanteP');
+      fields.disennoP = document.getElementById('projectModalDisennoP');
+      fields.coordinadorP = document.getElementById('projectModalCoordinadorP');
+      fields.introduccionP = document.getElementById('projectModalIntroduccionP');
+      fields.participantesP = document.getElementById('projectModalParticipantesP');
+      fields.descripcionP = document.getElementById('projectModalDescripcionP');
+
+      fields.filesHeads = document.getElementById('projectModalFilesHeads');
+      fields.files = document.getElementById('tableProjectFiles');
+      fields.pluses = document.getElementById('projectModalPluses');
+/*
       fields.org = document.getElementById('projectModalOrgResponsable');
       fields.responsables = document.getElementById('projectModalResponsables');
       fields.ubicacion = document.getElementById('projectModalUbGeo');
@@ -257,12 +271,26 @@ $(document).ready(function() {
       fields.filesHeads = document.getElementById('projectModalFilesHeads');
       fields.files = document.getElementById('tableProjectFiles');
       fields.pluses = document.getElementById('projectModalPluses');
-      fields.addAvancesNombre = document.getElementById('addAvancesNombreProyecto');
+      fields.addAvancesNombre = document.getElementById('addAvancesNombreSolicitud');
       fields.addAvancesTipo = document.getElementById('addAvancesTipo');
       fields.addAvancesRef = document.getElementById('addAvancesRefProyecto');
+*/
 
       fields.id.innerText = 'Proyecto id: ' + rowData.id;
-      fields.nombre.innerText = rowData.nombreProyecto;
+      fields.nombreP.innerText = rowData.nombreSolicitud;
+      fields.tipoP.innerText = rowData.tipo;
+      //fields.statusP.innerText = rowData.status;
+      /*fields.fechaP.innerText = (new Date(rowData.fecha)) == 'Invalid Date' ? rowData.fecha.split('T')[0] : (new Date(rowData.fecha)).toLocaleDateString();*/
+      fields.solicitanteP.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
+      fields.disennoP.innerText = rowData.disenno;
+      fields.coordinadorP.innerText = rowData.coordinador;
+      fields.introduccionP.innerText = rowData.introduccion;
+      fields.participantesP.innerText = rowData.participantes;
+      fields.descripcionP.innerText = rowData.descripcion;
+
+
+
+/*
       fields.org.innerText = rowData.orgResponsable;
       fields.responsables.innerText = rowData.responsables;
       fields.ubicacion.innerText = rowData.ubicacionGeografica;
@@ -277,7 +305,7 @@ $(document).ready(function() {
       fields.addAvancesNombre.value = rowData.nombreProyecto;
       fields.addAvancesTipo.value = tipo2Num(rowData.tipo);
       fields.addAvancesRef.value = rowData.id;
-
+*/
       // Para mostrar los documentos del proyecto
       $.ajax({
         method: 'get',
@@ -327,7 +355,7 @@ $(document).ready(function() {
           htmlFiles = htmlFiles + `</tr>`;
         }
         fields.files.innerHTML = htmlFiles;
-
+        //Fin mostrar archivos
         // Para mostrar detalles segun estatus
         let plusesHtml = '';
         plusesHtml = `<br>
@@ -631,7 +659,7 @@ $(document).ready(function() {
       case 'esperando correccion': return 0; break;
       case 'recibido': return 1; break;
       case 'para revisar': return 2; break;
-      case 'rechazado por desco': return 3; break;
+      case 'rechazado por D.D.Curricular': return 3; break;
       case 'validado': return 4; break;
       case 'rechazado por consejo': return 5; break;
       case 'aprobado': return 6; break;
@@ -645,7 +673,7 @@ $(document).ready(function() {
       case 0: return 'esperando correccion'; break;
       case 1: return 'recibido'; break;
       case 2: return 'para revisar'; break;
-      case 3: return 'rechazado por desco'; break;
+      case 3: return 'rechazado por D.D.Curricular'; break;
       case 4: return 'validado'; break;
       case 5: return 'rechazado por consejo'; break;
       case 6: return 'aprobado'; break;

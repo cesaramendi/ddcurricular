@@ -701,8 +701,8 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   background-color: #49b3f4;
 }
 .logo{
-  animation: logo 3s;
-  max-height: 90px;
+  animation: logo 4s;
+  max-height: 80px;
 }
 
 @keyframes logo{
@@ -710,6 +710,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     max-height: 250px;
   }
   to{
-    max-height: 90px;
+    max-height: 80px;
   }
 }
