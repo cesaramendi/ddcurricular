@@ -340,6 +340,16 @@ app.post('/descoUpdate', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.post('/carreraUpdate', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 2)) {
+    let nota = req.body.nota == ''? null : req.body.nota;
+    await pool.query('UPDATE carreras SET nota=?, status=? WHERE id=?', [nota, req.body.status, req.body.id]);
+    res.redirect('/dashboard');
+  } else {
+    forbid(res);
+  }
+}) );
 
 app.post('/editUser', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
@@ -547,6 +557,11 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       req.session.user, // email
       req.body.nombreSolicitud,
       req.body.tipo,
+      /* ^ tipo-------------------------
+      /* 1: Pregrado
+      /* 2: Postgrado
+      /* 3: Diplomado
+      /* ------------------------------*/
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
       req.body.disenno,
@@ -554,12 +569,6 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       req.body.introduccion,
       req.body.participantes,
       req.body.descripcion,
-
-      /* ^ tipo-------------------------
-      /* 1: Pregrado
-      /* 2: Postgrado
-      /* 3: Diplomado
-      /* ------------------------------*/
       1,
       /* ^ status-----------------------
       /* 0: esperando correccion
@@ -572,7 +581,7 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 7: finalizado
       /* ------------------------- */
     ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,?,?,?,?,?,?,?,?,?,?)', proyData);
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto

@@ -95,7 +95,7 @@ let tabla3 = $('#dataTableCarrerasCantStatus').DataTable({
       case 0: data.status = 'esperando correccion'; break;
       case 1: data.status = 'recibido'; break;
       case 2: data.status = 'para revisar'; break;
-      case 3: data.status = 'rechazado por desco'; break;
+      case 3: data.status = 'rechazado por D.D.Curricular'; break;
       case 4: data.status = 'validado'; break;
       case 5: data.status = 'rechazado por consejo'; break;
       case 6: data.status = 'aprobado'; break;
@@ -107,7 +107,7 @@ let tabla3 = $('#dataTableCarrerasCantStatus').DataTable({
       case 'esperando correccion': $('td:eq(0)', row).html('esperando correccion'); break;
       case 'recibido': $('td:eq(0)', row).html('recibido'); break;
       case 'para revisar': $('td:eq(0)', row).html('para revisar'); break;
-      case 'rechazado por desco': $('td:eq(0)', row).html('rechazado por desco'); break;
+      case 'rechazado por D.D.Curricular': $('td:eq(0)', row).html('rechazado por D.D.Curricular'); break;
       case 'validado': $('td:eq(0)', row).html('validado'); break;
       case 'rechazado por consejo': $('td:eq(0)', row).html('rechazado por consejo'); break;
       case 'aprobado': $('td:eq(0)', row).html('aprobado'); break;
@@ -144,7 +144,7 @@ let tablaA = $('#dataTableAsesoria').DataTable({
       case 0: data.status = 'esperando correccion'; break;
       case 1: data.status = 'recibido'; break;
       case 2: data.status = 'para revisar'; break;
-      case 3: data.status = 'rechazado por desco'; break;
+      case 3: data.status = 'rechazado por D.D.Curricular'; break;
       case 4: data.status = 'validado'; break;
       case 5: data.status = 'rechazado por consejo'; break;
       case 6: data.status = 'aprobado'; break;
@@ -161,7 +161,7 @@ let tablaA = $('#dataTableAsesoria').DataTable({
       case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
       case 'recibido': $('td:eq(5)', row).html('recibido'); break;
       case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-      case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+      case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
       case 'validado': $('td:eq(5)', row).html('validado'); break;
       case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
       case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -200,7 +200,7 @@ tablaA.on('xhr', function () {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por desco'; break;
+        case 3: data.status = 'rechazado por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -217,7 +217,7 @@ tablaA.on('xhr', function () {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por desco': $('td:eq(5)', row).html('rechazado por desco'); break;
+        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -244,35 +244,33 @@ tablaA.on('xhr', function () {
 
       let fields = {};
       fields.id = document.getElementById('projectModalLabel');
-      fields.nombre = document.getElementById('projectModalNombre');
-      fields.org = document.getElementById('projectModalOrgResponsable');
-      fields.responsables = document.getElementById('projectModalResponsables');
-      fields.ubicacion = document.getElementById('projectModalUbGeo');
-      fields.benefD = document.getElementById('projectModalBenefD');
-      fields.benefI = document.getElementById('projectModalBenefI');
+      fields.nombreP = document.getElementById('projectModalNombre');
       fields.tipoP = document.getElementById('projectModalTipoP');
-      fields.duracion = document.getElementById('projectModalDuracion');
-      fields.fechaI = document.getElementById('projectModalFechaI');
-      fields.fechaF = document.getElementById('projectModalFechaF');
-      fields.objGen = document.getElementById('projectModalObjGeneral');
-      fields.objsEsp = document.getElementById('projectModalObjsEspecificos');
+      fields.statusP = document.getElementById('projectModalStatusP');
+      fields.fechaP = document.getElementById('projectModalFechaP');
+      fields.solicitanteP = document.getElementById('projectModalSolicitanteP');
+      fields.disennoP = document.getElementById('projectModalDisennoP');
+      fields.coordinadorP = document.getElementById('projectModalCoordinadorP');
+      fields.introduccionP = document.getElementById('projectModalIntroduccionP');
+      fields.participantesP = document.getElementById('projectModalParticipantesP');
+      fields.descripcionP = document.getElementById('projectModalDescripcionP');
+
       fields.filesHeads = document.getElementById('projectModalFilesHeads');
       fields.files = document.getElementById('tableProjectFiles');
       fields.pluses = document.getElementById('projectModalPluses');
 
-           fields.id.innerText = 'Proyecto id: ' + rowData.id;
-      fields.nombre.innerText = rowData.nombreProyecto;
-      fields.org.innerText = rowData.orgResponsable;
-      fields.responsables.innerText = rowData.responsables;
-      fields.ubicacion.innerText = rowData.ubicacionGeografica;
-      fields.benefD.innerText = rowData.beneficiariosDirectos;
-      fields.benefI.innerText = rowData.beneficiariosIndirectos;
-      fields.tipoP.innerText = rowData.tipoProyecto;
-      fields.duracion.innerText = rowData.duracionProyecto;
-      fields.fechaI.innerText = (new Date(rowData.fechaInicio)) ==""
-      fields.fechaF.innerText = (new Date(rowData.fechaFin)) == "";
-      fields.objGen.innerText = rowData.objGeneral;
-      fields.objsEsp.innerText = rowData.objsEspecificos;
+      fields.id.innerText = 'Proyecto id: ' + rowData.id;
+      fields.nombreP.innerText = rowData.nombreSolicitud;
+      fields.tipoP.innerText = rowData.tipo;
+      fields.fechaP.innerText = rowData.fechaSolicitud.split('T')[0];
+      //fields.statusP.innerText = rowData.status;
+      /*fields.fechaP.innerText = (new Date(rowData.fecha)) == 'Invalid Date' ? rowData.fecha.split('T')[0] : (new Date(rowData.fecha)).toLocaleDateString();*/
+      fields.solicitanteP.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
+      fields.disennoP.innerText = rowData.disenno;
+      fields.coordinadorP.innerText = rowData.coordinador;
+      fields.introduccionP.innerText = rowData.introduccion;
+      fields.participantesP.innerText = rowData.participantes;
+      fields.descripcionP.innerText = rowData.descripcion;
 
 
       // Para mostrar los documentos del proyecto
@@ -355,7 +353,7 @@ tablaA.on('xhr', function () {
         // Para mostrar detalles segun estatus
         let plusesHtml = '';
         plusesHtml =
-        `<form method="post" action="/descoUpdate">
+        `<form method="post" action="/carreraUpdate">
           <input class="d-none" name="id" value="${rowData.id}"></id>
           <div class="form-group descoDetails">
             <label for="nota">Nota  para el usuario que subió el proyecto</label>
@@ -519,7 +517,7 @@ tablaA.on('xhr', function () {
       case 'Nuevo': return 0; break;
       case 'recibido': return 1; break;
       case 'para revisar': return 2; break;
-      case 'rechazado por desco': return 3; break;
+      case 'rechazado por D.D.Curricular': return 3; break;
       case 'validado': return 4; break;
       case 'rechazado por consejo': return 5; break;
       case 'aprobado': return 6; break;

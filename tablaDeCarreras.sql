@@ -1,15 +1,17 @@
 CREATE TABLE carreras(
   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
   email                   VARCHAR(35) NOT NULL,
-  nombreSolicitud         VARCHAR(300) NOT NULL,
+  fechaSolicitud          DATE,
+  facultadSolicitud       VARCHAR(10) NOT NULL,
+  nombreSolicitud         VARCHAR(100) NOT NULL,
   tipo                    TINYINT UNSIGNED NOT NULL,
   -- 1: Pregrado
   -- 2: Postgrado
   -- 3: Diplomado
-  apellidoSolicitante     VARCHAR(100) NOT NULL,
-  nombreSolicitante       VARCHAR(100) NOT NULL,
+  apellidoSolicitante     VARCHAR(30) NOT NULL,
+  nombreSolicitante       VARCHAR(30) NOT NULL,
   disenno                 VARCHAR(100) NOT NULL,
-  coordinador             VARCHAR(100) NOT NULL,
+  coordinador             VARCHAR(60) NOT NULL,
   introduccion            VARCHAR(100) NOT NULL,
   participantes           VARCHAR(100) NOT NULL,
   descripcion             VARCHAR(100) NOT NULL,
@@ -22,7 +24,7 @@ CREATE TABLE carreras(
 -- 4: validado
 -- 5: rechazado por consejo
 -- 6: aprobado
-
+  nota                    VARCHAR(200) NOT NULL,
 
   PRIMARY KEY(id),
   INDEX fk_carreras_email_idx (email DESC),

@@ -6,54 +6,8 @@ $(document).ready(function() {
   let data3 = [];
   let dataProyectos = [];
   let datasesorias = [];
-  let user;/*
-  let tabla = $('#dataTable').DataTable({
-    ajax: '/getProyectosDDC',
-    columns: [
-      { data: 'id' },
-      { data: 'nombreProyecto' },
-      { data: 'responsables' },
-      { data: 'ubicacionGeografica' },
-      { data: 'tipo' },
-      { data: 'status' },
-    ],
-    order: [[0, 'desc']],
-    createdRow: function (row, data, dataIndex) {
-      if (data.tipo == 1) {
-        data.tipo = 'Servicio Comunitario';
-      } else if (data.tipo == 2) {
-        data.tipo = 'Extensión';
-      }
-      switch (data.status) {
-        case 0: data.status = 'esperando correccion'; break;
-        case 1: data.status = 'recibido'; break;
-        case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por D.D.Curricular'; break;
-        case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
-        case 6: data.status = 'aprobado'; break;
-        case 7: data.status = 'finalizado'; break;
-      }
-    },
-    rowCallback: function (row, data) {
-      if (data.tipo == 'Servicio Comunitario') {
-        $('td:eq(4)', row).html('Servicio Comunitario');
-      } else if (data.tipo == 'Extensión') {
-        $('td:eq(4)', row).html('Extensión');
-      }
-      switch (data.status) {
-        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
-        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
-        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
-        case 'validado': $('td:eq(5)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
-        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
-      }
-      $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
-    },
-  });*/
+  let user;
+
   //////////////////////////////////////////////////////////////////////////////
   let tabla2 = $('#dataTableCarrerasCantTipos').DataTable({
     ajax: '/getCarrerasCantTipos',
@@ -224,11 +178,12 @@ $(document).ready(function() {
     },
   });
 
-  //////////////////////////////////////////////////////////////////////////////
 
   tabla.on('xhr', function () {
     dataProyectos = tabla.ajax.json().data;
   });
+
+  //////////////////////////////////////////////////////////////////////////////
 
   $('#dataTable tbody').on('click', 'tr', function () {
     let tr = $(this).closest('tr');
@@ -256,31 +211,14 @@ $(document).ready(function() {
       fields.filesHeads = document.getElementById('projectModalFilesHeads');
       fields.files = document.getElementById('tableProjectFiles');
       fields.pluses = document.getElementById('projectModalPluses');
-/*
-      fields.org = document.getElementById('projectModalOrgResponsable');
-      fields.responsables = document.getElementById('projectModalResponsables');
-      fields.ubicacion = document.getElementById('projectModalUbGeo');
-      fields.benefD = document.getElementById('projectModalBenefD');
-      fields.benefI = document.getElementById('projectModalBenefI');
-      fields.tipoP = document.getElementById('projectModalTipoP');
-      fields.duracion = document.getElementById('projectModalDuracion');
-      fields.fechaI = document.getElementById('projectModalFechaI');
-      fields.fechaF = document.getElementById('projectModalFechaF');
-      fields.objGen = document.getElementById('projectModalObjGeneral');
-      fields.objsEsp = document.getElementById('projectModalObjsEspecificos');
-      fields.filesHeads = document.getElementById('projectModalFilesHeads');
-      fields.files = document.getElementById('tableProjectFiles');
-      fields.pluses = document.getElementById('projectModalPluses');
-      fields.addAvancesNombre = document.getElementById('addAvancesNombreSolicitud');
-      fields.addAvancesTipo = document.getElementById('addAvancesTipo');
-      fields.addAvancesRef = document.getElementById('addAvancesRefProyecto');
-*/
+      ////////////////
 
       fields.id.innerText = 'Proyecto id: ' + rowData.id;
       fields.nombreP.innerText = rowData.nombreSolicitud;
       fields.tipoP.innerText = rowData.tipo;
+      fields.fechaP.innerText = rowData.fechaSolicitud.split('T')[0];
       //fields.statusP.innerText = rowData.status;
-      /*fields.fechaP.innerText = (new Date(rowData.fecha)) == 'Invalid Date' ? rowData.fecha.split('T')[0] : (new Date(rowData.fecha)).toLocaleDateString();*/
+      //fields.fechaP.innerText = (new Date(rowData.fechaSolicitud)) == 'Invalid Date' ? rowData.fechaSolicitud.split('T')[0] : (new Date(rowData.fechaSolicitud)).toLocaleDateString();*/
       fields.solicitanteP.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
       fields.disennoP.innerText = rowData.disenno;
       fields.coordinadorP.innerText = rowData.coordinador;
@@ -289,23 +227,6 @@ $(document).ready(function() {
       fields.descripcionP.innerText = rowData.descripcion;
 
 
-
-/*
-      fields.org.innerText = rowData.orgResponsable;
-      fields.responsables.innerText = rowData.responsables;
-      fields.ubicacion.innerText = rowData.ubicacionGeografica;
-      fields.benefD.innerText = rowData.beneficiariosDirectos;
-      fields.benefI.innerText = rowData.beneficiariosIndirectos;
-      fields.tipoP.innerText = rowData.tipoProyecto;
-      fields.duracion.innerText = rowData.duracionProyecto;
-      fields.fechaI.innerText = (new Date(rowData.fechaInicio)) == 'Invalid Date' ? rowData.fechaInicio.split('T')[0] : (new Date(rowData.fechaInicio)).toLocaleDateString();
-      fields.fechaF.innerText = (new Date(rowData.fechaFin)) == 'Invalid Date' ? rowData.fechaFin.split('T')[0] : (new Date(rowData.fechaFin)).toLocaleDateString();
-      fields.objGen.innerText = rowData.objGeneral;
-      fields.objsEsp.innerText = rowData.objsEspecificos;
-      fields.addAvancesNombre.value = rowData.nombreProyecto;
-      fields.addAvancesTipo.value = tipo2Num(rowData.tipo);
-      fields.addAvancesRef.value = rowData.id;
-*/
       // Para mostrar los documentos del proyecto
       $.ajax({
         method: 'get',
