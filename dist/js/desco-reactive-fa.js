@@ -2,85 +2,18 @@ $(document).ready(function() {
 
   $('.fecha').text((new Date().toLocaleString()));
 
-  let data2 = [];
-  let data3 = [];
   let dataProyectos = [];
   let datasesorias = [];
   let user;
 
   //////////////////////////////////////////////////////////////////////////////
-  let tabla2 = $('#dataTableCarrerasCantTipos').DataTable({
-    ajax: '/getCarrerasCantTipos',
-    columns: [
-      { data: 'tipo' },
-      { data: 'cant' },
-    ],
-    order: [[0, 'desc']],
-    createdRow: function (row, data, dataIndex) {
-      switch (data.tipo) {
-        case 1: data.tipo = 'Pregrado'; break;
-        case 2: data.tipo = 'Postgrado'; break;
-        case 3: data.tipo = 'Diplomado'; break;
-      }
-    },
-    rowCallback: function (row, data) {
-      switch (data.tipo) {
-        case 'Pregrado': $('td:eq(0)', row).html('Pregrado'); break;
-        case 'Postgrado': $('td:eq(0)', row).html('Postgrado'); break;
-        case 'Diplomado': $('td:eq(0)', row).html('Diplomado'); break;
-      }
-    },
-  });
-
-  tabla2.on('xhr', function () {
-    data2 = tabla2.ajax.json().data;
-  });
-
-  let tabla3 = $('#dataTableCarrerasCantStatus').DataTable({
-    ajax: '/getCarrerasCantStatus',
-    columns: [
-      { data: 'status' },
-      { data: 'cant' },
-    ],
-    order: [[0, 'desc']],
-    createdRow: function (row, data, dataIndex) {
-      switch (data.status) {
-        case 0: data.status = 'esperando correccion'; break;
-        case 1: data.status = 'recibido'; break;
-        case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por D.D.Curricular'; break;
-        case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
-        case 6: data.status = 'aprobado'; break;
-        case 7: data.status = 'finalizado'; break;
-      }
-    },
-    rowCallback: function (row, data) {
-      switch (data.status) {
-        case 'esperando correccion': $('td:eq(0)', row).html('esperando correccion'); break;
-        case 'recibido': $('td:eq(0)', row).html('recibido'); break;
-        case 'para revisar': $('td:eq(0)', row).html('para revisar'); break;
-        case 'rechazado por D.D.Curricular': $('td:eq(0)', row).html('rechazado por D.D.Curricular'); break;
-        case 'validado': $('td:eq(0)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(0)', row).html('rechazado por consejo'); break;
-        case 'aprobado': $('td:eq(0)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(0)', row).html('finalizado'); break;
-      }
-    },
-  });
-
-  tabla3.on('xhr', function () {
-    data3 = tabla3.ajax.json().data;
-  });
-
-  //////////////////////////////////////////////////////////////////////////////
   let tablaA = $('#dataTableAsesoria').DataTable({
     ajax: '/getAsesorias',
     columns: [
-      { data: 'id' },
+      { data: 'idA' },
       { data: 'titulo' },
       { data: 'apellidoSolicitanteA' },
-      { data: 'lugar' },
+      { data: 'fechaCapacitacion' },
       { data: 'tipo' },
       { data: 'status' },
     ],
@@ -119,13 +52,72 @@ $(document).ready(function() {
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
-      $('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
+      //$('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
+      $('td:eq(3)', row).html(data.fechaCapacitacion.split('T')[0]);
     },
   });
 
   tablaA.on('xhr', function () {
     datasesorias = tablaA.ajax.json().data;
   });
+
+    $('#dataTableAsesoria tbody').on('click', 'tr', function () {
+      let tr = $(this).closest('tr');
+      let tdi = tr.find("i.fa");
+      let row = tablaA.row(tr);
+      let rowData = row.data();
+
+      $('#projectModalAsesoria').addClass('isloading');
+      $("#projectModalAsesoria").modal('toggle');
+      $('#projectModalAsesoria').off('shown.bs.modal').on('shown.bs.modal', function () {
+
+        let fields = {};
+        fields.idA = document.getElementById('projectModalLabelA');
+        fields.tituloA = document.getElementById('projectModalTitulo');
+        fields.tipoA = document.getElementById('projectModalTipoA');
+        fields.statusA = document.getElementById('projectModalStatusA');
+        fields.fechaA = document.getElementById('projectModalFechaA');
+        fields.solicitanteA = document.getElementById('projectModalSolicitanteA');
+        fields.participantesA = document.getElementById('projectModalCantParticipantes');
+        fields.fechaCapacitacion = document.getElementById('projectModalFechaCapacitacion');
+        fields.lugarA = document.getElementById('projectModalLugar');
+        fields.introduccionA = document.getElementById('projectModalIntroduccionA');
+
+        fields.pluses = document.getElementById('projectModalPlusesA');
+        ///////////////
+
+        fields.idA.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
+        fields.tituloA.innerText = rowData.titulo;
+        fields.tipoA.innerText = rowData.tipo;
+        fields.fechaA.innerText = rowData.fechaSolicitudA.split('T')[0];
+        fields.solicitanteA.innerText = rowData.apellidoSolicitanteA+' '+rowData.nombreSolicitanteA;
+        fields.participantesA.innerText = rowData.cantidadParticipantes;
+        fields.fechaCapacitacion.innerText = rowData.fechaCapacitacion.split('T')[0];
+        fields.lugarA.innerText = rowData.lugar;
+        fields.introduccionA.innerText = rowData.introduccion;
+
+
+        // Para mostrar detalles segun estatus
+        let plusesHtml = '';
+        plusesHtml = `<br>
+        <table id="projectPlusesA" class="table-bordered"
+        cellpadding="5" cellspacing="0" border="0"
+        style="padding-left:50px; margin:auto;">
+        <tr>
+        <td>Estatus:</td>
+        <td>${rowData.status}</td>
+        </tr>
+        <tr>
+        <td>Nota:</td>
+        <td>${rowData.nota ? rowData.nota:''}</td>
+        </tr>
+        </table>
+        <br>`;
+
+        fields.pluses.innerHTML = plusesHtml;
+      });
+    });
+
 
   //////////////////////////////////////////////////////////////////////////////
 
@@ -213,7 +205,7 @@ $(document).ready(function() {
       fields.pluses = document.getElementById('projectModalPluses');
       ////////////////
 
-      fields.id.innerText = 'Proyecto id: ' + rowData.id;
+      fields.id.innerText = 'Solicitud AVAL ID: ' + rowData.id;
       fields.nombreP.innerText = rowData.nombreSolicitud;
       fields.tipoP.innerText = rowData.tipo;
       fields.fechaP.innerText = rowData.fechaSolicitud.split('T')[0];

@@ -12,19 +12,18 @@ CREATE TABLE carreras(
   nombreSolicitante       VARCHAR(30) NOT NULL,
   disenno                 VARCHAR(100) NOT NULL,
   coordinador             VARCHAR(60) NOT NULL,
-  introduccion            VARCHAR(100) NOT NULL,
-  participantes           VARCHAR(100) NOT NULL,
-  descripcion             VARCHAR(100) NOT NULL,
-
+  introduccion            VARCHAR(300) NOT NULL,
+  participantes           VARCHAR(300) NOT NULL,
+  descripcion             VARCHAR(300) NOT NULL,
   status                  TINYINT UNSIGNED NOT NULL,
--- 0: esperando correccion
--- 1: recibido
--- 2: para revisar
--- 3: rechazado por desco
--- 4: validado
--- 5: rechazado por consejo
--- 6: aprobado
-  nota                    VARCHAR(200) NOT NULL,
+  -- 0: esperando correccion
+  -- 1: recibido
+  -- 2: para revisar
+  -- 3: rechazado por DDC
+  -- 4: validado
+  -- 5: rechazado por consejo
+  -- 6: aprobado
+  nota                    VARCHAR(200),
 
   PRIMARY KEY(id),
   INDEX fk_carreras_email_idx (email DESC),
@@ -37,18 +36,27 @@ CREATE TABLE carreras(
 CREATE TABLE asesorias(
   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
   email                   VARCHAR(35) NOT NULL,
-  titulo                   VARCHAR(300) NOT NULL,
-  apellidoSolicitanteA     VARCHAR(300) NOT NULL,
-  nombreSolicitanteA       VARCHAR(300) NOT NULL,
-  lugar                    VARCHAR(300) NOT NULL,
-  cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
-  fecha                    DATE,
+  fechaSolicitudA 	      DATE NOT NULL,
+  titulo                   VARCHAR(100) NOT NULL,
   tipo                     TINYINT UNSIGNED NOT NULL,
   -- 1: Curso
   -- 2: Taller
   -- 3: Formacion
+  apellidoSolicitanteA     VARCHAR(30) NOT NULL,
+  nombreSolicitanteA       VARCHAR(30) NOT NULL,
+  cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
+  lugar                    VARCHAR(300) NOT NULL,
+  fechaCapacitacion        DATE NOT NULL,
   introduccion             VARCHAR(300) NOT NULL,
   status                   TINYINT UNSIGNED NOT NULL,
+  -- 0: esperando correccion
+  -- 1: recibido
+  -- 2: para revisar
+  -- 3: rechazado por DDC
+  -- 4: validado
+  -- 5: rechazado por consejo
+  -- 6: aprobado
+  nota                    VARCHAR(200),
   PRIMARY KEY(id),
   INDEX fk_asesoria_email_idx (email DESC),
     CONSTRAINT fk_asesoria_email

@@ -612,17 +612,17 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
     let asesoData = [
       req.session.user, // email
       req.body.titulo,
-      req.body.apellidoSolicitanteA,
-      req.body.nombreSolicitanteA,
-      req.body.lugar,
-      req.body.cantidadParticipantes,
-      req.body.fecha,
       req.body.tipo,
       /* ^ tipo-------------------------
       /* 1: Curso
       /* 2: Taller
       /* 3: Formacion
       /* ------------------------------*/
+      req.body.apellidoSolicitanteA,
+      req.body.nombreSolicitanteA,
+      req.body.cantidadParticipantes,
+      req.body.lugar,
+      req.body.fechaCapacitacion,
       req.body.introduccion,
       1,
       /* ^ status-----------------------
@@ -636,7 +636,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* 7: finalizado
       /* ------------------------- */
     ]
-    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,?,?,?,?,?,?,?,?,?)', asesoData);
+    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,NULL)', asesoData);
 
     res.redirect('/success');
   } else {
