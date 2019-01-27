@@ -58,10 +58,10 @@ $(document).ready(function () {
   let tablaA = $('#dataTableAsesoria').DataTable({
     ajax: '/getAsesorias',
     columns: [
-      { data: 'id' },
+      { data: 'idA' },
       { data: 'titulo' },
       { data: 'apellidoSolicitanteA' },
-      { data: 'lugar' },
+      { data: 'fechaCapacitacion' },
       { data: 'tipo' },
       { data: 'status' },
     ],
@@ -100,13 +100,71 @@ $(document).ready(function () {
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
-      $('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
+      //$('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
+      $('td:eq(3)', row).html(data.fechaCapacitacion.split('T')[0]);
     },
   });
 
   tablaA.on('xhr', function () {
     datasesorias = tablaA.ajax.json().data;
   });
+
+      $('#dataTableAsesoria tbody').on('click', 'tr', function () {
+        let tr = $(this).closest('tr');
+        let tdi = tr.find("i.fa");
+        let row = tablaA.row(tr);
+        let rowData = row.data();
+
+        $('#projectModalAsesoria').addClass('isloading');
+        $("#projectModalAsesoria").modal('toggle');
+        $('#projectModalAsesoria').off('shown.bs.modal').on('shown.bs.modal', function () {
+
+          let fields = {};
+          fields.idA = document.getElementById('projectModalLabelA');
+          fields.tituloA = document.getElementById('projectModalTitulo');
+          fields.tipoA = document.getElementById('projectModalTipoA');
+          fields.statusA = document.getElementById('projectModalStatusA');
+          fields.fechaA = document.getElementById('projectModalFechaA');
+          fields.solicitanteA = document.getElementById('projectModalSolicitanteA');
+          fields.participantesA = document.getElementById('projectModalCantParticipantes');
+          fields.fechaCapacitacion = document.getElementById('projectModalFechaCapacitacion');
+          fields.lugarA = document.getElementById('projectModalLugar');
+          fields.introduccionA = document.getElementById('projectModalIntroduccionA');
+
+          fields.pluses = document.getElementById('projectModalPlusesA');
+          ///////////////
+
+          fields.idA.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
+          fields.tituloA.innerText = rowData.titulo;
+          fields.tipoA.innerText = rowData.tipo;
+          fields.fechaA.innerText = rowData.fechaSolicitudA.split('T')[0];
+          fields.solicitanteA.innerText = rowData.apellidoSolicitanteA+' '+rowData.nombreSolicitanteA;
+          fields.participantesA.innerText = rowData.cantidadParticipantes;
+          fields.fechaCapacitacion.innerText = rowData.fechaCapacitacion.split('T')[0];
+          fields.lugarA.innerText = rowData.lugar;
+          fields.introduccionA.innerText = rowData.introduccion;
+
+
+          // Para mostrar detalles segun estatus
+          let plusesHtml = '';
+          plusesHtml = `<br>
+          <table id="projectPlusesA" class="table-bordered"
+          cellpadding="5" cellspacing="0" border="0"
+          style="padding-left:50px; margin:auto;">
+          <tr>
+          <td>Estatus:</td>
+          <td>${rowData.status}</td>
+          </tr>
+          <tr>
+          <td>Nota:</td>
+          <td>${rowData.nota ? rowData.nota:''}</td>
+          </tr>
+          </table>
+          <br>`;
+
+          fields.pluses.innerHTML = plusesHtml;
+        });
+      });
 
 /////////////////////////////////////////////////////////////////////////////
 
