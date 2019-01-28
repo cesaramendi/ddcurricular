@@ -1,4 +1,4 @@
--- mysql -u root -p < allv4.sql
+Actualizacion-- mysql -u root -p < allv4.sql
 
 SET GLOBAL sql_mode="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION";
 CREATE DATABASE descouc;
@@ -72,8 +72,8 @@ CREATE TABLE avances(
 
 CREATE TABLE documentos(
   id                    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  refProyecto           INT UNSIGNED NOT NULL,
-  refAvance             INT UNSIGNED DEFAULT NULL,
+  refProyecto           INT UNSIGNED DEFAULT NULL,
+  refActualizacion      INT UNSIGNED DEFAULT NULL,
   ruta                  VARCHAR(380) NOT NULL,
   nombreDoc             VARCHAR(350) NOT NULL,
   fechaSubida           DATE NOT NULL,
@@ -93,10 +93,10 @@ CREATE TABLE documentos(
     REFERENCES carreras (id) --se camcio "proyectos" a "carreras"
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  INDEX fk_documentos_refAvance_idx (refAvance DESC),
-  CONSTRAINT fk_documentos_refAvance
-    FOREIGN KEY (refAvance)
-    REFERENCES avances (id)
+  INDEX fk_documentos_refActualizacion_idx (refActualizacion DESC),
+  CONSTRAINT fk_documentos_refActualizacion
+    FOREIGN KEY (refActualizacion)
+    REFERENCES actualizacion (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );

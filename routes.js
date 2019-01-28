@@ -555,27 +555,27 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let asesoData = [
-      req.body.nombreSolicitud, 
-      req.session.user, 
-      req.body.Solicitud, 
+      req.body.nombreSolicitud,
+      req.session.user,
+      req.body.Solicitud,
       /* ^ Solicitud-------------------------
       /* 1: Creacion
       /* 2: Rediseño
       /* ------------------------------*/
-      req.body.tipo, 
+      req.body.tipo,
       /* ^ tipo-------------------------
       /* 1: Carrera
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
 
-      req.body.apellidoSolicitanteA, 
-      req.body.nombreSolicitanteA, 
-      req.body.introduccion, 
+      req.body.apellidoSolicitanteA,
+      req.body.nombreSolicitanteA,
+      req.body.introduccion,
       1
-      
-      
-      
+
+
+
     ]
     let fecha= (new Date()).toISOString().split('T')[0]
     let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,?,CURDATE(),?,?,?,?,?,?,NULL)', asesoData);
@@ -594,8 +594,8 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
         i+1,
       ];
       console.log(docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,1,?)', docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,2,?)', docData);
+      await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,?,2,?)', docData);
     }
     res.redirect('/success');
   } else {

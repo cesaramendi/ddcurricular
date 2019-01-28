@@ -34,7 +34,7 @@ CREATE TABLE carreras(
     ON UPDATE NO ACTION
 );
 CREATE TABLE asesorias(
-  id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idA                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
   email                   VARCHAR(35) NOT NULL,
   fechaSolicitudA 	      DATE NOT NULL,
   titulo                   VARCHAR(100) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE asesorias(
 );
 CREATE TABLE actualizacion(
   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  nombreSolicitud          VARCHAR(100) NOT NULL, 
+  nombreSolicitud          VARCHAR(100) NOT NULL,
   email                   VARCHAR(35) NOT NULL,
   fechaSolicitudA 	      DATE NOT NULL,
   Solicitud                     TINYINT UNSIGNED NOT NULL,
