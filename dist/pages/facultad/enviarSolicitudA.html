@@ -94,19 +94,19 @@
         <li class="nav-item active">
           <a class="nav-link" href="/enviarProyecto">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Enviar Aval</span>
+            <span>Solicitar Aval</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Servicio de Asesoria</span>
+            <span>Solicitar Asesoria</span>
           </a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/enviarActualizacion">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Enviar Actualizacion</span>
+            <span>Solicitar Investigacion</span>
           </a>
         </li>
          <li class="nav-item active">
@@ -133,13 +133,6 @@
           <h1>Enviar solicitud de asesorias</h1>
           <hr>
           <form method="post" action="/uploadSolicicitudAsesoria" enctype="multipart/form-data">
-
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
-                <label for="titulo">Titulo de la solicitud </label>
-              </div>
-            </div>
             <div class="form-group">
               <div class="form-row">
                 <div class="input-group mb-3">
@@ -155,6 +148,12 @@
                 </div>
               </div>
               <span id="errorPlace"></span>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
+                <label for="titulo">Titulo de la solicitud </label>
+              </div>
             </div>
             <div class="form-group">
              <div class="form-label-group">

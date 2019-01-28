@@ -361,7 +361,7 @@ $(document).ready(function () {
           plusesHtml = plusesHtml +
             `<span>Subir oficio de aval.</span>
             <form method="post" action="/subirAval" enctype="multipart/form-data">
-          <input class="d-none" type="text" name="nombreProyecto" value="${rowData.nombreProyecto}"/>
+          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
           <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
           <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
             plusesHtml = plusesHtml +
@@ -435,7 +435,7 @@ $(document).ready(function () {
             <tbody class="text-center">
 
           `
-          $('#participantesModalTitle').text(rowData.nombreProyecto);
+          $('#participantesModalTitle').text(rowData.nombreSolicitud);
           $.ajax({
             method: 'get',
             url: '/getParticipantesFromProject?id=' + rowData.id,
@@ -459,7 +459,7 @@ $(document).ready(function () {
 
         avancesModal.off('show.bs.modal').on('show.bs.modal', function() {
           let avancesHtml = '';
-          $('#avancesModalTitle').text(rowData.nombreProyecto);
+          $('#avancesModalTitle').text(rowData.nombreSolicitud);
           $.ajax({
             method:'get',
             url: '/getAvancesFromProject?id=' + rowData.id,

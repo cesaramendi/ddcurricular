@@ -6,7 +6,14 @@ const app = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Elije la carpeta donde guardar segun el tipo de proyecto
-    let tipo = req.body.tipo == 1 ? 'ServicioComunitario/' : 'Extension/';
+    let tipo = 'ServicioComunitario/';
+    console.log("req.body.tipo", req.body.tipo);
+    switch ((req.body.tipo)) {
+      //case 1: tipo = 'ServicioComunitario/'; break;
+      case 2: tipo = 'Extension/'; break;
+      case 3: tipo = 'Aval/'; break;
+    }
+    //let tipo = req.body.tipo == 1 ? 'ServicioComunitario/' : 'Extension/';
     cb(null, 'proyectos/' + tipo);
   },
   filename: function (req, file, cb) {
@@ -615,6 +622,11 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       req.body.nombreSolicitud,
       req.body.tipo,
       /* ^ tipo-------------------------
+      /* 1: Carrera
+      /* 2: Actualizacion
+      /* ------------------------------*/
+      req.body.asunto,
+      /* ^ asunto-------------------------
       /* 1: Pregrado
       /* 2: Postgrado
       /* 3: Diplomado
@@ -638,7 +650,7 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 7: finalizado
       /* ------------------------- */
     ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto

@@ -83,7 +83,7 @@ $(document).ready(function() {
         fields.lugarA = document.getElementById('projectModalLugar');
         fields.introduccionA = document.getElementById('projectModalIntroduccionA');
 
-        fields.pluses = document.getElementById('projectModalPlusesA');
+        //fields.pluses = document.getElementById('projectModalPlusesA');
         ///////////////
 
         fields.idA.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
@@ -127,18 +127,21 @@ $(document).ready(function() {
       { data: 'id' },
       { data: 'nombreSolicitud' },
       { data: 'apellidoSolicitante'},
-      { data: 'coordinador' },
       { data: 'tipo' },
+      { data: 'asunto' },
       { data: 'status' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       switch (data.tipo) {
-        case 1: data.tipo = 'Pregrado'; break;
-        case 2: data.tipo = 'Postgrado'; break;
-        case 3: data.tipo = 'Diplomado'; break;
+        case 1: data.tipo = 'Creacion'; break;
+        case 2: data.tipo = 'Rediseño'; break;
       }
-
+      switch (data.asunto) {
+        case 1: data.asunto = 'Pregrado'; break;
+        case 2: data.asunto = 'Postgrado'; break;
+        case 3: data.asunto = 'Diplomado'; break;
+      }
       switch (data.status) {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
@@ -152,6 +155,10 @@ $(document).ready(function() {
     },
     rowCallback: function (row, data) {
       switch (data.tipo) {
+        case 'Creacion': $('td:eq(3)', row).html('Creacion'); break;
+        case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
+      }
+      switch (data.asunto) {
         case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
         case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
         case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
