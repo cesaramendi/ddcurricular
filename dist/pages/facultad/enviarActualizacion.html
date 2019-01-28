@@ -130,9 +130,92 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>Enviar Actualizacion</h1>
+          <h1>Enviar Actualización</h1>
           <hr>
-          <form method="post" action="/uploadProject" enctype="multipart/form-data">
+          <form method="post" action="/uploadSolicitudActualizacion" enctype="multipart/form-data">
+
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
+                <label for="nombreSolicitud">Titulo de la solicitud </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="Solicitud">Solicitud</label>
+                  </div>
+                  <select required name="Solicitud" class="custom-select" id="Solicitud">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Creación</option>
+                    <option value="2">Rediseño</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="tipo">Tipo</label>
+                  </div>
+                  <select required name="tipo" class="custom-select" id="tipo">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Carrera</option>
+                    <option value="2">Diplomado</option>
+                    <option value="3">Programa Académico</option>
+                  </select>
+                </div>
+              </div>
+              <span id="errorPlace"></span>
+            </div>
+            <div class="form-group">
+             <div class="form-label-group">
+               <input required type="text" id="apellidoSolicitanteA" class="form-control" placeholder="apellidoSolicitanteA"  name="apellidoSolicitanteA">
+               <label for="apellidoSolicitanteA">Apellido del solicitante</label>
+             </div>
+           </div> 
+             <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
+                <label for="nombreSolicitanteA">Nombre del solicitante</label>
+              </div>
+            </div> 
+            <!-- <div class="form-group">
+              <div class="form-label-group">
+                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
+                <label for="Cantidad">Cantidad de participantes</label>
+              </div>
+            </div> -->
+             <!-- <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
+                <label for="lugar">Lugar de capacitacion</label>
+              </div>
+            </div> -->
+            <!-- <div class="form-group">
+              <div class="form-label-group">
+                <input required type="date" id="FechaCapacitacion" class="form-control" placeholder="FechaCapacitacion"  name="fechaCapacitacion">
+                <label for="FechaCapacitacion">Fecha propuesta</label>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="Introduccion">Introduccion</label>
+              <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Documento</span>
+              </div>
+              <div class="custom-file">
+                <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
+                <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
+              </div>
+            </div>
+
+            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
+          </form>
+          <!-- <form method="post" action="/uploadProject" enctype="multipart/form-data">
 
             <div class="form-group">
               <div class="form-label-group">
@@ -192,7 +275,7 @@
               <span id="errorPlace"></span>
             </div>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
-          </form>
+          </form> -->
 
         </div>
         <!-- /.container-fluid -->

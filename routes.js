@@ -10,10 +10,11 @@ const storage = multer.diskStorage({
     cb(null, 'proyectos/' + tipo);
   },
   filename: function (req, file, cb) {
-    //console.log(file);
+    console.log("el file:", file);
     // Extraemos la extension del archivo
     let ext = file.originalname.split('.');
     ext = ext[ext.length - 1];
+   console.log("El body de la 18: ",req.body)
     // En dado que el nombre del archivo tenga un timestamp como el usado aqui, se le quita el viejo stamp
     let nombre = req.body.nombreSolicitud.replace(/-[0-9]{13}/,'');
     // En el nombre del archivo se sustituyen los espacios por _
@@ -525,6 +526,62 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
       //avances -> 0
     ]
     let qryRes = await pool.query('INSERT INTO proyectos VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NULL,0)', proyData);
+    for(let i = 0; i < req.files.length; i++) {
+      let docData = [
+        //id: 0: auto
+        qryRes.insertId,
+        //refAvance: NULL
+        req.files[i].path,
+        req.files[i].filename,
+        (new Date()).toISOString().split('T')[0], // Obtiene solo la fecha en formato yyyy-mm-dd
+        //tipo: inicio, actualizado, etc.
+        i+1,
+      ];
+      console.log(docData);
+      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,2,?)', docData);
+    }
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+
+
+}) );
+app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+  console.log("AEIAEAO, AEIAEAO WAAAAAAR!")
+  console.log(req.body);
+  console.log("El user, asumo yo: ",req.session)
+  console.log(req.files);
+  if (await isValidSessionAndRol(req,3)) {
+    let asesoData = [
+      req.body.nombreSolicitud, 
+      req.session.user, 
+      req.body.Solicitud, 
+      /* ^ Solicitud-------------------------
+      /* 1: Creacion
+      /* 2: Rediseño
+      /* ------------------------------*/
+      req.body.tipo, 
+      /* ^ tipo-------------------------
+      /* 1: Carrera
+      /* 2: Diplomado
+      /* 3: Programa Academico
+      /* ------------------------------*/
+
+      req.body.apellidoSolicitanteA, 
+      req.body.nombreSolicitanteA, 
+      req.body.introduccion, 
+      1
+      
+      
+      
+    ]
+    let fecha= (new Date()).toISOString().split('T')[0]
+    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,?,CURDATE(),?,?,?,?,?,?,NULL)', asesoData);
+    // (`INSERT INTO actualizacion (nombreSolicitud, email, fechaSolicitud, Solicitud, tipo, apellidoSolicitante, nombreSolicitante, introduccion, status, nota) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)`,  [req.body.nombreSolicitud, req.session.user, fecha, req.body.Solicitud, req.body.tipo, req.body.apellidoSolicitanteA, req.body.nombreSolicitanteA, req.body.introduccion, 1, null]);
+    console.log("El pakage a enviar: ", asesoData)
+    console.log("El qryRes: ", qryRes)
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
