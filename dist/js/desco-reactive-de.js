@@ -27,7 +27,7 @@ $(document).ready(function () {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado '; break;
+        case 3: data.status = 'devuelto '; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -44,7 +44,7 @@ $(document).ready(function () {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado': $('td:eq(5)', row).html('rechazado'); break;
+        case 'devuelto': $('td:eq(5)', row).html('devuelto'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -77,7 +77,7 @@ $(document).ready(function () {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por D.D.Curricular'; break;
+        case 3: data.status = 'devuelto por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -94,7 +94,7 @@ $(document).ready(function () {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
+        case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -191,7 +191,7 @@ $(document).ready(function () {
             case 0: data.status = 'esperando correccion'; break;
             case 1: data.status = 'recibido'; break;
             case 2: data.status = 'para revisar'; break;
-            case 3: data.status = 'rechazado por D.D.Curricular'; break;
+            case 3: data.status = 'devuelto por D.D.Curricular'; break;
             case 4: data.status = 'validado'; break;
             case 5: data.status = 'rechazado por consejo'; break;
             case 6: data.status = 'aprobado'; break;
@@ -212,7 +212,7 @@ $(document).ready(function () {
             case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
             case 'recibido': $('td:eq(5)', row).html('recibido'); break;
             case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-            case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
+            case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
             case 'validado': $('td:eq(5)', row).html('validado'); break;
             case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
             case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -225,6 +225,64 @@ $(document).ready(function () {
       tablaI.on('xhr', function () {
         datasinvestigacion = tablaI.ajax.json().data;
       });
+
+      ///////////mostrar detalles al darle click a una fila investigacion
+
+        $('#dataTableInvestigacion tbody').on('click', 'tr', function () {
+          let tr = $(this).closest('tr');
+          let tdi = tr.find("i.fa");
+          let row = tablaI.row(tr);
+          let rowData = row.data();
+
+          $('#projectModalInvestigacion').addClass('isloading');
+          $("#projectModalInvestigacion").modal('toggle');
+          $('#projectModalInvestigacion').off('shown.bs.modal').on('shown.bs.modal', function () {
+
+            let fields = {};
+            fields.idI = document.getElementById('projectModalLabelI');
+            fields.fechaI = document.getElementById('projectModalFechaI');
+            fields.solicitudI = document.getElementById('projectModalSolicitudI');
+            fields.tipoI = document.getElementById('projectModalTipoI');
+            fields.nombreI = document.getElementById('projectModalNombreI');
+            fields.statusI = document.getElementById('projectModalStatusI');
+            fields.solicitanteI = document.getElementById('projectModalSolicitanteI');
+            fields.introduccionI = document.getElementById('projectModalIntroduccionI');
+
+            /*fields.filesHeads = document.getElementById('projectModalFilesHeads');
+            fields.files = document.getElementById('tableProjectFiles');*/
+            fields.pluses = document.getElementById('projectModalPlusesI');
+            ////////////////
+
+            fields.idI.innerText = 'Solicitud Investigacion ID: ' + rowData.id;
+            fields.fechaI.innerText = rowData.fechaSolicitud.split('T')[0];
+            fields.solicitudI.innerText = rowData.solicitud;
+            fields.tipoI.innerText = rowData.tipo;
+            fields.nombreI.innerText = rowData.nombreSolicitud;
+            //fields.statusP.innerText = rowData.status;
+            //fields.fechaP.innerText = (new Date(rowData.fechaSolicitud)) == 'Invalid Date' ? rowData.fechaSolicitud.split('T')[0] : (new Date(rowData.fechaSolicitud)).toLocaleDateString();
+            fields.solicitanteI.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
+            fields.introduccionI.innerText = rowData.introduccion;
+
+            // Para mostrar detalles segun estatus
+            let plusesHtml = '';
+            plusesHtml = `<br>
+            <table id="projectPlusesA" class="table-bordered"
+            cellpadding="5" cellspacing="0" border="0"
+            style="padding-left:50px; margin:auto;">
+            <tr>
+            <td>Estatus:</td>
+            <td>${rowData.status}</td>
+            </tr>
+            <tr>
+            <td>Nota:</td>
+            <td>${rowData.nota ? rowData.nota:''}</td>
+            </tr>
+            </table>
+            <br>`;
+
+            fields.pluses.innerHTML = plusesHtml;
+          });
+        });
 /////////////////////////////////////////////////////////////////////////////
 
   let tabla = $('#dataTable').DataTable({
@@ -252,7 +310,7 @@ $(document).ready(function () {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por D.D.Curricular'; break;
+        case 3: data.status = 'devuelto por D.D.Curricular'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;
@@ -273,7 +331,7 @@ $(document).ready(function () {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
+        case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
         case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
@@ -578,7 +636,7 @@ $(document).ready(function () {
       case 'Nuevo': return 0; break;
       case 'recibido': return 1; break;
       case 'para revisar': return 2; break;
-      case 'rechazado por D.D.Curricular': return 3; break;
+      case 'devuelto por D.D.Curricular': return 3; break;
       case 'validado': return 4; break;
       case 'rechazado por consejo': return 5; break;
       case 'aprobado': return 6; break;
@@ -591,7 +649,7 @@ $(document).ready(function () {
       case 0: return 'Nuevo'; break;
       case 1: return 'recibido'; break;
       case 2: return 'En revision'; break;
-      case 3: return 'rechazado por error de carga'; break;
+      case 3: return 'devuelto por error de carga'; break;
       case 4: return 'validado'; break;
       case 5: return 'rechazado por Curriculum'; break;
       case 6: return 'aprobado'; break;
