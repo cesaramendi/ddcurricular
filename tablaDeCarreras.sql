@@ -4,6 +4,9 @@ CREATE TABLE carreras(
   fechaSolicitud          DATE,
   facultadSolicitud       VARCHAR(10) NOT NULL,
   nombreSolicitud         VARCHAR(100) NOT NULL,
+  solicitud               TINYINT UNSIGNED NOT NULL,
+  -- 1: Creacion
+  -- 2: Redise;o
   tipo                    TINYINT UNSIGNED NOT NULL,
   -- 1: Pregrado
   -- 2: Postgrado

@@ -152,7 +152,7 @@
                       <th>id</th>
                       <th>Nombre</th>
                       <th>Solicitante</th>
-                      <th>Diseñado por</th>
+                      <th>Solicitud</th>
                       <th>Tipo</th>
                       <th>Estatus</th>
                     </tr>
@@ -171,7 +171,7 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Lista de solicitudes de asesorias</div>
+              Lista de solicitudes de Asesorias</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTableAsesoria" width="100%" cellspacing="0">
@@ -181,6 +181,34 @@
                       <th>Nombre</th>
                       <th>Solicitante</th>
                       <th>Fecha</th>
+                      <th>Tipo</th>
+                      <th>Estatus</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">
+              Última actualización: <span class="fecha"></span>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Lista de solicitudes de Investigacion</div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTableInvestigacion" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Nombre</th>
+                      <th>Solicitante</th>
+                      <th>Solicitud</th>
                       <th>Tipo</th>
                       <th>Estatus</th>
                     </tr>
@@ -292,14 +320,18 @@
           <div class="modal-body">
             <table id="tableProject" class="table-bordered" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; margin:auto">
               <tr>
-                <th>Nombre:</th>
-                <td colspan="3" id="projectModalNombre"></td>
+                <th>Fecha:</th>
+                <td colspan="3" id="projectModalFechaP"></td>
               </tr>
               <tr>
+                <th>Solicitud:</th>
+                <td id="projectModalSolicitudP"></td>
                 <th>Tipo:</th>
                 <td id="projectModalTipoP"></td>
-                <th>Fecha:</th>
-                <td id="projectModalFechaP"></td>
+              </tr>
+              <tr>
+                <th>Nombre:</th>
+                <td colspan="3" id="projectModalNombre"></td>
               </tr>
               <tr>
                 <th>Solicitante:</th>

@@ -236,6 +236,20 @@ app.get('/getAsesorias', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/getInvestigacion', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 2, 3)) {
+    let data;
+    if(req.session.rol == 3) {
+      data = await pool.query('SELECT * FROM actualizacion WHERE email=?',[req.session.user]);
+    } else {
+      data = await pool.query('SELECT * FROM actualizacion');
+    }
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/login', (req, res) => {
   if(req.session.isPopulated) {
     res.redirect('/dashboard');
@@ -562,9 +576,9 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let asesoData = [
-      req.body.nombreSolicitud,
       req.session.user,
-      req.body.Solicitud,
+      req.body.nombreSolicitud,
+      req.body.solicitud,
       /* ^ Solicitud-------------------------
       /* 1: Creacion
       /* 2: Rediseño
@@ -585,7 +599,7 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
 
     ]
     let fecha= (new Date()).toISOString().split('T')[0]
-    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,?,CURDATE(),?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,NULL)', asesoData);
     // (`INSERT INTO actualizacion (nombreSolicitud, email, fechaSolicitud, Solicitud, tipo, apellidoSolicitante, nombreSolicitante, introduccion, status, nota) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)`,  [req.body.nombreSolicitud, req.session.user, fecha, req.body.Solicitud, req.body.tipo, req.body.apellidoSolicitanteA, req.body.nombreSolicitanteA, req.body.introduccion, 1, null]);
     console.log("El pakage a enviar: ", asesoData)
     console.log("El qryRes: ", qryRes)
@@ -620,12 +634,12 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
     let proyData = [
       req.session.user, // email
       req.body.nombreSolicitud,
-      req.body.tipo,
+      req.body.solicitud,
       /* ^ tipo-------------------------
       /* 1: Carrera
       /* 2: Actualizacion
       /* ------------------------------*/
-      req.body.asunto,
+      req.body.tipo,
       /* ^ asunto-------------------------
       /* 1: Pregrado
       /* 2: Postgrado

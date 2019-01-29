@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   let dataProyectos = [];
   let datasesorias = [];
+  let datainvestigacion = [];
   let user;
 
   //////////////////////////////////////////////////////////////////////////////
@@ -118,7 +119,66 @@ $(document).ready(function() {
       });
     });
 
+    //////////////////////////////////////////////////////////////////////////////
+    let tablaI = $('#dataTableInvestigacion').DataTable({
+      ajax: '/getInvestigacion',
+      columns: [
+        { data: 'id' },
+        { data: 'nombreSolicitud' },
+        { data: 'apellidoSolicitante'},
+        { data: 'solicitud' },
+        { data: 'tipo' },
+        { data: 'status' },
+      ],
+      order: [[0, 'desc']],
+      createdRow: function (row, data, dataIndex) {
+        switch (data.solicitud) {
+          case 1: data.solicitud = 'Creacion'; break;
+          case 2: data.solicitud = 'Rediseño'; break;
+        }
+        switch (data.tipo) {
+          case 1: data.tipo = 'Pregrado'; break;
+          case 2: data.tipo = 'Postgrado'; break;
+          case 3: data.tipo = 'Diplomado'; break;
+        }
+        switch (data.status) {
+          case 0: data.status = 'esperando correccion'; break;
+          case 1: data.status = 'recibido'; break;
+          case 2: data.status = 'para revisar'; break;
+          case 3: data.status = 'rechazado por D.D.Curricular'; break;
+          case 4: data.status = 'validado'; break;
+          case 5: data.status = 'rechazado por consejo'; break;
+          case 6: data.status = 'aprobado'; break;
+          case 7: data.status = 'finalizado'; break;
+        }
+      },
+      rowCallback: function (row, data) {
+        switch (data.solicitud) {
+          case 'Creacion': $('td:eq(3)', row).html('Creacion'); break;
+          case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
+        }
+        switch (data.tipo) {
+          case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
+          case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
+          case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
+        }
+        switch (data.status) {
+          case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
+          case 'recibido': $('td:eq(5)', row).html('recibido'); break;
+          case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
+          case 'rechazado por D.D.Curricular': $('td:eq(5)', row).html('rechazado por D.D.Curricular'); break;
+          case 'validado': $('td:eq(5)', row).html('validado'); break;
+          case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+          case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
+          case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+        }
+        $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
+      },
+    });
 
+    tablaI.on('xhr', function () {
+      datasinvestigacion = tablaI.ajax.json().data;
+    });
   //////////////////////////////////////////////////////////////////////////////
 
   let tabla = $('#dataTable').DataTable({
@@ -127,20 +187,20 @@ $(document).ready(function() {
       { data: 'id' },
       { data: 'nombreSolicitud' },
       { data: 'apellidoSolicitante'},
+      { data: 'solicitud' },
       { data: 'tipo' },
-      { data: 'asunto' },
       { data: 'status' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
-      switch (data.tipo) {
-        case 1: data.tipo = 'Creacion'; break;
-        case 2: data.tipo = 'Rediseño'; break;
+      switch (data.solicitud) {
+        case 1: data.solicitud = 'Creacion'; break;
+        case 2: data.solicitud = 'Rediseño'; break;
       }
-      switch (data.asunto) {
-        case 1: data.asunto = 'Pregrado'; break;
-        case 2: data.asunto = 'Postgrado'; break;
-        case 3: data.asunto = 'Diplomado'; break;
+      switch (data.tipo) {
+        case 1: data.tipo = 'Pregrado'; break;
+        case 2: data.tipo = 'Postgrado'; break;
+        case 3: data.tipo = 'Diplomado'; break;
       }
       switch (data.status) {
         case 0: data.status = 'esperando correccion'; break;
@@ -154,11 +214,11 @@ $(document).ready(function() {
       }
     },
     rowCallback: function (row, data) {
-      switch (data.tipo) {
+      switch (data.solicitud) {
         case 'Creacion': $('td:eq(3)', row).html('Creacion'); break;
         case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
       }
-      switch (data.asunto) {
+      switch (data.tipo) {
         case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
         case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
         case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
@@ -196,10 +256,11 @@ $(document).ready(function() {
 
       let fields = {};
       fields.id = document.getElementById('projectModalLabel');
-      fields.nombreP = document.getElementById('projectModalNombre');
-      fields.tipoP = document.getElementById('projectModalTipoP');
-      fields.statusP = document.getElementById('projectModalStatusP');
       fields.fechaP = document.getElementById('projectModalFechaP');
+      fields.solicitudP = document.getElementById('projectModalSolicitudP');
+      fields.tipoP = document.getElementById('projectModalTipoP');
+      fields.nombreP = document.getElementById('projectModalNombre');
+      fields.statusP = document.getElementById('projectModalStatusP');
       fields.solicitanteP = document.getElementById('projectModalSolicitanteP');
       fields.disennoP = document.getElementById('projectModalDisennoP');
       fields.coordinadorP = document.getElementById('projectModalCoordinadorP');
@@ -213,9 +274,10 @@ $(document).ready(function() {
       ////////////////
 
       fields.id.innerText = 'Solicitud AVAL ID: ' + rowData.id;
-      fields.nombreP.innerText = rowData.nombreSolicitud;
-      fields.tipoP.innerText = rowData.tipo;
       fields.fechaP.innerText = rowData.fechaSolicitud.split('T')[0];
+      fields.solicitudP.innerText = rowData.solicitud;
+      fields.tipoP.innerText = rowData.tipo;
+      fields.nombreP.innerText = rowData.nombreSolicitud;
       //fields.statusP.innerText = rowData.status;
       //fields.fechaP.innerText = (new Date(rowData.fechaSolicitud)) == 'Invalid Date' ? rowData.fechaSolicitud.split('T')[0] : (new Date(rowData.fechaSolicitud)).toLocaleDateString();*/
       fields.solicitanteP.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
@@ -224,7 +286,6 @@ $(document).ready(function() {
       fields.introduccionP.innerText = rowData.introduccion;
       fields.participantesP.innerText = rowData.participantes;
       fields.descripcionP.innerText = rowData.descripcion;
-
 
       // Para mostrar los documentos del proyecto
       $.ajax({
