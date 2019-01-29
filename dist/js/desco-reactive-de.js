@@ -145,22 +145,44 @@ $(document).ready(function () {
           fields.introduccionA.innerText = rowData.introduccion;
 
 
+          // PAra mostrar el select de estatus si aun no está aprobado
+          let selectHtml = `
+          <div class="input-group mb-3 descoDetails">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="status">Estatus</label>
+            </div>
+            <select required name="status" class="custom-select" id="status">
+              <option value="0" ${status2Num(rowData.status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
+              <option value="1" ${status2Num(rowData.status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
+              <option value="2" ${status2Num(rowData.status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
+              <option value="3" ${status2Num(rowData.status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
+              <option value="4" ${status2Num(rowData.status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
+              <option value="5" ${status2Num(rowData.status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
+              <option value="6" ${status2Num(rowData.status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
+            </select>
+          </div>
+          <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
+          let textStatusHtml = `
+          <div class="form-group descoDetails" >
+            <div class="form-label-group mx-auto" style="width: fit-content">
+              <input value="${rowData.status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
+              <label for="status">Estatus</label>
+            </div>
+          </div>
+          <br>`
+
           // Para mostrar detalles segun estatus
           let plusesHtml = '';
-          plusesHtml = `<br>
-          <table id="projectPlusesA" class="table-bordered"
-          cellpadding="5" cellspacing="0" border="0"
-          style="padding-left:50px; margin:auto;">
-          <tr>
-          <td>Estatus:</td>
-          <td>${rowData.status}</td>
-          </tr>
-          <tr>
-          <td>Nota:</td>
-          <td>${rowData.nota ? rowData.nota:''}</td>
-          </tr>
-          </table>
-          <br>`;
+          plusesHtml =
+          `<form method="post" action="/asesoriasUpdate">
+            <input class="d-none" name="id" value="${rowData.idA}"></id>
+            <div class="form-group descoDetails">
+              <label for="nota">Nota  para el usuario que subió el proyecto</label>
+              <textarea ${status2Num(rowData.status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${rowData.nota ? rowData.nota : ''}</textarea>
+            </div>
+            <br>
+            ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
+          </form>`;
 
           fields.pluses.innerHTML = plusesHtml;
         });
@@ -263,22 +285,44 @@ $(document).ready(function () {
             fields.solicitanteI.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
             fields.introduccionI.innerText = rowData.introduccion;
 
+            // PAra mostrar el select de estatus si aun no está aprobado
+            let selectHtml = `
+            <div class="input-group mb-3 descoDetails">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="status">Estatus</label>
+              </div>
+              <select required name="status" class="custom-select" id="status">
+                <option value="0" ${status2Num(rowData.status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
+                <option value="1" ${status2Num(rowData.status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
+                <option value="2" ${status2Num(rowData.status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
+                <option value="3" ${status2Num(rowData.status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
+                <option value="4" ${status2Num(rowData.status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
+                <option value="5" ${status2Num(rowData.status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
+                <option value="6" ${status2Num(rowData.status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
+              </select>
+            </div>
+            <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
+            let textStatusHtml = `
+            <div class="form-group descoDetails" >
+              <div class="form-label-group mx-auto" style="width: fit-content">
+                <input value="${rowData.status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
+                <label for="status">Estatus</label>
+              </div>
+            </div>
+            <br>`
+
             // Para mostrar detalles segun estatus
             let plusesHtml = '';
-            plusesHtml = `<br>
-            <table id="projectPlusesA" class="table-bordered"
-            cellpadding="5" cellspacing="0" border="0"
-            style="padding-left:50px; margin:auto;">
-            <tr>
-            <td>Estatus:</td>
-            <td>${rowData.status}</td>
-            </tr>
-            <tr>
-            <td>Nota:</td>
-            <td>${rowData.nota ? rowData.nota:''}</td>
-            </tr>
-            </table>
-            <br>`;
+            plusesHtml =
+            `<form method="post" action="/investigacionUpdate">
+              <input class="d-none" name="id" value="${rowData.id}"></id>
+              <div class="form-group descoDetails">
+                <label for="nota">Nota  para el usuario que subió el proyecto</label>
+                <textarea ${status2Num(rowData.status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${rowData.nota ? rowData.nota : ''}</textarea>
+              </div>
+              <br>
+              ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
+            </form>`;
 
             fields.pluses.innerHTML = plusesHtml;
           });
@@ -649,9 +693,9 @@ $(document).ready(function () {
       case 0: return 'Nuevo'; break;
       case 1: return 'recibido'; break;
       case 2: return 'En revision'; break;
-      case 3: return 'devuelto por error de carga'; break;
+      case 3: return 'Devuelto por error de carga'; break;
       case 4: return 'validado'; break;
-      case 5: return 'rechazado por Curriculum'; break;
+      case 5: return 'rechazado'; break;
       case 6: return 'aprobado'; break;
       case 7: return 'finalizado'; break;
     }

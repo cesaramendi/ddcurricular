@@ -370,6 +370,28 @@ app.post('/carreraUpdate', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.post('/asesoriasUpdate', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 2)) {
+    let nota = req.body.nota == ''? null : req.body.nota;
+    await pool.query('UPDATE asesorias SET nota=?, status=? WHERE idA=?', [nota, req.body.status, req.body.id]);
+    res.redirect('/dashboard');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.post('/investigacionUpdate', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 2)) {
+    let nota = req.body.nota == ''? null : req.body.nota;
+    await pool.query('UPDATE actualizacion SET nota=?, status=? WHERE id=?', [nota, req.body.status, req.body.id]);
+    res.redirect('/dashboard');
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.post('/editUser', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
     if(req.body.pass == undefined) {
