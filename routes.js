@@ -7,8 +7,8 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Elije la carpeta donde guardar segun el tipo de proyecto
     let tipo = 'ServicioComunitario/';
-    console.log("req.body.tipo", req.body.tipo);
-    switch ((req.body.tipo)) {
+    //console.log("req.body.tipo", req.body.tipo);
+    switch (req.body.tipo) {
       //case 1: tipo = 'ServicioComunitario/'; break;
       case 2: tipo = 'Extension/'; break;
       case 3: tipo = 'Aval/'; break;
