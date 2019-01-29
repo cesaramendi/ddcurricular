@@ -71,24 +71,22 @@ app.get('/dashboard', (req, res) => {
   } else {
     forbid(res);
   }
-})
+});
+
 app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudA.html');
-}))
+}));
 
-app.get('/Reporte', asyncMiddleware( async(req, res) => {
-  if(req.session.rol == 1) {
-    send(res, 'admin/Reporte.html');
-  } else if(req.session.rol == 2) {
+app.get('/Reporte', (req, res) => {
+  if(req.session.rol == 2) {
     send(res, 'desco/Reporte.html');
   } else if(req.session.rol == 3) {
     send(res, 'facultad/Reporte.html');
   } else {
     forbid(res);
   }
+});
 
-   send(res, 'facultad/Reporte.html');
-}))
 app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
   if(true) {
     send(res, 'facultad/enviarProyecto.html');
@@ -115,8 +113,7 @@ app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
 
     res.redirect('/success');
 
-
-}))
+}));
 app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
     send(res, 'facultad/enviarProyecto.html');
