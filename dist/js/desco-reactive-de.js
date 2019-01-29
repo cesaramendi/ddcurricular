@@ -145,46 +145,9 @@ $(document).ready(function () {
           fields.introduccionA.innerText = rowData.introduccion;
 
 
-          // PAra mostrar el select de estatus si aun no está aprobado
-          let selectHtml = `
-          <div class="input-group mb-3 descoDetails">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="status">Estatus</label>
-            </div>
-            <select required name="status" class="custom-select" id="status">
-              <option value="0" ${status2Num(rowData.status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
-              <option value="1" ${status2Num(rowData.status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
-              <option value="2" ${status2Num(rowData.status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
-              <option value="3" ${status2Num(rowData.status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
-              <option value="4" ${status2Num(rowData.status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
-              <option value="5" ${status2Num(rowData.status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
-              <option value="6" ${status2Num(rowData.status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
-            </select>
-          </div>
-          <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
-          let textStatusHtml = `
-          <div class="form-group descoDetails" >
-            <div class="form-label-group mx-auto" style="width: fit-content">
-              <input value="${rowData.status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
-              <label for="status">Estatus</label>
-            </div>
-          </div>
-          <br>`
+          // PAra mostrar el select de estatus si aun no está aprobado ASESORIA
 
-          // Para mostrar detalles segun estatus
-          let plusesHtml = '';
-          plusesHtml =
-          `<form method="post" action="/asesoriasUpdate">
-            <input class="d-none" name="id" value="${rowData.idA}"></id>
-            <div class="form-group descoDetails">
-              <label for="nota">Nota  para el usuario que subió el proyecto</label>
-              <textarea ${status2Num(rowData.status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${rowData.nota ? rowData.nota : ''}</textarea>
-            </div>
-            <br>
-            ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
-          </form>`;
-
-          fields.pluses.innerHTML = plusesHtml;
+          fields.pluses.innerHTML = pluses(rowData.idA,rowData.tipo,rowData.status,rowData.nota,'/asesoriasUpdate');
         });
       });
       //////////////////////////////////////////////////////////////////////////////
@@ -285,46 +248,9 @@ $(document).ready(function () {
             fields.solicitanteI.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
             fields.introduccionI.innerText = rowData.introduccion;
 
-            // PAra mostrar el select de estatus si aun no está aprobado
-            let selectHtml = `
-            <div class="input-group mb-3 descoDetails">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="status">Estatus</label>
-              </div>
-              <select required name="status" class="custom-select" id="status">
-                <option value="0" ${status2Num(rowData.status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
-                <option value="1" ${status2Num(rowData.status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
-                <option value="2" ${status2Num(rowData.status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
-                <option value="3" ${status2Num(rowData.status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
-                <option value="4" ${status2Num(rowData.status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
-                <option value="5" ${status2Num(rowData.status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
-                <option value="6" ${status2Num(rowData.status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
-              </select>
-            </div>
-            <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
-            let textStatusHtml = `
-            <div class="form-group descoDetails" >
-              <div class="form-label-group mx-auto" style="width: fit-content">
-                <input value="${rowData.status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
-                <label for="status">Estatus</label>
-              </div>
-            </div>
-            <br>`
+            // PAra mostrar el select de estatus si aun no está aprobado INVESTIGACION
 
-            // Para mostrar detalles segun estatus
-            let plusesHtml = '';
-            plusesHtml =
-            `<form method="post" action="/investigacionUpdate">
-              <input class="d-none" name="id" value="${rowData.id}"></id>
-              <div class="form-group descoDetails">
-                <label for="nota">Nota  para el usuario que subió el proyecto</label>
-                <textarea ${status2Num(rowData.status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${rowData.nota ? rowData.nota : ''}</textarea>
-              </div>
-              <br>
-              ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
-            </form>`;
-
-            fields.pluses.innerHTML = plusesHtml;
+            fields.pluses.innerHTML = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/investigacionUpdate');
           });
         });
 /////////////////////////////////////////////////////////////////////////////
@@ -487,45 +413,8 @@ $(document).ready(function () {
         fields.files.innerHTML = htmlFiles;
 
         // PAra mostrar el select de estatus si aun no está aprobado
-        let selectHtml = `
-        <div class="input-group mb-3 descoDetails">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="status">Estatus</label>
-          </div>
-          <select required name="status" class="custom-select" id="status">
-            <option value="0" ${status2Num(rowData.status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
-            <option value="1" ${status2Num(rowData.status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
-            <option value="2" ${status2Num(rowData.status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
-            <option value="3" ${status2Num(rowData.status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
-            <option value="4" ${status2Num(rowData.status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
-            <option value="5" ${status2Num(rowData.status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
-            <option value="6" ${status2Num(rowData.status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
-          </select>
-        </div>
-        <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
-        let textStatusHtml = `
-        <div class="form-group descoDetails" >
-          <div class="form-label-group mx-auto" style="width: fit-content">
-            <input value="${rowData.status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
-            <label for="status">Estatus</label>
-          </div>
-        </div>
-        <br>`
-
-
-        // Para mostrar detalles segun estatus
         let plusesHtml = '';
-        plusesHtml =
-        `<form method="post" action="/carreraUpdate">
-          <input class="d-none" name="id" value="${rowData.id}"></id>
-          <div class="form-group descoDetails">
-            <label for="nota">Nota  para el usuario que subió el proyecto</label>
-            <textarea ${status2Num(rowData.status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${rowData.nota ? rowData.nota : ''}</textarea>
-          </div>
-          <br>
-          ${status2Num(rowData.status) >= 6? textStatusHtml : selectHtml}
-        </form>`;
-
+        plusesHtml = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/carreraUpdate');
 
         // Si está aprobado & no ha subido el aval
         if (status2Num(rowData.status) >= 6 && !(filesByTipo.find(x => x[0].tipo == 3)) ) { // Falta modificar para que ingrese aval, no cualquier archivo
@@ -719,5 +608,48 @@ $(document).ready(function () {
       return j[v];
     });
   }
+
+  function pluses(id, tipo, status, nota, ruta){
+    // PAra mostrar el select de estatus si aun no está aprobado
+    let selectHtml = `
+    <div class="input-group mb-3 descoDetails">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="status">Estatus</label>
+      </div>
+      <select required name="status" class="custom-select" id="status">
+        <option value="0" ${status2Num(status) == 0 ? 'selected' : ''}>${num2Status(0)}</option>
+        <option value="1" ${status2Num(status) == 1 ? 'selected' : ''}>${num2Status(1)}</option>
+        <option value="2" ${status2Num(status) == 2 ? 'selected' : ''}>${num2Status(2)}</option>
+        <option value="3" ${status2Num(status) == 3 ? 'selected' : ''}>${num2Status(3)}</option>
+        <option value="4" ${status2Num(status) == 4 ? 'selected' : ''}>${num2Status(4)}</option>
+        <option value="5" ${status2Num(status) == 5 ? 'selected' : ''}>${num2Status(5)}</option>
+        <option value="6" ${status2Num(status) == 6 ? 'selected' : ''}>${num2Status(6)}</option>
+      </select>
+    </div>
+    <input class="btn btn-primary btn-block descoDetails" type="submit" value="Actualizar">`;
+    let textStatusHtml = `
+    <div class="form-group descoDetails" >
+      <div class="form-label-group mx-auto" style="width: fit-content">
+        <input value="${status}" id="status" class="form-control text-center" placeholder="Estatus" disabled name="status">
+        <label for="status">Estatus</label>
+      </div>
+    </div>
+    <br>`;
+
+    // Para mostrar detalles segun estatus
+    let plusesHtml = '';
+    plusesHtml =
+    `<form method="post" action="${ruta}">
+      <input class="d-none" name="id" value="${id}"></id>
+      <div class="form-group descoDetails">
+        <label for="nota">Nota  para el usuario que subió el proyecto</label>
+        <textarea ${status2Num(status) >= 6? 'disabled' : ''} class="form-control descoDetails" id="nota" name="nota">${nota ? nota : ''}</textarea>
+      </div>
+      <br>
+      ${status2Num(status) >= 6? textStatusHtml : selectHtml}
+    </form>`;
+
+    return plusesHtml;
+  } //fin function pluses()
 
 });
