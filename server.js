@@ -5,14 +5,16 @@ const session = require('cookie-session');
 const app = express();
 
 app.use(session({
+  /*name: 'session',
+  keys: ['key1', 'key2', 'desco', 'vida'],*/
   name: 'session',
-  keys: ['key1', 'key2', 'desco', 'vida'],
+  keys: ['key1', 'key2', 'desco', 'vida','CBuc7rr@'],
   cookie: {
     //secure: true,
     httpOnly: true,
     //domain: '',
     //path: '',
-    maxAge: 1000 * 60,
+    maxAge: 60*60*1000,
   }
 }))
 

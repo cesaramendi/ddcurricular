@@ -2,58 +2,6 @@ $(document).ready(function () {
 
   $('.fecha').text((new Date().toLocaleString()));
 
-  let dataProyectos = [];
-  let datasesorias = [];
-  let user;
-  /*
-  let tabla = $('#dataTable').DataTable({
-    ajax: '/getProyectos',
-    columns: [
-      { data: 'id' },
-      { data: 'nombreProyecto' },
-      { data: 'responsables' },
-      { data: 'ubicacionGeografica' },
-      { data: 'tipo' },
-      { data: 'status' },
-    ],
-    order: [[0, 'desc']],
-    createdRow: function (row, data, dataIndex) {
-      if (data.tipo == 1) {
-        data.tipo = 'Pregrado';
-      } else if (data.tipo == 2) {
-        data.tipo = 'Posgredo';
-      }
-      switch (data.status) {
-        case 0: data.status = 'esperando correccion'; break;
-        case 1: data.status = 'recibido'; break;
-        case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'devuelto '; break;
-        case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
-        case 6: data.status = 'aprobado'; break;
-        case 7: data.status = 'finalizado'; break;
-      }
-    },
-    rowCallback: function (row, data) {
-      if (data.tipo == 'Pregrado') {
-        $('td:eq(4)', row).html('Pregrado');
-      } else if (data.tipo == 'Posgredo') {
-        $('td:eq(4)', row).html('Posgredo');
-      }
-      switch (data.status) {
-        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
-        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
-        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'devuelto': $('td:eq(5)', row).html('devuelto'); break;
-        case 'validado': $('td:eq(5)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
-        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
-      }
-      $('td:eq(2)', row).html(data.responsables.split('\n')[0]);
-    },
-  });
-*/
   //////////////////////////////////////////////////////////////////////////////
   let tablaA = $('#dataTableAsesoria').DataTable({
     ajax: '/getAsesorias',
@@ -115,9 +63,10 @@ $(document).ready(function () {
         let row = tablaA.row(tr);
         let rowData = row.data();
 
-        $('#projectModalAsesoria').addClass('isloading');
-        $("#projectModalAsesoria").modal('toggle');
-        $('#projectModalAsesoria').off('shown.bs.modal').on('shown.bs.modal', function () {
+        let projectModalAsesoria = "#projectModalAsesoria";
+        $(projectModalAsesoria).addClass('isloading');
+        $(projectModalAsesoria).modal('toggle');
+        $(projectModalAsesoria).off('shown.bs.modal').on('shown.bs.modal', function () {
 
           let fields = {};
           fields.idA = document.getElementById('projectModalLabelA');
@@ -145,9 +94,14 @@ $(document).ready(function () {
           fields.introduccionA.innerText = rowData.introduccion;
 
 
-          // PAra mostrar el select de estatus si aun no está aprobado ASESORIA
-
-          fields.pluses.innerHTML = pluses(rowData.idA,rowData.tipo,rowData.status,rowData.nota,'/asesoriasUpdate');
+          $.ajax({
+            method: 'get',
+            url: '/getDocsFromProject?id=' + rowData.idA,
+          }).done(function (res) {
+            $(projectModalAsesoria).removeClass('isloading');
+            // PAra mostrar el select de estatus si aun no está aprobado ASESORIA
+            fields.pluses.innerHTML = pluses(rowData.idA,rowData.tipo,rowData.status,rowData.nota,'/asesoriasUpdate');
+          });
         });
       });
       //////////////////////////////////////////////////////////////////////////////
@@ -212,16 +166,16 @@ $(document).ready(function () {
       });
 
       ///////////mostrar detalles al darle click a una fila investigacion
-
         $('#dataTableInvestigacion tbody').on('click', 'tr', function () {
           let tr = $(this).closest('tr');
           let tdi = tr.find("i.fa");
           let row = tablaI.row(tr);
           let rowData = row.data();
 
-          $('#projectModalInvestigacion').addClass('isloading');
-          $("#projectModalInvestigacion").modal('toggle');
-          $('#projectModalInvestigacion').off('shown.bs.modal').on('shown.bs.modal', function () {
+          let projectModal = "#projectModalInvestigacion";
+          $(projectModal).addClass('isloading');
+          $(projectModal).modal('toggle');
+          $(projectModal).off('shown.bs.modal').on('shown.bs.modal', function () {
 
             let fields = {};
             fields.idI = document.getElementById('projectModalLabelI');
@@ -233,8 +187,8 @@ $(document).ready(function () {
             fields.solicitanteI = document.getElementById('projectModalSolicitanteI');
             fields.introduccionI = document.getElementById('projectModalIntroduccionI');
 
-            /*fields.filesHeads = document.getElementById('projectModalFilesHeads');
-            fields.files = document.getElementById('tableProjectFiles');*/
+            //fields.filesHeads = document.getElementById('projectModalFilesHeadsI');
+            fields.files = document.getElementById('tableProjectFilesI');
             fields.pluses = document.getElementById('projectModalPlusesI');
             ////////////////
 
@@ -248,9 +202,22 @@ $(document).ready(function () {
             fields.solicitanteI.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
             fields.introduccionI.innerText = rowData.introduccion;
 
-            // PAra mostrar el select de estatus si aun no está aprobado INVESTIGACION
 
-            fields.pluses.innerHTML = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/investigacionUpdate');
+
+            $.ajax({
+              method: 'get',
+              url: '/getDocsFromProjectI?id=' + rowData.id,
+            }).done(function (res) {
+              $(projectModal).removeClass('isloading');
+
+              rowData.files = res.data;
+
+              // Para mostrar los documentos del proyecto
+              fields.files.innerHTML = files(res);
+
+              // PAra mostrar el select de estatus si aun no está aprobado INVESTIGACION
+              fields.pluses.innerHTML = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/investigacionUpdate');
+            });
           });
         });
 /////////////////////////////////////////////////////////////////////////////
@@ -342,7 +309,7 @@ $(document).ready(function () {
       fields.participantesP = document.getElementById('projectModalParticipantesP');
       fields.descripcionP = document.getElementById('projectModalDescripcionP');
 
-      fields.filesHeads = document.getElementById('projectModalFilesHeads');
+      //fields.filesHeads = document.getElementById('projectModalFilesHeads');
       fields.files = document.getElementById('tableProjectFiles');
       fields.pluses = document.getElementById('projectModalPluses');
       ////////////////
@@ -362,55 +329,21 @@ $(document).ready(function () {
       fields.descripcionP.innerText = rowData.descripcion;
 
 
-      // Para mostrar los documentos del proyecto
+      // Para mostrar los documentos del proyecto y pluses
+
       $.ajax({
         method: 'get',
         url: '/getDocsFromProject?id=' + rowData.id,
       }).done(function (res) {
+
         $('#projectModal').removeClass('isloading');
+
         rowData.files = res.data;
-        // Obtenemos cuantos tipos de documentos tiene el proyecto
-        let nTipos = [];
-        for (let i = 0; i < res.data.length; i++) {
-          if (!nTipos.find(x => x == res.data[i].tipo)) nTipos.push(res.data[i].tipo);
-        };
-        nTipos.sort();
-        //Se obtiene un arreglo donde cada indice tiene todos los documentos de un mismo tipo
-        let filesByTipo = [];
-        let cabeceraHtml = '';
-        for (let i = 0; i < nTipos.length; i++) {
-          let cabecera = '';
-          switch (nTipos[i]) {
-            case 1: cabecera = 'Originales'; break;
-            case 2: cabecera = 'Actualizados'; break;
-            case 3: cabecera = 'Aval'; break;
-            case 4: cabecera = 'Avances'; break;
-            case 5: cabecera = 'Final'; break;
-          };
-          if (cabecera != 'Avances') cabeceraHtml = cabeceraHtml + `<th>${cabecera}</th>`;
-          filesByTipo.push(res.data.filter(x => x.tipo == nTipos[i]));
-        }
-        fields.filesHeads.innerHTML = cabeceraHtml;
-        // Obtenemos el maximo doc.numero
-        let maxNumero = Math.max.apply(Math, res.data.map(x => x.numero));
-        let htmlFiles = '';
-        for (let k = 0; k < maxNumero; k++) {
-          htmlFiles = htmlFiles + `<tr>`;
-          for (let i = 0; i < filesByTipo.length; i++) {
-            filesByTipo[i].sort((a, b) => a.numero - b.numero);
-            if(filesByTipo[i][0].tipo != 4){
-              if (filesByTipo[i][k]) {
-                htmlFiles = htmlFiles +
-                `<td><a target="_blank" href="${filesByTipo[i][k].ruta}">Archivo ${filesByTipo[i][k].numero}</a></td>`;
-              } else {
-                htmlFiles = htmlFiles +
-                ``;
-              }
-            }
-          }
-          htmlFiles = htmlFiles + `</tr>`;
-        }
-        fields.files.innerHTML = htmlFiles;
+
+        //fields.files.innerHTML = htmlFiles;
+
+        // Para mostrar los documentos del proyecto
+        fields.files.innerHTML = files(res);
 
         // PAra mostrar el select de estatus si aun no está aprobado
         let plusesHtml = '';
@@ -479,6 +412,7 @@ $(document).ready(function () {
         let avancesModal = $('#avancesModal');
         let participantesModal = $('#participantesModal');
 
+        /*
         participantesModal.off('show.bs.modal').on('show.bs.modal', function() {
           let participantesHtml = `
           <table class="table">
@@ -549,7 +483,7 @@ $(document).ready(function () {
             document.getElementById('avancesModalBody').innerHTML = avancesHtml;
           });
         }); // fin evento aparicion avances modal
-
+        */
 
         //colorear en rojo la tabla de estatus
         if (status2Num(rowData.status) == 0) $('#projectPluses').addClass('atention');
@@ -651,5 +585,58 @@ $(document).ready(function () {
 
     return plusesHtml;
   } //fin function pluses()
+
+    function files(res){
+      // Obtenemos cuantos tipos de documentos tiene el proyecto
+      let nTipos = [];
+      for (let i = 0; i < res.data.length; i++) {
+        if (!nTipos.find(x => x == res.data[i].tipo)) nTipos.push(res.data[i].tipo);
+      };
+      nTipos.sort();
+      //Se obtiene un arreglo donde cada indice tiene todos los documentos de un mismo tipo
+      let filesByTipo = [];
+      let cabeceraHtml = '';
+      for (let i = 0; i < nTipos.length; i++) {
+        let cabecera = '';
+        switch (nTipos[i]) {
+          case 1: cabecera = 'Originales'; break;
+          case 2: cabecera = 'Actualizados'; break;
+          case 3: cabecera = 'Aval'; break;
+          case 4: cabecera = 'Avances'; break;
+          case 5: cabecera = 'Final'; break;
+        };
+        if (cabecera != 'Avances') cabeceraHtml = cabeceraHtml + `<th>${cabecera}</th>`;
+        filesByTipo.push(res.data.filter(x => x.tipo == nTipos[i]));
+      }
+
+
+      //fields.filesHeads.innerHTML = cabeceraHtml;
+      cabeceraHtml = `</tr>`+cabeceraHtml+`</tr>`;
+
+      // Obtenemos el maximo doc.numero
+      let maxNumero = Math.max.apply(Math, res.data.map(x => x.numero));
+      let htmlFiles = '';
+      for (let k = 0; k < maxNumero; k++) {
+        htmlFiles = htmlFiles + `<tr>`;
+        for (let i = 0; i < filesByTipo.length; i++) {
+          filesByTipo[i].sort((a, b) => a.numero - b.numero);
+          if(filesByTipo[i][0].tipo != 4){
+            if (filesByTipo[i][k]) {
+              htmlFiles = htmlFiles +
+              `<td><a target="_blank" href="${filesByTipo[i][k].ruta}">Archivo ${filesByTipo[i][k].numero}</a></td>`;
+            } else {
+              htmlFiles = htmlFiles +
+              ``;
+            }
+          }
+        }
+        htmlFiles = htmlFiles + `</tr>`;
+      }
+
+      //fields.files.innerHTML = htmlFiles;
+      htmlFiles = cabeceraHtml+`<tbody`+htmlFiles+`<tbody`;
+
+      return htmlFiles;
+  }//fin de ver archivos
 
 });

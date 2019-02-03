@@ -73,7 +73,7 @@ CREATE TABLE avances(
 CREATE TABLE documentos(
   id                    INT UNSIGNED NOT NULL AUTO_INCREMENT,
   refProyecto           INT UNSIGNED DEFAULT NULL,
-  refActualizacion      INT UNSIGNED DEFAULT NULL,
+  refAvance      INT UNSIGNED DEFAULT NULL,
   ruta                  VARCHAR(380) NOT NULL,
   nombreDoc             VARCHAR(350) NOT NULL,
   fechaSubida           DATE NOT NULL,
@@ -131,8 +131,8 @@ CREATE TABLE participantes(
 -- Para acceder a la base de datos desde el cliente
 -- Se crea un usuario no-root con todos los privilegios sobre
 -- la database interoperables
-CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'usuario';
-GRANT ALL PRIVILEGES  ON descouc.* TO 'usuario'@'localhost';
+CREATE USER 'aramendi'@'localhost' IDENTIFIED BY '22552994';
+GRANT ALL PRIVILEGES  ON curriculum.* TO 'aramendi'@'localhost';
 
 -- Para acceder al sistema se necesita minimo un usuario administrador
 -- Modificar a gusto (email,pass,rol,facultad)

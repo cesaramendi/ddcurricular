@@ -140,6 +140,15 @@ app.get('/getDocsFromProject', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/getDocsFromProjectI', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
+    let data = await pool.query('SELECT ruta,tipo,numero,refProyecto FROM documentos WHERE refAvance=?',[req.query.id]);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/getParticipantesFromProject', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
     let data = await pool.query('SELECT * FROM participantes WHERE refProyecto=?',[req.query.id]);

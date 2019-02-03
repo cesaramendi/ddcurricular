@@ -68,9 +68,10 @@ $(document).ready(function() {
       let row = tablaA.row(tr);
       let rowData = row.data();
 
-      $('#projectModalAsesoria').addClass('isloading');
-      $("#projectModalAsesoria").modal('toggle');
-      $('#projectModalAsesoria').off('shown.bs.modal').on('shown.bs.modal', function () {
+      let projectModal = "#projectModalAsesoria";
+      $(projectModal).addClass('isloading');
+      $(projectModal).modal('toggle');
+      $(projectModal).off('shown.bs.modal').on('shown.bs.modal', function () {
 
         let fields = {};
         fields.idA = document.getElementById('projectModalLabelA');
@@ -97,25 +98,36 @@ $(document).ready(function() {
         fields.lugarA.innerText = rowData.lugar;
         fields.introduccionA.innerText = rowData.introduccion;
 
+        $.ajax({
+          method: 'get',
+          url: '/getDocsFromProjectI?id=' + rowData.id,
+        }).done(function (res) {
+          $(projectModal).removeClass('isloading');
+
+          rowData.files = res.data;
+
+        // Para mostrar los documentos del proyecto
+          fields.files.innerHTML = files(res);
 
         // Para mostrar detalles segun estatus
-        let plusesHtml = '';
-        plusesHtml = `<br>
-        <table id="projectPlusesA" class="table-bordered"
-        cellpadding="5" cellspacing="0" border="0"
-        style="padding-left:50px; margin:auto;">
-        <tr>
-        <td>Estatus:</td>
-        <td>${rowData.status}</td>
-        </tr>
-        <tr>
-        <td>Nota:</td>
-        <td>${rowData.nota ? rowData.nota:''}</td>
-        </tr>
-        </table>
-        <br>`;
+          let plusesHtml = '';
+          plusesHtml = `<br>
+          <table id="projectPlusesA" class="table-bordered"
+          cellpadding="5" cellspacing="0" border="0"
+          style="padding-left:50px; margin:auto;">
+          <tr>
+          <td>Estatus:</td>
+          <td>${rowData.status}</td>
+          </tr>
+          <tr>
+          <td>Nota:</td>
+          <td>${rowData.nota ? rowData.nota:''}</td>
+          </tr>
+          </table>
+          <br>`;
 
-        fields.pluses.innerHTML = plusesHtml;
+          fields.pluses.innerHTML = plusesHtml;
+        });
       });
     });
 
@@ -187,9 +199,10 @@ $(document).ready(function() {
         let row = tablaI.row(tr);
         let rowData = row.data();
 
-        $('#projectModalInvestigacion').addClass('isloading');
-        $("#projectModalInvestigacion").modal('toggle');
-        $('#projectModalInvestigacion').off('shown.bs.modal').on('shown.bs.modal', function () {
+        let projectModal = "#projectModalInvestigacion";
+        $(projectModal).addClass('isloading');
+        $(projectModal).modal('toggle');
+        $(projectModal).off('shown.bs.modal').on('shown.bs.modal', function () {
 
           let fields = {};
           fields.idI = document.getElementById('projectModalLabelI');
@@ -201,8 +214,8 @@ $(document).ready(function() {
           fields.solicitanteI = document.getElementById('projectModalSolicitanteI');
           fields.introduccionI = document.getElementById('projectModalIntroduccionI');
 
-          /*fields.filesHeads = document.getElementById('projectModalFilesHeads');
-          fields.files = document.getElementById('tableProjectFiles');*/
+          /*fields.filesHeads = document.getElementById('projectModalFilesHeads');*/
+          fields.files = document.getElementById('tableProjectFilesI');
           fields.pluses = document.getElementById('projectModalPlusesI');
           ////////////////
 
@@ -216,24 +229,36 @@ $(document).ready(function() {
           fields.solicitanteI.innerText = rowData.apellidoSolicitante+' '+rowData.nombreSolicitante;
           fields.introduccionI.innerText = rowData.introduccion;
 
-          // Para mostrar detalles segun estatus
-          let plusesHtml = '';
-          plusesHtml = `<br>
-          <table id="projectPlusesA" class="table-bordered"
-          cellpadding="5" cellspacing="0" border="0"
-          style="padding-left:50px; margin:auto;">
-          <tr>
-          <td>Estatus:</td>
-          <td>${rowData.status}</td>
-          </tr>
-          <tr>
-          <td>Nota:</td>
-          <td>${rowData.nota ? rowData.nota:''}</td>
-          </tr>
-          </table>
-          <br>`;
+          $.ajax({
+            method: 'get',
+            url: '/getDocsFromProjectI?id=' + rowData.id,
+          }).done(function (res) {
+            $(projectModal).removeClass('isloading');
 
-          fields.pluses.innerHTML = plusesHtml;
+            rowData.files = res.data;
+
+          // Para mostrar los documentos del proyecto
+            fields.files.innerHTML = files(res);
+
+          // Para mostrar detalles segun estatus
+            let plusesHtml = '';
+            plusesHtml = `<br>
+            <table id="projectPlusesA" class="table-bordered"
+            cellpadding="5" cellspacing="0" border="0"
+            style="padding-left:50px; margin:auto;">
+            <tr>
+            <td>Estatus:</td>
+            <td>${rowData.status}</td>
+            </tr>
+            <tr>
+            <td>Nota:</td>
+            <td>${rowData.nota ? rowData.nota:''}</td>
+            </tr>
+            </table>
+            <br>`;
+
+            fields.pluses.innerHTML = plusesHtml;
+          });
         });
       });
 
@@ -756,5 +781,57 @@ $(document).ready(function() {
 
   })
 
+  function files(res){//ver archivos
+    // Obtenemos cuantos tipos de documentos tiene el proyecto
+    let nTipos = [];
+    for (let i = 0; i < res.data.length; i++) {
+      if (!nTipos.find(x => x == res.data[i].tipo)) nTipos.push(res.data[i].tipo);
+    };
+    nTipos.sort();
+    //Se obtiene un arreglo donde cada indice tiene todos los documentos de un mismo tipo
+    let filesByTipo = [];
+    let cabeceraHtml = '';
+    for (let i = 0; i < nTipos.length; i++) {
+      let cabecera = '';
+      switch (nTipos[i]) {
+        case 1: cabecera = 'Originales'; break;
+        case 2: cabecera = 'Actualizados'; break;
+        case 3: cabecera = 'Aval'; break;
+        case 4: cabecera = 'Avances'; break;
+        case 5: cabecera = 'Final'; break;
+      };
+      if (cabecera != 'Avances') cabeceraHtml = cabeceraHtml + `<th>${cabecera}</th>`;
+      filesByTipo.push(res.data.filter(x => x.tipo == nTipos[i]));
+    }
+
+
+    //fields.filesHeads.innerHTML = cabeceraHtml;
+    cabeceraHtml = `</tr>`+cabeceraHtml+`</tr>`;
+
+    // Obtenemos el maximo doc.numero
+    let maxNumero = Math.max.apply(Math, res.data.map(x => x.numero));
+    let htmlFiles = '';
+    for (let k = 0; k < maxNumero; k++) {
+      htmlFiles = htmlFiles + `<tr>`;
+      for (let i = 0; i < filesByTipo.length; i++) {
+        filesByTipo[i].sort((a, b) => a.numero - b.numero);
+        if(filesByTipo[i][0].tipo != 4){
+          if (filesByTipo[i][k]) {
+            htmlFiles = htmlFiles +
+            `<td><a target="_blank" href="${filesByTipo[i][k].ruta}">Archivo ${filesByTipo[i][k].numero}</a></td>`;
+          } else {
+            htmlFiles = htmlFiles +
+            ``;
+          }
+        }
+      }
+      htmlFiles = htmlFiles + `</tr>`;
+    }
+
+    //fields.files.innerHTML = htmlFiles;
+    htmlFiles = cabeceraHtml+`<tbody`+htmlFiles+`<tbody`;
+
+    return htmlFiles;
+  }//fin de ver archivos
 
 });
