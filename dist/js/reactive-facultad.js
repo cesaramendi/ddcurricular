@@ -441,7 +441,7 @@ $(document).ready(function() {
         if(status2Num(rowData.status) == 0) {
           plusesHtml = plusesHtml +
           `<form method="post" action="/actualizarDocs" enctype="multipart/form-data">
-          <input class="d-none" type="text" name="nombreProyecto" value="${rowData.nombreProyecto}"/>
+          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
           <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
           <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
           for(let i = 0; i < maxNumero; i++){
@@ -458,6 +458,17 @@ $(document).ready(function() {
           }
           plusesHtml = plusesHtml +
           `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
+          </form>`;
+        }
+        
+        if(status2Num(rowData.status) == 3) {
+
+          plusesHtml = plusesHtml +
+          `<form method="post" action="/enviarProyectoCorregido">
+          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
+          <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
+          <input class="d-none" name="refProyecto" value="${rowData.id}"/>
+          <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
           </form>`;
         }
 

@@ -56,7 +56,7 @@ const asyncMiddleware = fn =>
 
 //rol:
 //// 1: Admin
-//// 2: Desco
+//// 2: Burocratas
 //// 3: Facultad
 
 //GET Requests ------------------------------------
@@ -65,7 +65,7 @@ app.get('/dashboard', (req, res) => {
   if(req.session.rol == 1) {
     send(res, 'admin/dashboard.html');
   } else if(req.session.rol == 2) {
-    send(res, 'desco/dashboard.html');
+    send(res, 'burocratas/dashboard.html');
   } else if(req.session.rol == 3) {
     send(res, 'facultad/dashboard.html');
   } else {
@@ -73,13 +73,17 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
-app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
+app.get('/enviarSolicitudA', asyncMiddleware(async(req, res) => {
+  if(req.session.rol == 1) {
    send(res, 'facultad/enviarSolicitudA.html');
+ } else {
+   forbid(res);
+ }
 }));
 
 app.get('/Reporte', (req, res) => {
   if(req.session.rol == 2) {
-    send(res, 'desco/Reporte.html');
+    send(res, 'burocratas/Reporte.html');
   } else if(req.session.rol == 3) {
     send(res, 'facultad/Reporte.html');
   } else {
@@ -87,13 +91,13 @@ app.get('/Reporte', (req, res) => {
   }
 });
 
-app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
+app.get('/enviarProyecto', asyncMiddleware(async(req, res) => {
   if(true) {
     send(res, 'facultad/enviarProyecto.html');
   } else {
     forbid(res);
   }
-}) );
+}));
 
 app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
   console.log('req.bodya');
@@ -286,8 +290,8 @@ app.get('/success', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3, 2)) {
     if(req.session.rol == 3){
       send(res, 'facultad/success.html');
-    } else {
-      send(res, 'desco/success.html');
+    }else if(req.session.rol == 3) {
+      send(res, 'burocratas/success.html');
     }
   } else {
     forbid(res);
@@ -295,6 +299,7 @@ app.get('/success', asyncMiddleware( async (req, res) => {
 }) );
 
 // POST Requests ---------------------------------
+
 
 app.post('/actualizarDocs', asyncMiddleware(async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) { // Si es valida la sesion
@@ -318,7 +323,7 @@ app.post('/actualizarDocs', asyncMiddleware(async (req, res) => {
             nArchivo,
           ]
           await pool.query('UPDATE documentos SET ruta=?, fechaSubida=NOW() WHERE refProyecto=? && tipo=2 && numero=?', data);
-          await pool.query('UPDATE proyectos SET status=1 WHERE id=?',[req.body.refProyecto]);
+          await pool.query('UPDATE carreras SET status=1 WHERE id=?',[req.body.refProyecto]);
           console.log(req.body.refProyecto);
         }
         res.redirect('/success');
@@ -536,6 +541,30 @@ app.post('/subirAvance', asyncMiddleware(async (req, res) => {
   }
 }))
 
+app.post('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 3)) {
+    console.log(req.body);
+    res.data = req.body;
+    //console.log(res.data);
+    let data = [
+       "req.body.Identificacion",
+       req.body.nombreSolicitud,
+       "req.body.Solicitante",
+       "req.body.lugar",
+       "req.body.Cantidad",
+       "req.body.FechaP",
+       "req.body.Tipo",
+       "req.body.Introducion",
+     ]
+  // await pool.query('INSERT INTO SolicitudDeA VALUES(0,?,?,?,?,?,?,?,?)', data);
+    //console.log(data);
+    //res.json({ data });
+    send(res, 'facultad/correcciones/enviarProyectoCorregido.html');
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
   console.log(req.body);
   console.log(req.files);
@@ -565,7 +594,7 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
       /* 0: esperando correccion
       /* 1: recibido
       /* 2: para revisar
-      /* 3: rechazado por desco
+      /* 3: devuelto
       /* 4: validado
       /* 5: rechazado por consejo
       /* 6: aprobado
@@ -685,7 +714,7 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 0: esperando correccion
       /* 1: recibido
       /* 2: para revisar
-      /* 3: rechazado por desco
+      /* 3: devuelto
       /* 4: validado
       /* 5: rechazado por consejo
       /* 6: aprobado
@@ -740,7 +769,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* 0: esperando correccion
       /* 1: recibido
       /* 2: para revisar
-      /* 3: rechazado por desco
+      /* 3: rechazado por devuelto
       /* 4: validado
       /* 5: rechazado por consejo
       /* 6: aprobado
