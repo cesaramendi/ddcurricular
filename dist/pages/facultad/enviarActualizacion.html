@@ -138,7 +138,7 @@
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="Solicitud">Tipo</label>
+                    <label class="input-group-text" for="Solicitud">Solicitud</label>
                   </div>
                   <select required name="solicitud" class="custom-select" id="solicitud">
                     <option value="">Seleccione...</option>
@@ -150,13 +150,13 @@
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="tipo">Asunto</label>
+                    <label class="input-group-text" for="tipo">Tipo</label>
                   </div>
                   <select required name="tipo" class="custom-select" id="tipo">
                     <option value="">Seleccione...</option>
                     <option value="1">Carrera</option>
-                    <option value="2">Diplomado</option>
-                    <option value="3">Programa Académico</option>
+                    <option value="3">Diplomado</option>
+                    <option value="2">Programa academico</option>
                   </select>
                 </div>
               </div>
@@ -165,8 +165,12 @@
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
-                <label for="nombreSolicitud">Titulo de la solicitud </label>
+                <label for="nombreSolicitud">Identificacion de la solicitud </label>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="Introduccion">Introduccion</label>
+              <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
             </div>
             <div class="form-group">
              <div class="form-label-group">
@@ -180,29 +184,6 @@
                 <label for="nombreSolicitanteA">Nombre del solicitante</label>
               </div>
             </div>
-            <!-- <div class="form-group">
-              <div class="form-label-group">
-                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
-                <label for="Cantidad">Cantidad de participantes</label>
-              </div>
-            </div> -->
-             <!-- <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
-                <label for="lugar">Lugar de capacitacion</label>
-              </div>
-            </div> -->
-            <!-- <div class="form-group">
-              <div class="form-label-group">
-                <input required type="date" id="FechaCapacitacion" class="form-control" placeholder="FechaCapacitacion"  name="fechaCapacitacion">
-                <label for="FechaCapacitacion">Fecha propuesta</label>
-              </div>
-            </div> -->
-            <div class="form-group">
-              <label for="Introduccion">Introduccion</label>
-              <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
-            </div>
-
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Documento</span>
@@ -215,67 +196,6 @@
 
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
           </form>
-          <!-- <form method="post" action="/uploadProject" enctype="multipart/form-data">
-
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="nombreCarrera" class="form-control" placeholder="Nombre del Proyecto" name="nombreCarrera">
-                <label for="nombre">Titulo de la solicitud</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Carrera" class="form-control" placeholder="Dependecia"   name="Dependecia">
-                <label for="Dependecia">Carrera</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Asunto" class="form-control" placeholder="Asunto"  name="Asunto">
-                <label for="nombreProyecto">Asunto</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="text" id="Dependecia" class="form-control" placeholder="Dependecia"   name="Dependecia">
-                <label for="Dependecia">Dependecia</label>
-              </div>
-            </div>
-
-
-        <div class="form-group">
-          <label for="comment">Decripcion</label>
-          <textarea class="form-control" rows="5" id="Decripcion"></textarea>
-        </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="tipo">Tipo</label>
-                  </div>
-                  <select required name="tipo" class="custom-select" id="tipo">
-                    <option value="">Seleccione...</option>
-                    <option value="1">Pregrado</option>
-                    <option value="2">Postgrado</option>
-                    <option value="3">Diplomado</option>
-                  </select>
-                </div>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Documento</span>
-                  </div>
-                  <div class="custom-file">
-                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
-                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
-                  </div>
-                </div>
-
-              </div>
-              <span id="errorPlace"></span>
-            </div>
-            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
-          </form> -->
 
         </div>
         <!-- /.container-fluid -->

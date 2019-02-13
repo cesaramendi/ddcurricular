@@ -73,12 +73,8 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
-app.get('/enviarSolicitudA', asyncMiddleware(async(req, res) => {
-  if(req.session.rol == 1) {
+app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudA.html');
- } else {
-   forbid(res);
- }
 }));
 
 app.get('/Reporte', (req, res) => {
@@ -91,13 +87,13 @@ app.get('/Reporte', (req, res) => {
   }
 });
 
-app.get('/enviarProyecto', asyncMiddleware(async(req, res) => {
+app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
   if(true) {
     send(res, 'facultad/enviarProyecto.html');
   } else {
     forbid(res);
   }
-}));
+}) );
 
 app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
   console.log('req.bodya');
@@ -545,7 +541,7 @@ app.post('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
     console.log(req.body);
     res.data = req.body;
-    //console.log(res.data);
+    console.log(res.data);
     let data = [
        "req.body.Identificacion",
        req.body.nombreSolicitud,

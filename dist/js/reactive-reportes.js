@@ -16,16 +16,16 @@ $(document).ready(function () {
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       switch (data.tipo) {
-        case 1: data.tipo = 'Pregrado'; break;
-        case 2: data.tipo = 'Postgrado'; break;
-        case 3: data.tipo = 'Diplomado'; break;
+        case 1: data.tipo = 'Carrera'; break;
+        case 2: data.tipo = 'Diplomado'; break;
+        case 3: data.tipo = 'Programa Academico'; break;
       }
     },
     rowCallback: function (row, data) {
       switch (data.tipo) {
-        case 'Pregrado': $('td:eq(0)', row).html('Pregrado'); break;
-        case 'Postgrado': $('td:eq(0)', row).html('Postgrado'); break;
+        case 'Carrera': $('td:eq(0)', row).html('Carrera'); break;
         case 'Diplomado': $('td:eq(0)', row).html('Diplomado'); break;
+        case 'Programa Academico': $('td:eq(0)', row).html('Programa Academico'); break;
       }
     },
   });

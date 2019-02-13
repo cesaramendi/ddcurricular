@@ -16,9 +16,9 @@ $(document).ready(function () {
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       switch (data.tipo) {
-        case 1: data.tipo = 'Curso'; break;
-        case 2: data.tipo = 'Taller'; break;
-        case 3: data.tipo = 'Formacion'; break;
+        case 1: data.tipo = 'Carrera'; break;
+        case 2: data.tipo = 'Diplomado'; break;
+        case 3: data.tipo = 'Programa Academico'; break;
       }
 
       switch (data.status) {
@@ -34,9 +34,9 @@ $(document).ready(function () {
     },
     rowCallback: function (row, data) {
       switch (data.tipo) {
-        case 'Curso': $('td:eq(4)', row).html('Curso'); break;
-        case 'Taller': $('td:eq(4)', row).html('Taller'); break;
-        case 'Formacion': $('td:eq(4)', row).html('Formacion'); break;
+        case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
+        case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
+        case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
@@ -122,9 +122,9 @@ $(document).ready(function () {
             case 2: data.solicitud = 'Rediseño'; break;
           }
           switch (data.tipo) {
-            case 1: data.tipo = 'Pregrado'; break;
-            case 2: data.tipo = 'Postgrado'; break;
-            case 3: data.tipo = 'Diplomado'; break;
+            case 1: data.tipo = 'Carrera'; break;
+            case 2: data.tipo = 'Diplomado'; break;
+            case 3: data.tipo = 'Programa Academico'; break;
           }
           switch (data.status) {
             case 0: data.status = 'esperando correccion'; break;
@@ -143,9 +143,9 @@ $(document).ready(function () {
             case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
           }
           switch (data.tipo) {
-            case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
-            case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
+            case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
             case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
+            case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
           }
           switch (data.status) {
             case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
@@ -239,9 +239,9 @@ $(document).ready(function () {
         case 2: data.solicitud = 'Rediseño'; break;
       }
       switch (data.tipo) {
-        case 1: data.tipo = 'Pregrado'; break;
-        case 2: data.tipo = 'Postgrado'; break;
-        case 3: data.tipo = 'Diplomado'; break;
+        case 1: data.tipo = 'Carrera'; break;
+        case 2: data.tipo = 'Diplomado'; break;
+        case 3: data.tipo = 'Programa Academico'; break;
       }
       switch (data.status) {
         case 0: data.status = 'esperando correccion'; break;
@@ -260,9 +260,9 @@ $(document).ready(function () {
         case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
       }
       switch (data.tipo) {
-        case 'Pregrado': $('td:eq(4)', row).html('Pregrado'); break;
-        case 'Postgrado': $('td:eq(4)', row).html('Postgrado'); break;
+        case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
         case 'Diplomado': $('td:eq(4)', row).html('Diplomado'); break;
+        case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
