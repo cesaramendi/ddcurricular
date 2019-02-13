@@ -460,7 +460,7 @@ $(document).ready(function() {
           `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
           </form>`;
         }
-        
+
         if(status2Num(rowData.status) == 3) {
 
           plusesHtml = plusesHtml +
