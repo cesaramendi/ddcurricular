@@ -270,7 +270,7 @@ $(document).ready(function() {
 
               plusesHtml = plusesHtml +
               `<form method="get" action="/enviarInvestigacionCorregido">
-              <input type="hidden" id="id" name="id" value="${rowData.idI}"/>
+              <input type="hidden" id="id" name="id" value="${rowData.id}"/>
               <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
               </form>`;
             }

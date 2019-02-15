@@ -187,6 +187,16 @@ app.get('/getAsesoriaCorregir', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/getInvestigacionCorregir', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
+    let data = await pool.query('SELECT * FROM actualizacion WHERE id=?',[req.query.id]);
+    console.log(data);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/getUsers', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
     let data = await pool.query('SELECT * FROM usuarios');
@@ -508,6 +518,39 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 3)) {
+    let proyData = [
+      //req.session.user, // email
+      req.body.nombreSolicitud,
+      req.body.solicitud,
+      /* ^ tipo-------------------------
+      /* 1: Creacion
+      /* 2: Redisenno
+      /* ------------------------------*/
+      req.body.tipo,
+      /* ^ asunto-------------------------
+      /* 1: Creacion
+      /* 2: Diplomado
+      /* 3: Programa academico
+      /* ------------------------------*/
+      req.body.apellidoSolicitanteA,
+      req.body.nombreSolicitanteA,
+      req.body.disenno,
+      req.body.introduccion,
+      1,
+      req.body.id,
+      req.session.user,
+    ]
+
+    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, introduccion=?, status=? WHERE id=? AND email=?', proyData);
+
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+}) );
 
 app.post('/editUser', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
