@@ -522,7 +522,6 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 3)) {
     let proyData = [
-      //req.session.user, // email
       req.body.nombreSolicitud,
       req.body.solicitud,
       /* ^ tipo-------------------------
@@ -537,14 +536,13 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
       /* ------------------------------*/
       req.body.apellidoSolicitanteA,
       req.body.nombreSolicitanteA,
-      req.body.disenno,
       req.body.introduccion,
       1,
       req.body.id,
       req.session.user,
     ]
 
-    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, introduccion=?, status=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
