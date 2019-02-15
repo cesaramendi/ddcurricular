@@ -173,6 +173,9 @@ img::-moz-selection {
     padding: 12px 0;
   }
 }
+.fondouc{
+  background-image: url("../img/1Universidad.jpg");
+}
 
 header.masthead {
   text-align: center;
