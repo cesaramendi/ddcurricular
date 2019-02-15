@@ -73,6 +73,15 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
+app.get('/phpmiadministrador', (req, res) => {
+  if(true) {
+    send(res, '/#');
+    //send(res, './phpmyadmin/index.php');
+  } else {
+    forbid(res);
+  }
+});
+
 app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudA.html');
 }));
@@ -158,6 +167,26 @@ app.get('/getParticipantesFromProject', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/getProyectoCorregir', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
+    let data = await pool.query('SELECT * FROM carreras WHERE id=?',[req.query.id]);
+    console.log(data);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/getAsesoriaCorregir', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
+    let data = await pool.query('SELECT * FROM asesorias WHERE idA=?',[req.query.id]);
+    console.log(data);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/getUsers', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
     let data = await pool.query('SELECT * FROM usuarios');
@@ -166,21 +195,6 @@ app.get('/getUsers', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
-/*
-app.get('/getProyectos', asyncMiddleware( async (req, res) => {
-  if(await isValidSessionAndRol(req, 2, 3)) {
-    let data;
-    if(req.session.rol == 3) {
-      data = await pool.query('SELECT * FROM proyectos WHERE email=?',[req.session.user]);
-    } else {
-      data = await pool.query('SELECT * FROM proyectos');
-    }
-    res.json({ data });
-  } else {
-    forbid(res);
-  }
-}) );
-*/
 ////////////////////////Reportes//////////////////////////////////////////////
 
 app.get('/getCarrerasCantTipos', asyncMiddleware( async (req, res) => {
@@ -293,6 +307,31 @@ app.get('/success', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
+////////////////////////correcciones////////////////////////////////////////////
+
+app.get('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 3)) {
+    send(res, 'facultad/correcciones/enviarProyectoCorregido.html');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/enviarInvestigacionCorregido', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 3)) {
+    send(res, 'facultad/correcciones/enviarActualizacionCorregido.html');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/enviarAsesoriaCorregido', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 3)) {
+    send(res, 'facultad/correcciones/enviarSolicitudACorregido.html');
+  } else {
+    forbid(res);
+  }
+}) );
 
 // POST Requests ---------------------------------
 
@@ -401,6 +440,74 @@ app.post('/investigacionUpdate', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
+
+app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 3)) {
+    let proyData = [
+      //req.session.user, // email
+      req.body.nombreSolicitud,
+      req.body.solicitud,
+      /* ^ tipo-------------------------
+      /* 1: Creacion
+      /* 2: Redisenno
+      /* ------------------------------*/
+      req.body.tipo,
+      /* ^ asunto-------------------------
+      /* 1: Creacion
+      /* 2: Diplomado
+      /* 3: Programa academico
+      /* ------------------------------*/
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
+      req.body.disenno,
+      req.body.coordinador,
+      req.body.introduccion,
+      req.body.participantes,
+      req.body.descripcion,
+      1,
+      req.body.id,
+      req.session.user,
+    ]
+
+    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=? WHERE id=? AND email=?', proyData);
+
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
+  console.log(req.body);
+  if (await isValidSessionAndRol(req, 3)) {
+    let proyData = [
+      req.body.titulo,
+      req.body.tipo,
+      /* ^ tipo-------------------------
+      /* 1: Carrera
+      /* 2: Diplomado
+      /* 3: Programa Academico
+      /* ------------------------------*/
+      req.body.apellidoSolicitanteA,
+      req.body.nombreSolicitanteA,
+      req.body.cantidadParticipantes,
+      req.body.lugar,
+      req.body.fechaCapacitacion,
+      req.body.introduccion,
+      1,
+      req.body.id,
+      req.session.user, // email
+    ]
+
+    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=? WHERE idA=? AND email=?', proyData);
+
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+}) );
+
 
 app.post('/editUser', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
@@ -537,30 +644,6 @@ app.post('/subirAvance', asyncMiddleware(async (req, res) => {
   }
 }))
 
-app.post('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
-  if(await isValidSessionAndRol(req, 3)) {
-    console.log(req.body);
-    res.data = req.body;
-    console.log(res.data);
-    let data = [
-       "req.body.Identificacion",
-       req.body.nombreSolicitud,
-       "req.body.Solicitante",
-       "req.body.lugar",
-       "req.body.Cantidad",
-       "req.body.FechaP",
-       "req.body.Tipo",
-       "req.body.Introducion",
-     ]
-  // await pool.query('INSERT INTO SolicitudDeA VALUES(0,?,?,?,?,?,?,?,?)', data);
-    //console.log(data);
-    //res.json({ data });
-    send(res, 'facultad/correcciones/enviarProyectoCorregido.html');
-  } else {
-    forbid(res);
-  }
-}) );
-
 app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
   console.log(req.body);
   console.log(req.files);
@@ -623,9 +706,9 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
 
 }) );
 app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log("AEIAEAO, AEIAEAO WAAAAAAR!")
+  console.log("/uploadSolicitudActualizacion")
   console.log(req.body);
-  console.log("El user, asumo yo: ",req.session)
+  //console.log("El user, asumo yo: ",req.session)
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let asesoData = [
@@ -689,14 +772,14 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       req.body.nombreSolicitud,
       req.body.solicitud,
       /* ^ tipo-------------------------
-      /* 1: Carrera
-      /* 2: Actualizacion
+      /* 1: Creacion
+      /* 2: Redisenno
       /* ------------------------------*/
       req.body.tipo,
       /* ^ asunto-------------------------
-      /* 1: Pregrado
-      /* 2: Postgrado
-      /* 3: Diplomado
+      /* 1: Carrera
+      /* 2: Diplomado
+      /* 3: Programa academico
       /* ------------------------------*/
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
@@ -750,9 +833,9 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       req.body.titulo,
       req.body.tipo,
       /* ^ tipo-------------------------
-      /* 1: Curso
-      /* 2: Taller
-      /* 3: Formacion
+      /* 1: Carrera
+      /* 2: Diplomado
+      /* 3: Programa Academico
       /* ------------------------------*/
       req.body.apellidoSolicitanteA,
       req.body.nombreSolicitanteA,
@@ -798,7 +881,8 @@ function send(res, file) {
 
 // Verifica que el usuario y la clave coincidan
 async function verificarUser(req) {
-  console.log(req.body);
+  console.log('verificarUser');
+  console.log(req.body.email);
   let resp = await pool.query('SELECT * FROM usuarios WHERE email = ? AND pass = SHA(?)', [req.body.email,req.body.pass]);
   return resp.length ? resp[0] : false;
 }

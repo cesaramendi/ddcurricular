@@ -133,8 +133,8 @@
           <!-- Page Content -->
           <h1>Enviar correcciones de Aval</h1>
           <hr>
-          <form method="post" action="#" enctype="multipart/form-data">
-
+          <form method="post" id="myForm" action="/carreraCorregir">
+            <input class="d-none" type="text" id="id" name="id">
             <div class="form-row">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -190,7 +190,7 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="Disenno" class="form-control" placeholder="Diseño"   name="disenno">
+                <input required type="text" id="disenno" class="form-control" placeholder="Diseño"   name="disenno">
                 <label for="Disenno">Diseño curricular de:</label>
               </div>
             </div>
@@ -199,26 +199,12 @@
               <textarea class="form-control" rows="5" id="participantes" name="participantes"></textarea>
             </div>
         <div class="form-group">
-          <label for="descripcion">Decripcion</label>
+          <label for="descripcion">Descripcion</label>
           <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
-        </div>
-            <div class="form-group">
-
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Documento</span>
-                  </div>
-                  <div class="custom-file">
-                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
-                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
-                  </div>
-                </div>
-
-              </div>
+            </div>
               <span id="errorPlace"></span>
             </div>
-            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar correccion">
+            <input id="editButton" class="btn btn-success btn-block" type="submit" value="Enviar correccion">
           </form>
 
         </div>
@@ -282,7 +268,7 @@
     <script src="js/i18n/es.js"></script>
 
     <script src="js/reactive-fa-enviar.js"></script>
-    <script src="js/correcciones.js"></script>
+    <script src="js/correcciones/corregir-aval.js"></script>
 
   </body>
 

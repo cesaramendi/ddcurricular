@@ -13,12 +13,12 @@ const pool = mysql.createPool({
 /*const pool = mysql.createPool({
   connectionLimit: 100,
 
-  connectTimeout  : 60 * 60 * 1000,
-  aquireTimeout   : 60 * 60 * 1000,
-  timeout         : 60 * 60 * 1000,
+  //connectTimeout  : 60 * 60 * 1000,
+  //aquireTimeout   : 60 * 60 * 1000,
+  //timeout         : 60 * 60 * 1000,
   //host: '190.170.122.7',
-  host: 'curriculum.bc.uc.edu.ve',
-  //host: 'higgs.bc.uc.edu.ve',
+  //host: 'curriculum.bc.uc.edu.ve',
+  host: 'higgs.bc.uc.edu.ve',
   //host: 'admin.higgs.bc.uc.edu.ve',
   //port: 2222,
   database: 'curriculum',

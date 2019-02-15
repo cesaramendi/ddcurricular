@@ -85,7 +85,7 @@ $(document).ready(function() {
         fields.lugarA = document.getElementById('projectModalLugar');
         fields.introduccionA = document.getElementById('projectModalIntroduccionA');
 
-        //fields.pluses = document.getElementById('projectModalPlusesA');
+        fields.pluses = document.getElementById('projectModalPlusesA');
         ///////////////
 
         fields.idA.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
@@ -98,16 +98,16 @@ $(document).ready(function() {
         fields.lugarA.innerText = rowData.lugar;
         fields.introduccionA.innerText = rowData.introduccion;
 
-        $.ajax({
+        /*$.ajax({
           method: 'get',
-          url: '/getDocsFromProjectI?id=' + rowData.id,
-        }).done(function (res) {
+          url: '/getDocsFromProjectI?id=' + rowData.idA,
+        }).done(function (res) {*/
           $(projectModal).removeClass('isloading');
 
-          rowData.files = res.data;
+          //rowData.files = res.data;
 
         // Para mostrar los documentos del proyecto
-          fields.files.innerHTML = files(res);
+          //fields.files.innerHTML = files(res);
 
         // Para mostrar detalles segun estatus
           let plusesHtml = '';
@@ -126,8 +126,17 @@ $(document).ready(function() {
           </table>
           <br>`;
 
+          if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
+
+            plusesHtml = plusesHtml +
+            `<form method="get" action="/enviarAsesoriaCorregido">
+            <input type="hidden" id="id" name="id" value="${rowData.idA}"/>
+            <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
+            </form>`;
+          }
+
           fields.pluses.innerHTML = plusesHtml;
-        });
+        //});
       });
     });
 
@@ -256,6 +265,15 @@ $(document).ready(function() {
             </tr>
             </table>
             <br>`;
+
+            if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
+
+              plusesHtml = plusesHtml +
+              `<form method="get" action="/enviarInvestigacionCorregido">
+              <input type="hidden" id="id" name="id" value="${rowData.idI}"/>
+              <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
+              </form>`;
+            }
 
             fields.pluses.innerHTML = plusesHtml;
           });
@@ -461,13 +479,11 @@ $(document).ready(function() {
           </form>`;
         }
 
-        if(status2Num(rowData.status) == 3) {
+        if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
 
           plusesHtml = plusesHtml +
-          `<form method="post" action="/enviarProyectoCorregido">
-          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
-          <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
-          <input class="d-none" name="refProyecto" value="${rowData.id}"/>
+          `<form method="get" action="/enviarProyectoCorregido">
+          <input type="hidden" id="id" name="id" value="${rowData.id}"/>
           <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
           </form>`;
         }
@@ -756,10 +772,18 @@ $(document).ready(function() {
     }
   }
 
+  function solicitud2Num(tipo) {
+    switch(tipo) {
+      case 'Creacion': return 1; break;
+      case 'Rediseño': return 2; break;
+    }
+  }
+
   function tipo2Num(tipo) {
     switch(tipo) {
-      case 'Servicio Comunitario': return 1; break;
-      case 'Extensión': return 2; break;
+      case 'Carrera': return 1; break;
+      case 'Diplomado': return 2; break;
+      case 'Programa Academico': return 3; break;
     }
   }
 
