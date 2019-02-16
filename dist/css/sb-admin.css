@@ -261,7 +261,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	nimation: borde 5s;
 }
-form,h1,h2{
+#wrapper form,h1,h2{
   padding: 10px;
   background-color: rgba(255,255,255,0.95);
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -270,6 +270,17 @@ form,h1,h2{
   border-radius: 6px;
 }
 
+#wrapper .navbar-nav{
+
+  background: rgba(34,57,98,1);
+  background: -moz-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
+  background: -webkit-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
+  background: -o-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
+  background: -ms-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
+  background: linear-gradient(to right, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#223962', endColorstr='#152e3c', GradientType=1 );
+
+}
 
 .card-body-icon {
   position: absolute;
@@ -389,12 +400,20 @@ footer.sticky-footer .copyright {
 }
 
 h1, h2, .azul,.verde,.rojo,.card-header{
-  /*font-family: sans-serif;*/
+  font-family: georgia;
   animation: titulos 1s;
-  text-shadow: 7px 7px 7px rgb(171,168,168);
+  text-shadow: 7px 7px 7px rgb(5,80,80);
+
+  background: rgba(80,165,162,1);
+  background: -moz-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111), rgb(80,141,165));
+  background: -webkit-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111,1), rgb(80,141,165));
+  background: -o-linear-gradient(top, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
+  background: -ms-linear-gradient(top, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
+  background: linear-gradient(to bottom, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50a5a2', endColorstr='#508da5', GradientType=0 );
 }
 
-h1, h2, .azul, .card-header{color: #039;}
+h1, h2, .azul, .card-header{color: #FFF;}
 .verde{	color: #090;}
 .rojo{	color: #900;}
 
