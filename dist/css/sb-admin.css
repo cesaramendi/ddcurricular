@@ -12,6 +12,7 @@ html {
 
 body {
   height: 100%;
+  background: #343a40;
 }
 
 #wrapper {
@@ -98,6 +99,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 .z-1 {
   z-index: 1;
 }
+.navbar{
+  /*position: fixed;*/
+  width: 100%;
+}
 
 .navbar-nav .form-inline .input-group {
   width: 100%;
@@ -149,6 +154,9 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   background-color: #212529;
   min-height: calc(100vh - 56px);
 }
+#content-wrapper.toggled{
+  margin-left: 90px !important;
+}
 
 .sidebar .nav-item:last-child {
   margin-bottom: 1rem;
@@ -194,11 +202,19 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   width: 0 !important;
   overflow: hidden;
 }
+#content-wrapper.toggled{
+  margin-left: 0 !important;
+}
 
 @media (min-width: 768px) {
   .sidebar {
     width: 225px !important;
+    position: fixed;
   }
+  #content-wrapper{
+    margin-left: 225px !important;
+  }
+
   .sidebar .nav-item .nav-link {
     display: block;
     width: 100%;
@@ -222,6 +238,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     overflow: visible;
     width: 90px !important;
   }
+  #content-wrapper.toggled {
+    margin-left: 90px !important;
+  }
+
   .sidebar.toggled .nav-item:last-child {
     margin-bottom: 1rem;
   }
