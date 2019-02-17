@@ -12,6 +12,7 @@ $(document).ready(function () {
       { data: 'fechaCapacitacion' },
       { data: 'tipo' },
       { data: 'status' },
+      { data: 'fechaStatus' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
@@ -50,6 +51,7 @@ $(document).ready(function () {
       }
       //$('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
       $('td:eq(3)', row).html(data.fechaCapacitacion.split('T')[0]);
+      $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
     },
   });
 
@@ -114,6 +116,7 @@ $(document).ready(function () {
           { data: 'solicitud' },
           { data: 'tipo' },
           { data: 'status' },
+          { data: 'fechaStatus' },
         ],
         order: [[0, 'desc']],
         createdRow: function (row, data, dataIndex) {
@@ -158,6 +161,7 @@ $(document).ready(function () {
             case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
           }
           $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
+          $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
         },
       });
 
@@ -231,6 +235,7 @@ $(document).ready(function () {
       { data: 'solicitud' },
       { data: 'tipo' },
       { data: 'status' },
+      { data: 'fechaStatus' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
@@ -275,6 +280,7 @@ $(document).ready(function () {
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
       $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
+      $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
     },
   });
 

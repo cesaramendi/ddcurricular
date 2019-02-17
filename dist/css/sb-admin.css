@@ -296,8 +296,8 @@ th{
 td{
   background-color: rgba(244,244,244,0.98);
 }
-td:hover{
-  background-color: rgba(230,230,230,0.98);
+.card td:hover, a:hover{
+  background-color: rgba(210,244,210,0.4);
 }
 #wrapper form,h1,h2{
   padding: 10px;

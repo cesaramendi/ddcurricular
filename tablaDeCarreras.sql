@@ -28,6 +28,7 @@ CREATE TABLE carreras(
   participantes           VARCHAR(300) NOT NULL,
   descripcion             VARCHAR(300) NOT NULL,
   status                  TINYINT UNSIGNED NOT NULL,
+  fechaStatus             DATE NOT NULL,
   -- 0: esperando correccion
   -- 1: recibido
   -- 2: para revisar

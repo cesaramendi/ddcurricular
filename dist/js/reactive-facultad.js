@@ -17,6 +17,7 @@ $(document).ready(function() {
       { data: 'fechaCapacitacion' },
       { data: 'tipo' },
       { data: 'status' },
+      { data: 'fechaStatus' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
@@ -55,6 +56,7 @@ $(document).ready(function() {
       }
       //$('td:eq(2)', row).html(data.apellidoSolicitanteA.split('\n')[0]);
       $('td:eq(3)', row).html(data.fechaCapacitacion.split('T')[0]);
+      $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
     },
   });
 
@@ -92,6 +94,7 @@ $(document).ready(function() {
         fields.tituloA.innerText = rowData.titulo;
         fields.tipoA.innerText = rowData.tipo;
         fields.fechaA.innerText = rowData.fechaSolicitudA.split('T')[0];
+        fields.fechaStatusA = new Date(rowData.fechaStatus).toLocaleString();
         fields.solicitanteA.innerText = rowData.apellidoSolicitanteA+' '+rowData.nombreSolicitanteA;
         fields.participantesA.innerText = rowData.cantidadParticipantes;
         fields.fechaCapacitacion.innerText = rowData.fechaCapacitacion.split('T')[0];
@@ -116,12 +119,15 @@ $(document).ready(function() {
           cellpadding="5" cellspacing="0" border="0"
           style="padding-left:50px; margin:auto;">
           <tr>
-          <td>Estatus:</td>
-          <td>${rowData.status}</td>
+            <td ROWSPAN="2">Estatus:</td>
+            <td>${rowData.status}</td>
           </tr>
           <tr>
-          <td>Nota:</td>
-          <td>${rowData.nota ? rowData.nota:''}</td>
+            <td>${fields.fechaStatusA}</td>
+          </tr>
+          <tr>
+            <td>Nota:</td>
+            <td>${rowData.nota ? rowData.nota:''}</td>
           </tr>
           </table>
           <br>`;
@@ -150,6 +156,7 @@ $(document).ready(function() {
         { data: 'solicitud' },
         { data: 'tipo' },
         { data: 'status' },
+        { data: 'fechaStatus' },
       ],
       order: [[0, 'desc']],
       createdRow: function (row, data, dataIndex) {
@@ -194,6 +201,7 @@ $(document).ready(function() {
           case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
         }
         $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
+        $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
       },
     });
 
@@ -220,6 +228,7 @@ $(document).ready(function() {
           fields.tipoI = document.getElementById('projectModalTipoI');
           fields.nombreI = document.getElementById('projectModalNombreI');
           fields.statusI = document.getElementById('projectModalStatusI');
+          fields.fechaStatusI = document.getElementById('projectModalFechaStatusI');
           fields.solicitanteI = document.getElementById('projectModalSolicitanteI');
           fields.introduccionI = document.getElementById('projectModalIntroduccionI');
 
@@ -230,6 +239,7 @@ $(document).ready(function() {
 
           fields.idI.innerText = 'Solicitud Investigacion ID: ' + rowData.id;
           fields.fechaI.innerText = rowData.fechaSolicitud.split('T')[0];
+          fields.fechaStatusI = new Date(rowData.fechaStatus).toLocaleString();
           fields.solicitudI.innerText = rowData.solicitud;
           fields.tipoI.innerText = rowData.tipo;
           fields.nombreI.innerText = rowData.nombreSolicitud;
@@ -256,12 +266,15 @@ $(document).ready(function() {
             cellpadding="5" cellspacing="0" border="0"
             style="padding-left:50px; margin:auto;">
             <tr>
-            <td>Estatus:</td>
-            <td>${rowData.status}</td>
+              <td ROWSPAN="2">Estatus:</td>
+              <td>${rowData.status}</td>
             </tr>
             <tr>
-            <td>Nota:</td>
-            <td>${rowData.nota ? rowData.nota:''}</td>
+              <td>${fields.fechaStatusI}</td>
+            </tr>
+            <tr>
+              <td>Nota:</td>
+              <td>${rowData.nota ? rowData.nota:''}</td>
             </tr>
             </table>
             <br>`;
@@ -291,6 +304,7 @@ $(document).ready(function() {
       { data: 'solicitud' },
       { data: 'tipo' },
       { data: 'status' },
+      { data: 'fechaStatus' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
@@ -335,6 +349,7 @@ $(document).ready(function() {
         case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
       }
       $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
+      $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
     },
   });
 
@@ -376,6 +391,7 @@ $(document).ready(function() {
 
       fields.id.innerText = 'Solicitud AVAL ID: ' + rowData.id;
       fields.fechaP.innerText = rowData.fechaSolicitud.split('T')[0];
+      fields.fechaStatusP = new Date(rowData.fechaStatus).toLocaleString();
       fields.solicitudP.innerText = rowData.solicitud;
       fields.tipoP.innerText = rowData.tipo;
       fields.nombreP.innerText = rowData.nombreSolicitud;
@@ -445,12 +461,15 @@ $(document).ready(function() {
         cellpadding="5" cellspacing="0" border="0"
         style="padding-left:50px; margin:auto;">
         <tr>
-        <td>Estatus:</td>
-        <td>${rowData.status}</td>
+          <td ROWSPAN="2">Estatus:</td>
+          <td>${rowData.status}</td>
         </tr>
         <tr>
-        <td>Nota:</td>
-        <td>${rowData.nota ? rowData.nota:''}</td>
+          <td>${fields.fechaStatusP}</td>
+        </tr>
+        <tr>
+          <td>Nota:</td>
+          <td>${rowData.nota ? rowData.nota:''}</td>
         </tr>
         </table>
         <br>`;
@@ -797,6 +816,16 @@ $(document).ready(function() {
     return Object.keys(j).map(function(v){
       return j[v];
     });
+  }
+
+  function dformat(d){
+      let dformat = [d.getFullYear(),
+                (d.getMonth()+1).padLeft(),
+                 d.getDate().padLeft()].join('-') +' ' +
+                [d.getHours().padLeft(),
+                 d.getMinutes().padLeft(),
+                 d.getSeconds().padLeft()].join(':');
+    return dformat;
   }
 
   $('textarea').each(function () {

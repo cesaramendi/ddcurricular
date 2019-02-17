@@ -422,7 +422,7 @@ app.post('/carreraUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE carreras SET nota=?, status=? WHERE id=?', [nota, req.body.status, req.body.id]);
+    await pool.query('UPDATE carreras SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.status,dformat(), req.body.id]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
@@ -433,7 +433,7 @@ app.post('/asesoriasUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE asesorias SET nota=?, status=? WHERE idA=?', [nota, req.body.status, req.body.id]);
+    await pool.query('UPDATE asesorias SET nota=?, status=?,fechaStatus=? WHERE idA=?', [nota, req.body.status,dformat(), req.body.id]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
@@ -444,7 +444,7 @@ app.post('/investigacionUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE actualizacion SET nota=?, status=? WHERE id=?', [nota, req.body.status, req.body.id]);
+    await pool.query('UPDATE actualizacion SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.status,dformat(), req.body.id]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
@@ -476,11 +476,12 @@ app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
       req.body.participantes,
       req.body.descripcion,
       1,
+      dformat(),
       req.body.id,
       req.session.user,
     ]
 
-    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -506,11 +507,12 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
       req.body.fechaCapacitacion,
       req.body.introduccion,
       1,
+      dformat(),
       req.body.id,
       req.session.user, // email
     ]
 
-    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=? WHERE idA=? AND email=?', proyData);
+    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=?,fechaStatus=? WHERE idA=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -521,6 +523,7 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
 app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 3)) {
+    //var d = new Date();
     let proyData = [
       req.body.nombreSolicitud,
       req.body.solicitud,
@@ -538,11 +541,12 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
       req.body.nombreSolicitanteA,
       req.body.introduccion,
       1,
+      dformat(),
       req.body.id,
       req.session.user,
     ]
 
-    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -770,13 +774,11 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
       req.body.apellidoSolicitanteA,
       req.body.nombreSolicitanteA,
       req.body.introduccion,
-      1
-
-
-
+      1,
+      dformat()
     ]
     let fecha= (new Date()).toISOString().split('T')[0]
-    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,NULL)', asesoData);
     // (`INSERT INTO actualizacion (nombreSolicitud, email, fechaSolicitud, Solicitud, tipo, apellidoSolicitante, nombreSolicitante, introduccion, status, nota) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)`,  [req.body.nombreSolicitud, req.session.user, fecha, req.body.Solicitud, req.body.tipo, req.body.apellidoSolicitanteA, req.body.nombreSolicitanteA, req.body.introduccion, 1, null]);
     console.log("El pakage a enviar: ", asesoData)
     console.log("El qryRes: ", qryRes)
@@ -840,8 +842,9 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
+      dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -895,8 +898,9 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
+      dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
 
     res.redirect('/success');
   } else {
@@ -918,6 +922,22 @@ function forbid(res) {
 
 function send(res, file) {
   res.sendFile(file, options);
+}
+
+Number.prototype.padLeft = function(base,chr){
+    var  len = (String(base || 10).length - String(this).length)+1;
+    return len > 0? new Array(len).join(chr || '0')+this : this;
+}
+
+function dformat(){
+  var d = new Date,
+    dformat = [d.getFullYear(),
+              (d.getMonth()+1).padLeft(),
+               d.getDate().padLeft()].join('-') +' ' +
+              [d.getHours().padLeft(),
+               d.getMinutes().padLeft(),
+               d.getSeconds().padLeft()].join(':');
+  return dformat;
 }
 
 // Verifica que el usuario y la clave coincidan
@@ -961,5 +981,7 @@ async function isValidSessionAndRol(req, rol1, rol2) {
     return false;
   }
 }
+
+
 
 module.exports = app;
