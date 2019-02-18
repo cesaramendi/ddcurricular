@@ -20,16 +20,6 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
-.navbar-brand a{
-  font-size: 20px;
-}
-a.navbar-brand.mr-1.toggled{
-
-}
-.logo{
-  max-height: 70px;
-  animation: logo 4s;
-}
 
 #wrapper #content-wrapper {
   overflow-x: hidden;
@@ -44,7 +34,7 @@ a.navbar-brand.mr-1.toggled{
 
 body.fixed-nav #content-wrapper {
   margin-top: 56px;
-  padding-left: 80px;
+  padding-left: 90px;
 }
 
 body.fixed-nav.sidebar-toggled #content-wrapper {
@@ -56,7 +46,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     padding-left: 225px;
   }
   body.fixed-nav.sidebar-toggled #content-wrapper {
-    padding-left: 80px;
+    padding-left: 90px;
   }
 }
 
@@ -153,9 +143,6 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   .navbar-nav .form-inline .input-group {
     width: auto;
   }
-  a.navbar-brand.mr-1::after{
-    content: 'Docencia y Desarrollo Curricular UC';
-  }
 }
 @media (max-width: 768px) {
   .navbar{
@@ -165,25 +152,16 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   .sidebar {
     padding-top: 50px;
   }
-  a.navbar-brand.mr-1::before{
-    content: 'DDC-UC';
-  }
-  .logo{
-    max-height: 40px;
-  }
-  #wrapper #content-wrapper {
-    padding-top: 60px;
-  }
 }
 
 .sidebar {
-  width: 80px !important;
+  width: 90px !important;
   background-color: #212529;
   min-height: calc(100vh - 56px);
   position: fixed;
 }
 #content-wrapper{
-  margin-left: 80px !important;
+  margin-left: 90px !important;
 }
 
 .sidebar .nav-item:last-child {
@@ -193,7 +171,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 .sidebar .nav-item .nav-link {
   text-align: center;
   padding: 0.75rem 1rem;
-  width: 80px;
+  width: 90px;
 }
 
 .sidebar .nav-item .nav-link span {
@@ -205,7 +183,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   position: absolute !important;
   -webkit-transform: none !important;
   transform: none !important;
-  left: calc(80px + 0.5rem) !important;
+  left: calc(90px + 0.5rem) !important;
   margin: 0;
 }
 
@@ -234,7 +212,6 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   margin-left: 0 !important;
 }
 
-/*/////////////SI ES MAS GRANDE QUE TANTOS PIXELES//////////////*/
 @media (min-width: 768px) {
   .sidebar {
     width: 225px !important;
@@ -265,10 +242,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   }
   .sidebar.toggled {
     overflow: visible;
-    width: 80px !important;
+    width: 90px !important;
   }
   #content-wrapper.toggled {
-    margin-left: 80px !important;
+    margin-left: 90px !important;
   }
 
   .sidebar.toggled .nav-item:last-child {
@@ -277,7 +254,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   .sidebar.toggled .nav-item .nav-link {
     text-align: center;
     padding: 0.75rem 1rem;
-    width: 80px;
+    width: 90px;
   }
   .sidebar.toggled .nav-item .nav-link span {
     font-size: 0.65rem;
@@ -287,7 +264,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     position: absolute !important;
     -webkit-transform: none !important;
     transform: none !important;
-    left: calc(80px + 0.5rem) !important;
+    left: calc(90px + 0.5rem) !important;
     margin: 0;
   }
   .sidebar.toggled .nav-item .dropdown-menu.dropup {
@@ -313,11 +290,11 @@ table,td,.card{
 	animation: borde 5s;
 }
 th{
-  color: rgb(51,122,255);
+  color: #009;
   background-color: #CCC;
 }
-th.theme{
-  color: #039;
+th.toggled{
+  color: #009;
 }
 
 td{
@@ -336,9 +313,7 @@ td{
 }
 
 #wrapper .navbar-nav{
- background: #343a40;
-}
-#wrapper .navbar-nav.theme, nav.theme,body.theme{
+
   background: rgba(34,57,98,1);
   background: -moz-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
   background: -webkit-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
@@ -346,6 +321,7 @@ td{
   background: -ms-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
   background: linear-gradient(to right, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#223962', endColorstr='#152e3c', GradientType=1 );
+
 }
 
 .card-body-icon {
@@ -455,7 +431,7 @@ footer.sticky-footer {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: calc(100% - 80px);
+  width: calc(100% - 90px);
   height: 80px;
   background-color: #e9ecef;
 }
@@ -470,10 +446,6 @@ h1, h2, .azul,.verde,.rojo,.card-header{
   animation: titulos 1s;
   text-shadow: 7px 7px 7px rgb(5,80,80);
 
-  background: rgba(51,122,255,1);
-
-}
-h1.theme,h2.theme,.card-header.theme{
   background: rgba(80,165,162,1);
   background: -moz-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111), rgb(80,141,165));
   background: -webkit-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111,1), rgb(80,141,165));
@@ -507,7 +479,7 @@ body.sidebar-toggled footer.sticky-footer {
 
 @media (min-width: 768px) {
   body.sidebar-toggled footer.sticky-footer {
-    width: calc(100% - 80px);
+    width: calc(100% - 90px);
   }
 }
 
@@ -521,14 +493,5 @@ body.sidebar-toggled footer.sticky-footer {
   from{
     border-radius: none;
     box-shadow: none;
-  }
-}
-
-@keyframes logo{
-  from{
-    max-height: 140px;
-  }
-  to{
-    max-height: 70px;
   }
 }
