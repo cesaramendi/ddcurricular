@@ -240,6 +240,7 @@ app.get('/getCarrerasCantStatus', asyncMiddleware( async (req, res) => {
 
 app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
+    console.log(req.session);
     let data;
     if(req.session.rol == 3) {
       data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
@@ -310,7 +311,7 @@ app.get('/success', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3, 2)) {
     if(req.session.rol == 3){
       send(res, 'facultad/success.html');
-    }else if(req.session.rol == 3) {
+    }else if(req.session.rol == 2) {
       send(res, 'burocratas/success.html');
     }
   } else {
@@ -587,6 +588,7 @@ app.post('/login', asyncMiddleware( async(req, res) => {
   if(user) { //valid user
     req.session.user = user.email;
     req.session.rol = user.rol;
+    req.session.theme = 0;
     if(user.rol == 3) req.session.facultad = user.facultad;
     res.redirect('/dashboard');
   } else {

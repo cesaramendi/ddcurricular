@@ -26,9 +26,6 @@
   </head>
 
   <style>
-    th{
-     color: rgb(51,122,255);
-    }
     #dataTable tr {
       cursor: pointer;
     }
@@ -55,7 +52,7 @@
          <img class="logo" src=".../../img/logos/log_uc_2.png">
         </a>
 
-      <a class="navbar-brand mr-1" href="index.html">Docencia y Desarrollo Curricular UC</a>
+      <a class="navbar-brand mr-1" href="index.html"></a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -104,8 +101,11 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Activity Log</a>
+            <button class="btn btn-link btn-sm order-1 order-sm-0" id="temaToggle" href="#">
+              <i class="fas fa-bars">Cambiar apariencia</i>
+            </button>
+            <!--<a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="#">Activity Log</a>-->
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Desconectarse</a>
           </div>
@@ -218,7 +218,7 @@
                       <th>Tipo</th>
                       <th>Estatus</th>
                       <th>Fecha</th>
-                      
+
                     </tr>
                   </thead>
                   <tfoot>
