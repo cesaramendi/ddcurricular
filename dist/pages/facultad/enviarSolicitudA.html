@@ -144,12 +144,26 @@
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
-                <label for="titulo">Identificación de la solicitud </label>
+                <label for="titulo">Razón de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
               <label for="Introduccion">Introducción</label>
               <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
+            </div>
+            <hr>
+            <div class="form-row">
+              <label for="ci">Datos Solicitante</label>
+              <div class="form-group col-md-1">
+                <select required id="idSolicitanteTipo" name="idSolicitanteTipo" class="form-control">
+                  <option value="">Seleccione...</option>
+                  <option value="1">V</option>
+                  <option value="2">E</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <input required type="number" id="idSolicitante" class="form-control" placeholder="Identificación solicitante"   name="idSolicitante">
+              </div>
             </div>
             <div class="form-group">
              <div class="form-label-group">
@@ -163,6 +177,7 @@
                 <label for="nombreSolicitanteA">Nombre de solicitante</label>
               </div>
             </div>
+            <hr>
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
@@ -181,6 +196,7 @@
                 <label for="FechaCapacitacion">Fecha propuesta</label>
               </div>
             </div>
+            <hr>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
           </form>
 

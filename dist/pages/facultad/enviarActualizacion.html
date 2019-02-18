@@ -95,13 +95,13 @@
             <span>Solicitar Aval</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Asesoría</span>
           </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/enviarActualizacion">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Investigación</span>
@@ -119,13 +119,24 @@
 
         <div class="container-fluid">
 
-
-
           <!-- Page Content -->
-          <h1>Enviar solicitud de asesorías Académicas</h1>
+          <h1>Enviar solicitud de investigación</h1>
           <hr>
-          <form method="post" action="/uploadSolicicitudAsesoria" enctype="multipart/form-data">
+          <form method="post" action="/uploadSolicitudActualizacion" enctype="multipart/form-data">
+            <input class="d-none" type="text" id="id" name="id">
             <div class="form-group">
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="Solicitud">Solicitud</label>
+                  </div>
+                  <select required name="solicitud" class="custom-select" id="solicitud">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Creación</option>
+                    <option value="2">Rediseño</option>
+                  </select>
+                </div>
+              </div>
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -143,48 +154,61 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
-                <label for="titulo">Identificación de la solicitud </label>
+                <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
+                <label for="nombreSolicitud">Razón de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
               <label for="Introduccion">Introducción</label>
               <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
             </div>
+            <hr>
+            <div class="form-row">
+              <label for="ci">Datos Solicitante</label>
+              <div class="form-group col-md-1">
+                <select required id="idSolicitanteTipo" name="idSolicitanteTipo" class="form-control">
+                  <option value="">Seleccione...</option>
+                  <option value="1">V</option>
+                  <option value="2">E</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <input required type="number" id="idSolicitante" class="form-control" placeholder="Identificación solicitante"   name="idSolicitante">
+              </div>
+            </div>
             <div class="form-group">
              <div class="form-label-group">
                <input required type="text" id="apellidoSolicitanteA" class="form-control" placeholder="apellidoSolicitanteA"  name="apellidoSolicitanteA">
-               <label for="apellidoSolicitanteA">Apellido de solicitante</label>
+               <label for="apellidoSolicitanteA">Apellido del solicitante</label>
              </div>
            </div>
-           <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
-                <label for="nombreSolicitanteA">Nombre de solicitante</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
-                <label for="Cantidad">Cantidad de participantes</label>
-              </div>
-            </div>
              <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
-                <label for="lugar">Lugar de capacitación</label>
+                <input required type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
+                <label for="nombreSolicitanteA">Nombre del solicitante</label>
               </div>
             </div>
+            <hr>
             <div class="form-group">
-              <div class="form-label-group">
-                <input required type="date" id="FechaCapacitacion" class="form-control" placeholder="FechaCapacitacion"  name="fechaCapacitacion">
-                <label for="FechaCapacitacion">Fecha propuesta</label>
-              </div>
-            </div>
-            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
-          </form>
 
-        </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Documento</span>
+                  </div>
+                  <div class="custom-file">
+                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
+                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
+                  </div>
+                </div>
+
+              </div>
+          <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
+        </form>
+
+      </div>
+    </div>
+
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->

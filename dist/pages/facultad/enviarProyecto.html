@@ -154,12 +154,26 @@
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
-                <label for="nombreSolicitud">Identificación de la solicitud</label>
+                <label for="nombreSolicitud">Razón de la solicitud</label>
               </div>
             </div>
             <div class="form-group">
               <label for="introduccion">Introducción</label>
               <textarea class="form-control" rows="5" id="introduccion" name="introduccion"></textarea>
+            </div>
+            <hr>
+            <div class="form-row">
+              <label for="ci">Datos Solicitante</label>
+              <div class="form-group col-md-1">
+                <select required id="idSolicitanteTipo" name="idSolicitanteTipo" class="form-control">
+                  <option value="">Seleccione...</option>
+                  <option value="1">V</option>
+                  <option value="2">E</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <input required type="number" id="idSolicitante" class="form-control" placeholder="Identificación solicitante"   name="idSolicitante">
+              </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
@@ -173,6 +187,7 @@
                 <label for="nombreSolicitante">Nombre del Solicitante</label>
               </div>
             </div>
+            <hr>
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
@@ -189,7 +204,6 @@
               <label for="participantes">Miembros</label>
               <textarea class="form-control" rows="5" id="participantes" name="participantes"></textarea>
             </div>
-
         <div class="form-group">
           <label for="descripcion">Descripción</label>
           <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
@@ -209,7 +223,7 @@
 
               </div>
               <span id="errorPlace"></span>
-            </div>
+              <hr>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
           </form>
 
