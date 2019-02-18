@@ -182,7 +182,7 @@ $(document).ready(function() {
       },
       rowCallback: function (row, data) {
         switch (data.solicitud) {
-          case 'Creacion': $('td:eq(3)', row).html('Creacion'); break;
+          case 'Creacion': $('td:eq(3)', row).html('Creación'); break;
           case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
         }
         switch (data.tipo) {

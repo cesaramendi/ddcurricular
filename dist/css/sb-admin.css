@@ -20,7 +20,9 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
-
+.navbar-brand a{
+  font-size: 20px;
+}
 #wrapper #content-wrapper {
   overflow-x: hidden;
   width: 100%;
@@ -49,7 +51,10 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     padding-left: 90px;
   }
 }
-
+   img
+  {
+     width: 70px;
+  }
 .fondouc{
   background-image: url("../img/section.gif");
   background-attachment: scroll;
@@ -310,13 +315,7 @@ td{
 
 #wrapper .navbar-nav{
 
-  background: rgba(34,57,98,1);
-  background: -moz-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
-  background: -webkit-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
-  background: -o-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
-  background: -ms-linear-gradient(left, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
-  background: linear-gradient(to right, rgba(34,57,98,1) 0%, rgba(21,46,60,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#223962', endColorstr='#152e3c', GradientType=1 );
+ background: #343a40;
 
 }
 
@@ -442,13 +441,8 @@ h1, h2, .azul,.verde,.rojo,.card-header{
   animation: titulos 1s;
   text-shadow: 7px 7px 7px rgb(5,80,80);
 
-  background: rgba(80,165,162,1);
-  background: -moz-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111), rgb(80,141,165));
-  background: -webkit-linear-gradient(top, rgb(80,165,162), rgb(56,127,153), rgb(42,95,111,1), rgb(80,141,165));
-  background: -o-linear-gradient(top, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
-  background: -ms-linear-gradient(top, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
-  background: linear-gradient(to bottom, rgba(80,165,162,1) 0%, rgba(56,127,153,1) 26%, rgba(42,95,111,1) 37%, rgba(80,141,165,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50a5a2', endColorstr='#508da5', GradientType=0 );
+  background: rgba(51,122,255,1);
+
 }
 
 h1, h2, .card-header{color: #FFF;}
