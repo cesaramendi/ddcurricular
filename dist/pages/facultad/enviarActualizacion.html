@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DDC - Actualizar</title>
+    <title>DDC - Asesorías</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,10 +30,8 @@
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-         <img class="logo" src=".../../img/logos/log_uc_2.png">
-        </a>
-      <a class="navbar-brand mr-1" href="index.html">Docencia y Desarrollo Curricular UC</a>
+
+      <a class="navbar-brand mr-1" href="index.html">Página principal</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -46,7 +44,8 @@
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          
+            <i class="fas fa-bell fa-fw"></i>
+            <span class="badge badge-danger">9+</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -57,7 +56,8 @@
         </li>
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         
+            <i class="fas fa-envelope fa-fw"></i>
+            <span class="badge badge-danger">7</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -97,16 +97,16 @@
             <span>Solicitar Aval</span>
           </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Asesoria</span>
+            <span>Solicitar Asesoría</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="/enviarActualizacion">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Investigacion</span>
+            <span>Solicitar Investigación</span>
           </a>
         </li>
          <li class="nav-item active">
@@ -122,26 +122,18 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
- 
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <!--a href="#">Dashboard</a-->
+              Solicitud
+            </li>
+          </ol>
 
           <!-- Page Content -->
-          <h1>Enviar solicitud de Investigación  Curricular </h1>
+          <h1>Enviar solicitud de asesorías Académicas</h1>
           <hr>
-          <form method="post" action="/uploadSolicitudActualizacion" enctype="multipart/form-data">
-
+          <form method="post" action="/uploadSolicicitudAsesoria" enctype="multipart/form-data">
             <div class="form-group">
-              <div class="form-row">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="Solicitud">Solicitud</label>
-                  </div>
-                  <select required name="solicitud" class="custom-select" id="solicitud">
-                    <option value="">Seleccione...</option>
-                    <option value="1">Creación</option>
-                    <option value="2">Rediseño</option>
-                  </select>
-                </div>
-              </div>
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -151,7 +143,7 @@
                     <option value="">Seleccione...</option>
                     <option value="1">Carrera</option>
                     <option value="2">Diplomado</option>
-                    <option value="3">Programa academico</option>
+                    <option value="3">Programa académico</option>
                   </select>
                 </div>
               </div>
@@ -159,36 +151,44 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
-                <label for="nombreSolicitud">Razón de la solicitud </label>
+                <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
+                <label for="titulo">Identificación de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
-              <label for="Introduccion">Introduccion</label>
+              <label for="Introduccion">Introducción</label>
               <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
             </div>
             <div class="form-group">
              <div class="form-label-group">
                <input required type="text" id="apellidoSolicitanteA" class="form-control" placeholder="apellidoSolicitanteA"  name="apellidoSolicitanteA">
-               <label for="apellidoSolicitanteA">Apellido del solicitante</label>
+               <label for="apellidoSolicitanteA">Apellido de solicitante</label>
              </div>
            </div>
-             <div class="form-group">
+           <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="nombreSolicitanteA" class="form-control" placeholder="nombreSolicitanteA"  name="nombreSolicitanteA">
-                <label for="nombreSolicitanteA">Nombre del solicitante</label>
+                <label for="nombreSolicitanteA">Nombre de solicitante</label>
               </div>
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Documento</span>
-              </div>
-              <div class="custom-file">
-                <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
-                <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
+                <label for="Cantidad">Cantidad de participantes</label>
               </div>
             </div>
-
+             <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
+                <label for="lugar">Lugar de capacitación</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="date" id="FechaCapacitacion" class="form-control" placeholder="FechaCapacitacion"  name="fechaCapacitacion">
+                <label for="FechaCapacitacion">Fecha propuesta</label>
+              </div>
+            </div>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
           </form>
 
@@ -252,7 +252,7 @@
     <script src="js/select2.min.js"></script>
     <script src="js/i18n/es.js"></script>
 
-    <script src="js/reactive-fa-enviar.js"></script>
+
 
   </body>
 

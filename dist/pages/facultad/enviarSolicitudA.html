@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DDC - Asesorias</title>
+    <title>DDC - Asesorías</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,10 +30,8 @@
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-<a class="navbar-brand js-scroll-trigger" href="#page-top">
-         <img class="logo" src=".../../img/logos/log_uc_2.png">
-        </a>
-      <a class="navbar-brand mr-1" href="index.html">Docencia y Desarrollo Curricular UC</a>
+
+      <a class="navbar-brand mr-1" href="index.html">Página principal</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -44,10 +42,10 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           
+            <i class="fas fa-bell fa-fw"></i>
+            <span class="badge badge-danger">9+</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -58,7 +56,8 @@
         </li>
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           
+            <i class="fas fa-envelope fa-fw"></i>
+            <span class="badge badge-danger">7</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -72,7 +71,9 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
- 
+            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="#">Activity Log</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Desconectarse</a>
           </div>
         </li>
@@ -99,13 +100,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/enviarSolicitudA">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Asesoria</span>
+            <span>Solicitar Asesoría</span>
           </a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/enviarActualizacion">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Investigacion</span>
+            <span>Solicitar Investigación</span>
           </a>
         </li>
          <li class="nav-item active">
@@ -121,10 +122,15 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-        
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <!--a href="#">Dashboard</a-->
+              Solicitud
+            </li>
+          </ol>
 
           <!-- Page Content -->
-          <h1>Enviar solicitud de asesorias Académica</h1>
+          <h1>Enviar solicitud de asesorías Académicas</h1>
           <hr>
           <form method="post" action="/uploadSolicicitudAsesoria" enctype="multipart/form-data">
             <div class="form-group">
@@ -137,7 +143,7 @@
                     <option value="">Seleccione...</option>
                     <option value="1">Carrera</option>
                     <option value="2">Diplomado</option>
-                    <option value="3">Programa academico</option>
+                    <option value="3">Programa académico</option>
                   </select>
                 </div>
               </div>
@@ -146,11 +152,11 @@
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="titulo" class="form-control" placeholder="Nombre del Proyecto" name="titulo">
-                <label for="titulo">Razón  de la solicitud </label>
+                <label for="titulo">Identificación de la solicitud </label>
               </div>
             </div>
             <div class="form-group">
-              <label for="Introduccion">Introducción </label>
+              <label for="Introduccion">Introducción</label>
               <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
             </div>
             <div class="form-group">
@@ -174,7 +180,7 @@
              <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
-                <label for="lugar">Lugar de capacitacion</label>
+                <label for="lugar">Lugar de capacitación</label>
               </div>
             </div>
             <div class="form-group">
@@ -231,10 +237,6 @@
     h1{
       text-align: center;
     }
-      img
-  {
-     width: 70px;
-  }
     </style>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
