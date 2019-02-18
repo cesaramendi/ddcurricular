@@ -26,10 +26,6 @@ body {
 a.navbar-brand.mr-1.toggled{
 
 }
-.logo{
-  max-height: 70px;
-  animation: logo 4s;
-}
 
 #wrapper #content-wrapper {
   overflow-x: hidden;
@@ -49,15 +45,6 @@ body.fixed-nav #content-wrapper {
 
 body.fixed-nav.sidebar-toggled #content-wrapper {
   padding-left: 0;
-}
-
-@media (min-width: 768px) {
-  body.fixed-nav #content-wrapper {
-    padding-left: 225px;
-  }
-  body.fixed-nav.sidebar-toggled #content-wrapper {
-    padding-left: 80px;
-  }
 }
 
 .fondouc{
@@ -150,11 +137,21 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 @media (min-width: 768px) {
+  body.fixed-nav #content-wrapper {
+    padding-left: 225px;
+  }
+  body.fixed-nav.sidebar-toggled #content-wrapper {
+    padding-left: 80px;
+  }
   .navbar-nav .form-inline .input-group {
     width: auto;
   }
   a.navbar-brand.mr-1::after{
     content: 'Docencia y Desarrollo Curricular UC';
+  }
+  .logo{
+    max-height: 70px;
+    animation: logo 4s;
   }
 }
 @media (max-width: 768px) {
@@ -163,7 +160,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     z-index: 2;
   }
   .sidebar {
-    padding-top: 50px;
+    padding-top: 60px;
   }
   a.navbar-brand.mr-1::before{
     content: 'DDC-UC';
