@@ -197,6 +197,16 @@ app.get('/getInvestigacionCorregir', asyncMiddleware( async (req, res) => {
   }
 }) );
 
+app.get('/buscarPersona', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.cedula)) && await isValidSessionAndRol(req, 3)) {
+    let data = await pool.query('SELECT * FROM persona WHERE nacionalidad=? AND cedula=?',[req.query.nacionalidad,req.query.cedula]);
+    console.log(data);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
 app.get('/getUsers', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
     let data = await pool.query('SELECT * FROM usuarios');
@@ -302,6 +312,14 @@ app.get('/proyectos/:tipo/:nombre', (req, res) => {
 app.get('/register', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
     send(res, 'admin/register.html');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/registerPersona', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 1)) {
+    send(res, 'admin/registerPersona.html');
   } else {
     forbid(res);
   }
@@ -600,6 +618,16 @@ app.post('/register', asyncMiddleware( async (req, res) => {
   let user = req.body;
   if (await isValidSessionAndRol(req, 1)) {
     await pool.query('INSERT INTO usuarios VALUES (?,SHA(?),?,?)', [user.email, user.pass, user.rol, user.facultad]);
+    res.redirect('/dashboard');
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.post('/registerPersona', asyncMiddleware( async (req, res) => {
+  let person = req.body;
+  if (await isValidSessionAndRol(req, 1)) {
+    await pool.query('INSERT INTO persona VALUES (?,?,?,?)', [person.nacionalidad, person.cedula, person.apellido, person.nombre]);
     res.redirect('/dashboard');
   } else {
     forbid(res);

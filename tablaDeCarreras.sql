@@ -1,3 +1,15 @@
+CREATE TABLE persona(
+  nacionalidad    VARCHAR(1) NOT NULL,
+  -- V: Venezolano
+  -- E: cExtrangero
+  cedula          INT(12) UNSIGNED NOT NULL,
+  apellido        VARCHAR(40) NOT NULL,
+  nombre          VARCHAR(40) NOT NULL,
+
+  PRIMARY KEY(nacionalidad,cedula)
+);
+
+
 CREATE TABLE usuarios(
   email     VARCHAR(35) NOT NULL PRIMARY KEY,
   pass      VARCHAR(40) NOT NULL,
@@ -69,6 +81,7 @@ CREATE TABLE asesorias(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
+  fechaStatus             DATE NOT NULL,
   nota                    VARCHAR(200),
   PRIMARY KEY(idA),
   INDEX fk_asesoria_email_idx (email DESC),
@@ -102,6 +115,7 @@ CREATE TABLE actualizacion(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
+  fechaStatus             DATE NOT NULL,
   nota                    VARCHAR(200),
   PRIMARY KEY(id),
   INDEX fk_actualizacion_email_idx (email DESC),
