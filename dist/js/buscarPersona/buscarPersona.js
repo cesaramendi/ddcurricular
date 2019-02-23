@@ -7,9 +7,9 @@ $(document).ready(function() {
     //alert('Datos serializados: '+data);
 
     //habilitar el campo apellido
-    $(apellido).removeAttr("disabled");
+    $(apellido).removeAttr("readonly");
     //habilitar el campo nombre
-    $(nombre).removeAttr("disabled");
+    $(nombre).removeAttr("readonly");
     $.ajax({
         type: "get",
         url: "/buscarPersona?"+data,
@@ -19,12 +19,12 @@ $(document).ready(function() {
         //si encuentra apellido llena el campo
         $(apellido).val(datos.apellido);
         //y deshabilitar el campo
-        $(apellido).prop("disabled", true);
+        $(apellido).prop("readonly", true);
 
         //si encuentra nombre llena el campo
         $(nombre).val(datos.nombre);
         //y deshabilitar el campo
-        $(nombre).prop("disabled", true);
+        $(nombre).prop("readonly", true);
       });
   });
 });

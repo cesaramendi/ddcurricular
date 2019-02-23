@@ -519,8 +519,8 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
-      req.body.apellidoSolicitanteA,
-      req.body.nombreSolicitanteA,
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
       req.body.cantidadParticipantes,
       req.body.lugar,
       req.body.fechaCapacitacion,
@@ -556,8 +556,8 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
-      req.body.apellidoSolicitanteA,
-      req.body.nombreSolicitanteA,
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
       req.body.introduccion,
       1,
       dformat(),
@@ -800,16 +800,17 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
-
-      req.body.apellidoSolicitanteA,
-      req.body.nombreSolicitanteA,
+      req.body.nacionalidad,
+      req.body.cedula,
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
       req.body.introduccion,
       1,
       dformat()
     ]
     let fecha= (new Date()).toISOString().split('T')[0]
-    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,NULL)', asesoData);
-    // (`INSERT INTO actualizacion (nombreSolicitud, email, fechaSolicitud, Solicitud, tipo, apellidoSolicitante, nombreSolicitante, introduccion, status, nota) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10)`,  [req.body.nombreSolicitud, req.session.user, fecha, req.body.Solicitud, req.body.tipo, req.body.apellidoSolicitanteA, req.body.nombreSolicitanteA, req.body.introduccion, 1, null]);
+    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+
     console.log("El pakage a enviar: ", asesoData)
     console.log("El qryRes: ", qryRes)
     for(let i = 0; i < req.files.length; i++) {
@@ -854,6 +855,8 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
+      req.body.nacionalidad,
+      req.body.cedula,
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
       req.body.disenno,
@@ -874,7 +877,7 @@ app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(asyn
       /* ------------------------- */
       dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
+    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -911,8 +914,10 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
-      req.body.apellidoSolicitanteA,
-      req.body.nombreSolicitanteA,
+      req.body.nacionalidad,
+      req.body.cedula,
+      req.body.apellidoSolicitante,
+      req.body.nombreSolicitante,
       req.body.cantidadParticipantes,
       req.body.lugar,
       req.body.fechaCapacitacion,
@@ -930,7 +935,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* ------------------------- */
       dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
 
     res.redirect('/success');
   } else {

@@ -32,6 +32,8 @@ CREATE TABLE carreras(
   -- 1: Pregrado
   -- 2: Postgrado
   -- 3: Diplomado
+  nacionalidad            VARCHAR(1) NOT NULL,
+  cedula                  INT(12) UNSIGNED NOT NULL,
   apellidoSolicitante     VARCHAR(30) NOT NULL,
   nombreSolicitante       VARCHAR(30) NOT NULL,
   disenno                 VARCHAR(100) NOT NULL,
@@ -40,7 +42,6 @@ CREATE TABLE carreras(
   participantes           VARCHAR(300) NOT NULL,
   descripcion             VARCHAR(300) NOT NULL,
   status                  TINYINT UNSIGNED NOT NULL,
-  fechaStatus             DATE NOT NULL,
   -- 0: esperando correccion
   -- 1: recibido
   -- 2: para revisar
@@ -48,6 +49,7 @@ CREATE TABLE carreras(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
+  fechaStatus             DATE NOT NULL,
   nota                    VARCHAR(200),
 
   PRIMARY KEY(id),
