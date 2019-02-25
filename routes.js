@@ -215,6 +215,15 @@ app.get('/getUsers', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
+
+app.get('/getPersonas', asyncMiddleware( async (req, res) => {
+  if(await isValidSessionAndRol(req, 1)) {
+    let data = await pool.query('SELECT * FROM persona');
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
 ////////////////////////Reportes//////////////////////////////////////////////
 
 app.get('/getCarrerasCantTipos', asyncMiddleware( async (req, res) => {

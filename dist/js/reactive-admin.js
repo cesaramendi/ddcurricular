@@ -2,6 +2,47 @@ $(document).ready(function() {
   $('.fecha').text((new Date().toLocaleString()));
   let dataUsers = []
   let user;
+  let tablaP = $('#dataTablePersonas').DataTable({
+    ajax: '/getPersonas',
+    columns: [
+    { data: 'nacionalidad' },
+    { data: 'cedula' },
+    { data: 'nombre' },
+    { data: 'apellido' },
+    ],
+  });
+
+  tablaP.on( 'xhr', function () {
+    dataUsers = tablaP.ajax.json().data;
+  });
+
+  $('#dataTablePersonas tbody').on('click', 'tr', function () {
+    let tr = $(this).closest('tr');
+    let tdi = tr.find("i.fa");
+    let row = tablaA.row(tr);
+    let rowData = row.data();
+
+    let projectModalAsesoria = "#projectModalAsesoria";
+    $(projectModalAsesoria).addClass('isloading');
+    $(projectModalAsesoria).modal('toggle');
+    $(projectModalAsesoria).off('shown.bs.modal').on('shown.bs.modal', function () {
+
+      let fields = {};
+      fields.nacionalidad = document.getElementById('projectModalLabelA');
+      fields.cedula = document.getElementById('projectModalTitulo');
+      fields.nombre = document.getElementById('projectModalTipoA');
+      fields.apellido = document.getElementById('projectModalStatusA');
+
+      ///////////////
+
+      fields.nacionalidad.innerText = rowData.nacionalidad;
+      fields.cedula.innerText = rowData.cedula;
+      fields.nombre.innerText = rowData.nombre;
+      fields.apellido.innerText = rowData.apellido;
+    });
+  });
+
+  //////////////////////////////////////////////////////////////////////////////
   let tabla = $('#dataTable').DataTable({
     ajax: '/getUsers',
     columns: [
@@ -79,7 +120,7 @@ $(document).ready(function() {
   function rolNum2Str(n) {
     return n == 1 ? 'Administrador' : n == 2 ? 'DESCO' : 'Facultad';
   };
-  
+
   function rolStr2Num(str) {
     return str == 'Administrador' ? 1 : str == 'DESCO' ? 2 : 3;
   }
