@@ -487,6 +487,8 @@ app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
+      req.body.nacionalidad,
+      req.body.cedula,
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
       req.body.disenno,
@@ -500,7 +502,7 @@ app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
       req.session.user,
     ]
 
-    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -519,6 +521,8 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
+      req.body.nacionalidad,
+      req.body.cedula,
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
       req.body.cantidadParticipantes,
@@ -531,7 +535,7 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
       req.session.user, // email
     ]
 
-    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=?,fechaStatus=? WHERE idA=? AND email=?', proyData);
+    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=?,fechaStatus=? WHERE idA=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -556,6 +560,8 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
+      req.body.nacionalidad,
+      req.body.cedula,
       req.body.apellidoSolicitante,
       req.body.nombreSolicitante,
       req.body.introduccion,
@@ -565,7 +571,7 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
       req.session.user,
     ]
 
-    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
