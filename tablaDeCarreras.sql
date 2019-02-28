@@ -32,8 +32,8 @@ CREATE TABLE carreras(
   -- 1: Pregrado
   -- 2: Postgrado
   -- 3: Diplomado
-  nacionalidad            VARCHAR(1) NOT NULL,
-  cedula                  INT(12) UNSIGNED NOT NULL,
+  nacionalidad            VARCHAR(1),
+  cedula                  INT(12) UNSIGNED,
   apellidoSolicitante     VARCHAR(30) NOT NULL,
   nombreSolicitante       VARCHAR(30) NOT NULL,
   disenno                 VARCHAR(100) NOT NULL,
@@ -69,6 +69,8 @@ CREATE TABLE asesorias(
   -- 1: Curso
   -- 2: Taller
   -- 3: Formacion
+  nacionalidad            VARCHAR(1),
+  cedula                  INT(12) UNSIGNED,
   apellidoSolicitanteA     VARCHAR(30) NOT NULL,
   nombreSolicitanteA       VARCHAR(30) NOT NULL,
   cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
@@ -96,16 +98,18 @@ CREATE TABLE asesorias(
 
 CREATE TABLE actualizacion(
   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  nombreSolicitud         VARCHAR(100) NOT NULL,
   email                   VARCHAR(35) NOT NULL,
   fechaSolicitud   	      DATE NOT NULL,
-  Solicitud               TINYINT UNSIGNED NOT NULL,
+  nombreSolicitud         VARCHAR(100) NOT NULL,
+  solicitud               TINYINT UNSIGNED NOT NULL,
   -- 1: Creacion
   -- 2: Rediseño
   tipo                     TINYINT UNSIGNED NOT NULL,
   -- 1: Carrera
   -- 2: Diplomado
   -- 3: Programa Academico
+  nacionalidad            VARCHAR(1),
+  cedula                  INT(12) UNSIGNED,
   apellidoSolicitante     VARCHAR(30) NOT NULL,
   nombreSolicitante       VARCHAR(30) NOT NULL,
   introduccion             VARCHAR(500) NOT NULL,
