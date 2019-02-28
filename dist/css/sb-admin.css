@@ -26,6 +26,9 @@ body {
 a.navbar-brand.mr-1.toggled{
 
 }
+.fa-sign-out-alt{
+  color: rgba(200, 50, 50, 0.5);
+}
 
 #wrapper #content-wrapper {
   overflow-x: hidden;

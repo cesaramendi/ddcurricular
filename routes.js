@@ -308,6 +308,14 @@ app.get('/login', (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  if(req.session.isPopulated) {
+    res.redirect('/dashboard');
+  } else {
+    res.redirect('/');
+  }
+});
+
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
