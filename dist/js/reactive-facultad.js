@@ -510,6 +510,7 @@ $(document).ready(function() {
         fields.pluses.innerHTML = plusesHtml;
 
         // Si esta aprobado
+        /*
         if(status2Num(rowData.status) >= 6) {
           fields.pluses.innerHTML = fields.pluses.innerHTML +
           `<div class="text-right text-white">
@@ -552,7 +553,7 @@ $(document).ready(function() {
               targetModal.off('hidden.bs.modal');
             });
           }); // fin evento click botones de modales
-        } // fin if(aprobado)
+        }*/ // fin if(aprobado)
 
         // Definicion del comportamiento al abrir los diferentes modales
         let addAvancesModal = $('#addAvancesModal');

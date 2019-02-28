@@ -219,8 +219,15 @@ $(document).ready(function () {
               // Para mostrar los documentos del proyecto
               fields.files.innerHTML = files(res);
 
+              let plusesHtml = '';
               // PAra mostrar el select de estatus si aun no está aprobado INVESTIGACION
-              fields.pluses.innerHTML = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/investigacionUpdate');
+              plusesHtml = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/investigacionUpdate');
+
+              // Si está aprobado & no ha subido el aval
+              plusesHtml = plusesHtml + cargarAval(rowData.id,rowData.tipo,rowData.status,rowData.solicitud,"/subirAvalInvestigacion");
+
+
+              fields.pluses.innerHTML = plusesHtml;
             });
           });
         });
@@ -341,9 +348,7 @@ $(document).ready(function () {
         method: 'get',
         url: '/getDocsFromProject?id=' + rowData.id,
       }).done(function (res) {
-
         $('#projectModal').removeClass('isloading');
-
         rowData.files = res.data;
 
         //fields.files.innerHTML = htmlFiles;
@@ -356,27 +361,8 @@ $(document).ready(function () {
         plusesHtml = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/carreraUpdate');
 
         // Si está aprobado & no ha subido el aval
-        if (status2Num(rowData.status) >= 6 && !(filesByTipo.find(x => x[0].tipo == 3)) ) { // Falta modificar para que ingrese aval, no cualquier archivo
-          plusesHtml = plusesHtml +
-            `<span>Subir oficio de aval.</span>
-            <form method="post" action="/subirAval" enctype="multipart/form-data">
-          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
-          <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
-          <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
-            plusesHtml = plusesHtml +
-              `<div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Aval</span>
-            </div>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" name="aval" id="aval" accept=".pdf, .doc, .docx, .xlsx">
-              <label id="avalLabel" class="custom-file-label" for="aval">Escoger Archivo PDF, Word, Excel</label>
-            </div>
-          </div>`
-          plusesHtml = plusesHtml +
-            `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
-          </form>`;
-        }
+        //if (status2Num(rowData.status) >= 6 && !(filesByTipo.find(x => x[0].tipo == 3)) ) { // Falta modificar para que ingrese aval, no cualquier archivo
+        plusesHtml = plusesHtml + cargarAval(rowData.id,rowData.tipo,rowData.status,rowData.nombreSolicitud,"/subirAval");
 
         fields.pluses.innerHTML = plusesHtml;
 
@@ -591,6 +577,31 @@ $(document).ready(function () {
 
     return plusesHtml;
   } //fin function pluses()
+  function cargarAval(id,tipo,status,nombreSolicitud,ruta){
+    let plusesHtml = '';
+    if (status2Num(status) == 6 ) { // Falta modificar para que ingrese aval, no cualquier archivo
+      plusesHtml = plusesHtml +
+        `<span>Subir oficio de aval.</span>
+        <form method="post" action="${ruta}" enctype="multipart/form-data">
+      <input class="d-none" type="text" name="nombreSolicitud" value="${nombreSolicitud}"/>
+      <input class="d-none" name="tipo" value="${tipo2Num(tipo)}"/>
+      <input class="d-none" name="refProyecto" value="${id}"/>`;
+        plusesHtml = plusesHtml +
+          `<div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Aval</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="aval" id="aval" accept=".pdf, .doc, .docx, .xlsx">
+          <label id="avalLabel" class="custom-file-label" for="aval">Escoger Archivo PDF, Word, Excel</label>
+        </div>
+      </div>`
+      plusesHtml = plusesHtml +
+        `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
+      </form>`;
+    }
+    return plusesHtml;
+  }
 
     function files(res){
       // Obtenemos cuantos tipos de documentos tiene el proyecto

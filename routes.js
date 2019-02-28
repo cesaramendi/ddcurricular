@@ -685,6 +685,37 @@ app.post('/subirAval', asyncMiddleware(async (req, res) =>{
           //numero -> 1
         ];
         await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,NOW(),3,1)', dataDoc);
+        await pool.query('UPDATE carreras SET status=7 WHERE id=? ', [req.body.refProyecto]);
+        res.redirect('/success');
+      }
+    });
+
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.post('/subirAvalInvestigacion', asyncMiddleware(async (req, res) =>{
+  if (await isValidSessionAndRol(req, 2)) {
+
+    await upload.any()(req, res, async function(err) { // Sube los archivos
+      if(err) {
+        return res.end('Error al subir archivos. Esto puede ocurrir si el archivo es mayor a 5MB.');
+      } else {
+        console.log(req.body);
+        console.log(req.files);
+        let dataDoc = [
+          //id
+          req.body.refProyecto,
+          //refAvance
+          req.files[0].path,
+          req.files[0].filename,
+          //fechaSubida
+          //tipo -> Aval -> 3
+          //numero -> 1
+        ];
+        await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,NOW(),3,1)', dataDoc);
+        await pool.query('UPDATE actualizacion SET status=7 WHERE id=? ', [req.body.refProyecto]);
         res.redirect('/success');
       }
     });
