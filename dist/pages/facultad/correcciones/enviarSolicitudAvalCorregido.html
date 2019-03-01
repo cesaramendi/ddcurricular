@@ -179,28 +179,46 @@
               <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
-            <label>Datos Solicitante</label>
+            <label>Datos de proponentes</label>
             <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
-                <label for="institucion">Institución</label>
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarCoordinador" class="btn btn-link fa fa-search"> Buscar coordinador</button>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
-                <label for="dependencia">Dependencia</label>
-              </div>
-            </div>
-            <hr>
-              <label>Datos de proponentes</label>
-            <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
                 <label for="coordinador">Coordinado por:</label>
               </div>
             </div>
             <div class="form-group">
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarDisennador" class="btn btn-link fa fa-search"> Buscar diseñador</button>
+              </div>
               <div class="form-label-group">
                 <input required type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
                 <label for="disennador">Diseñador curricular:</label>
@@ -208,6 +226,22 @@
             </div>
             <div class="form-group">
               <label for="miembros">Miembros</label>
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarMiembro" class="btn btn-link fa fa-search"> Buscar miembro</button>
+              </div>
               <textarea class="form-control" rows="5" id="miembros" name="miembros"></textarea>
             </div>
             <div>
@@ -277,8 +311,7 @@
     <script src="js/select2.min.js"></script>
     <script src="js/i18n/es.js"></script>
 
-    <script src="js/reactive-fa-enviar.js"></script>
-    <script src="js/correcciones/corregir-aval.js"></script>
+    <script src="js/reactive-fa-enviar.js"></script>>
     <script src="js/buscarPersona/buscarPersona.js"></script>
 
 

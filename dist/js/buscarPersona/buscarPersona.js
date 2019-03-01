@@ -27,4 +27,31 @@ $(document).ready(function() {
         $(nombre).prop("readonly", true);
       });
   });
+
+  buscarPersonaYllenarInput('#buscarCoordinador','#coordinador');
+
+  buscarPersonaYllenarInput('#buscarDisennador','#disennador');
+
+  buscarPersonaYllenarInput('#buscarMiembro','#miembros');
+
+
+  function buscarPersonaYllenarInput(idBoton,idInput){
+    $(idBoton).click(function () {
+
+      var data = $('#nacionalidad').serialize()+'&'+$('#cedula').serialize()
+      //alert('Datos serializados: '+data);
+
+      $.ajax({
+          type: "get",
+          url: "/buscarPersona?"+data,
+          //data: data,
+      }).done(function (res) {
+        let datos = res.data[0];
+          //si encuentra apellido llena el campo
+          $(idInput).val($(idInput).val()+datos.apellido+' '+datos.nombre+', ');
+        });
+    });
+
+  }
+
 });
