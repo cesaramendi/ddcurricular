@@ -743,7 +743,7 @@ app.post('/uploadSolicicitudAval', upload.array('inputFile', 10),asyncMiddleware
       /* ------------------------- */
       dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO SolicitudAval VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
+    let qryRes = await pool.query('INSERT INTO SolicitudAval VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
