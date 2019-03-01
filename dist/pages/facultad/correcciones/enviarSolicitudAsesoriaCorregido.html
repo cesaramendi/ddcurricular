@@ -94,19 +94,19 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarProyecto">
+          <a class="nav-link" href="/enviarSolicitudAval">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Aval</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/enviarSolicitudA">
+          <a class="nav-link" href="/enviarSolicitudAsesoria">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Asesoría</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarActualizacion">
+          <a class="nav-link" href="/enviarSolicitudInvestigacion">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Investigación</span>
           </a>
@@ -146,17 +146,30 @@
               <div class="form-row">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
+                    <label class="input-group-text" for="etapa">Etapas</label>
+                  </div>
+                  <select required name="etapa" class="custom-select" id="etapa">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Diagnostico</option>
+                    <option value="2">Diseño</option>
+                    <option value="3">Ejecución</option>
+                    <option value="4">Evaluacion</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
                     <label class="input-group-text" for="tipo">Tipo</label>
                   </div>
                   <select required name="tipo" class="custom-select" id="tipo">
                     <option value="">Seleccione...</option>
-                    <option value="1">Carrera</option>
-                    <option value="2">Diplomado</option>
+                    <option value="1">Carrera (Pregrado, TSU, ...)</option>
+                    <option value="2">Programa de Postgrado</option>
                     <option value="3">Programa académico</option>
                   </select>
                 </div>
               </div>
-              <span id="errorPlace"></span>
             </div>
             <div class="form-group">
               <div class="form-label-group">
@@ -165,60 +178,58 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="Introduccion">Introducción</label>
-              <textarea required class="form-control" rows="5" id="Introduccion" name="introduccion"></textarea>
+              <label for="descripcion">Descripción</label>
+              <textarea required class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
             <label>Datos Solicitante</label>
-            <div class="form-group form-row">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Nacionalidad</label>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
+                <label for="institucion">Institución</label>
               </div>
-              <div class="">
-                <select required id="nacionalidad" name="nacionalidad" class="custom-select">
-                  <option value="">...</option>
-                  <option value="V">V</option>
-                  <option value="E">E</option>
-                </select>
-              </div>
-              <div class="">
-                <input required type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
-              </div>
-              <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
             </div>
             <div class="form-group">
-             <div class="form-label-group">
-               <input required type="text" id="apellidoSolicitante" class="form-control" placeholder="apellidoSolicitante"  name="apellidoSolicitante">
-               <label for="apellidoSolicitante">Apellido de solicitante</label>
-             </div>
-           </div>
-           <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="nombreSolicitante" class="form-control" placeholder="nombreSolicitante"  name="nombreSolicitante">
-                <label for="nombreSolicitante">Nombre de solicitante</label>
+                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
+                <label for="dependencia">Dependencia</label>
               </div>
             </div>
             <hr>
+            <label>Datos de asesoría</label>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="number" id="Cantidad" class="form-control" placeholder="Cantidad"  name="cantidadParticipantes">
-                <label for="Cantidad">Cantidad de participantes</label>
+                <input required type="number" id="comunidad" class="form-control" placeholder="comunidad"  name="cantidadBeneficiarios">
+                <label for="Cantidad">Comunidad</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="number" id="cantidad" class="form-control" placeholder="cantidad"  name="cantidadBeneficiarios">
+                <label for="Cantidad">Cantidad de beneficiarios</label>
               </div>
             </div>
              <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="lugar" class="form-control" placeholder="lugar"  name="lugar">
-                <label for="lugar">Lugar de capacitación</label>
+                <label for="lugar">Lugar de asesoria</label>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="date" id="fechaCapacitacion" class="form-control" placeholder="fechaCapacitacion"  name="fechaCapacitacion">
+                <label for="fechaCapacitacion">Fecha propuesta</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="date" id="FechaCapacitacion" class="form-control" placeholder="FechaCapacitacion"  name="fechaCapacitacion">
-                <label for="FechaCapacitacion">Fecha propuesta</label>
+                <input required type="time" id="horaCapacitacion" class="form-control" placeholder="horaCapacitacion"  name="horaCapacitacion">
+                <label for="horaCapacitacion">Hora propuesta</label>
               </div>
             </div>
             <hr>
-            <input id="editButton" class="btn btn-success btn-block" type="submit" value="Enviar correccion">
+            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar corrección">
           </form>
 
         </div>

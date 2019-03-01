@@ -6,15 +6,16 @@ const app = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Elije la carpeta donde guardar segun el tipo de proyecto
-    let tipo = 'ServicioComunitario/';
-    //console.log("req.body.tipo", req.body.tipo);
-    switch (req.body.tipo) {
-      //case 1: tipo = 'ServicioComunitario/'; break;
-      case 2: tipo = 'Extension/'; break;
-      case 3: tipo = 'Aval/'; break;
+    console.log("Tipo en Documento: ",req.body.tipo);
+    let tipo = '';
+    if (req.body.tipo == 1) {
+      tipo = 'Carreras/';
+    }else if (req.body.tipo == 2) {
+      tipo = 'Postgrados/';
+    }else {
+      tipo = 'Programas/';
     }
-    //let tipo = req.body.tipo == 1 ? 'ServicioComunitario/' : 'Extension/';
-    cb(null, 'proyectos/' + tipo);
+    cb(null, 'Documentos/' + tipo);
   },
   filename: function (req, file, cb) {
     console.log("el file:", file);
@@ -82,8 +83,8 @@ app.get('/phpmiadministrador', (req, res) => {
   }
 });
 
-app.get('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
-   send(res, 'facultad/enviarSolicitudA.html');
+app.get('/enviarSolicitudAsesoria', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudAsesoria.html');
 }));
 
 app.get('/Reporte', (req, res) => {
@@ -96,9 +97,9 @@ app.get('/Reporte', (req, res) => {
   }
 });
 
-app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
+app.get('/enviarSolicitudAval', asyncMiddleware( async (req, res) => {
   if(true) {
-    send(res, 'facultad/enviarProyecto.html');
+    send(res, 'facultad/enviarSolicitudAval.html');
   } else {
     forbid(res);
   }
@@ -123,9 +124,9 @@ app.post('/enviarSolicicitudA', asyncMiddleware(async (req, res) =>{
     res.redirect('/success');
 
 }));
-app.get('/enviarProyecto', asyncMiddleware( async (req, res) => {
+app.get('/enviarSolicitudAval', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
-    send(res, 'facultad/enviarProyecto.html');
+    send(res, 'facultad/enviarSolicitudAval.html');
   } else {
     forbid(res);
   }
@@ -140,18 +141,27 @@ app.get('/getAvancesFromProject', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.get('/getDocsFromProject', asyncMiddleware( async (req, res) => {
+app.get('/getDocsFromSolicitudAval', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
-    let data = await pool.query('SELECT ruta,tipo,numero,refAvance FROM documentos WHERE refProyecto=?',[req.query.id]);
+    let data = await pool.query('SELECT ruta,tipo,numero FROM documentoSolicitudAval WHERE refProyecto=?',[req.query.id]);
     res.json({ data });
   } else {
     forbid(res);
   }
 }) );
 
-app.get('/getDocsFromProjectI', asyncMiddleware( async (req, res) => {
+app.get('/getDocsFromAsesoria', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
-    let data = await pool.query('SELECT ruta,tipo,numero,refProyecto FROM documentos WHERE refAvance=?',[req.query.id]);
+    let data = await pool.query('SELECT ruta,tipo,numero FROM documentoAsesoria WHERE refProyecto=?',[req.query.id]);
+    res.json({ data });
+  } else {
+    forbid(res);
+  }
+}) );
+
+app.get('/getDocsFromInvestigacion', asyncMiddleware( async (req, res) => {
+  if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
+    let data = await pool.query('SELECT ruta,tipo,numero,refProyecto FROM documentoInvestigacion WHERE refProyecto=?',[req.query.id]);
     res.json({ data });
   } else {
     forbid(res);
@@ -167,9 +177,9 @@ app.get('/getParticipantesFromProject', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.get('/getProyectoCorregir', asyncMiddleware( async (req, res) => {
+app.get('/getSolicitudAvalCorregir', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
-    let data = await pool.query('SELECT * FROM carreras WHERE id=?',[req.query.id]);
+    let data = await pool.query('SELECT * FROM SolicitudAval WHERE id=?',[req.query.id]);
     console.log(data);
     res.json({ data });
   } else {
@@ -179,7 +189,7 @@ app.get('/getProyectoCorregir', asyncMiddleware( async (req, res) => {
 
 app.get('/getAsesoriaCorregir', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
-    let data = await pool.query('SELECT * FROM asesorias WHERE idA=?',[req.query.id]);
+    let data = await pool.query('SELECT * FROM Asesoria WHERE idA=?',[req.query.id]);
     console.log(data);
     res.json({ data });
   } else {
@@ -189,7 +199,7 @@ app.get('/getAsesoriaCorregir', asyncMiddleware( async (req, res) => {
 
 app.get('/getInvestigacionCorregir', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
-    let data = await pool.query('SELECT * FROM actualizacion WHERE id=?',[req.query.id]);
+    let data = await pool.query('SELECT * FROM investigacion WHERE id=?',[req.query.id]);
     console.log(data);
     res.json({ data });
   } else {
@@ -226,14 +236,13 @@ app.get('/getPersonas', asyncMiddleware( async (req, res) => {
 }) );
 ////////////////////////Reportes//////////////////////////////////////////////
 
-app.get('/getCarrerasCantTipos', asyncMiddleware( async (req, res) => {
+app.get('/getSolicitudAvalCantTipos', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM carreras WHERE email=? GROUP BY tipo',[req.session.user]);
-      //data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM SolicitudAval WHERE email=? GROUP BY tipo',[req.session.user]);
     } else {
-      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM carreras GROUP BY tipo');
+      data = await pool.query('SELECT tipo, COUNT(tipo) AS cant FROM SolicitudAval GROUP BY tipo');
     }
     res.json({ data });
   } else {
@@ -241,14 +250,13 @@ app.get('/getCarrerasCantTipos', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.get('/getCarrerasCantStatus', asyncMiddleware( async (req, res) => {
+app.get('/getSolicitudAvalCantStatus', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT status, COUNT(status) AS cant FROM carreras WHERE email=? GROUP BY status',[req.session.user]);
-      //data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+      data = await pool.query('SELECT status, COUNT(status) AS cant FROM SolicitudAval WHERE email=? GROUP BY status',[req.session.user]);
     } else {
-      data = await pool.query('SELECT status, COUNT(status) AS cant FROM carreras GROUP BY status');
+      data = await pool.query('SELECT status, COUNT(status) AS cant FROM SolicitudAval GROUP BY status');
     }
     res.json({ data });
   } else {
@@ -257,14 +265,14 @@ app.get('/getCarrerasCantStatus', asyncMiddleware( async (req, res) => {
 }) );
 ///////////////////////////////////////////////////////////////////////////////
 
-app.get('/getProyectosDDC', asyncMiddleware( async (req, res) => {
+app.get('/getSolicitudAval', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     console.log(req.session);
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT * FROM carreras WHERE email=?',[req.session.user]);
+      data = await pool.query('SELECT * FROM SolicitudAval WHERE email=?',[req.session.user]);
     } else {
-      data = await pool.query('SELECT * FROM carreras');
+      data = await pool.query('SELECT * FROM SolicitudAval');
     }
     res.json({ data });
   } else {
@@ -276,9 +284,9 @@ app.get('/getAsesorias', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT * FROM asesorias WHERE email=?',[req.session.user]);
+      data = await pool.query('SELECT * FROM Asesoria WHERE email=?',[req.session.user]);
     } else {
-      data = await pool.query('SELECT * FROM asesorias');
+      data = await pool.query('SELECT * FROM Asesoria');
     }
     res.json({ data });
   } else {
@@ -321,7 +329,7 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 })
 
-app.get('/proyectos/:tipo/:nombre', (req, res) => {
+app.get('/SolicitudAval/:tipo/:nombre', (req, res) => {
   console.log(req.params);
   res.sendFile(`${req.params.tipo}/${req.params.nombre}`, {root: __dirname + '/proyectos/'});
 })
@@ -355,9 +363,9 @@ app.get('/success', asyncMiddleware( async (req, res) => {
 }) );
 ////////////////////////correcciones////////////////////////////////////////////
 
-app.get('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
+app.get('/enviarSolicitudAvalCorregido', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
-    send(res, 'facultad/correcciones/enviarProyectoCorregido.html');
+    send(res, 'facultad/correcciones/enviarSolicitudAvalCorregido.html');
   } else {
     forbid(res);
   }
@@ -365,7 +373,7 @@ app.get('/enviarProyectoCorregido', asyncMiddleware( async (req, res) => {
 
 app.get('/enviarInvestigacionCorregido', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
-    send(res, 'facultad/correcciones/enviarActualizacionCorregido.html');
+    send(res, 'facultad/correcciones/enviarSolicitudInvestigacionCorregido.html');
   } else {
     forbid(res);
   }
@@ -373,7 +381,7 @@ app.get('/enviarInvestigacionCorregido', asyncMiddleware( async (req, res) => {
 
 app.get('/enviarAsesoriaCorregido', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 3)) {
-    send(res, 'facultad/correcciones/enviarSolicitudACorregido.html');
+    send(res, 'facultad/correcciones/enviarSolicitudAsesoriaCorregido.html');
   } else {
     forbid(res);
   }
@@ -404,7 +412,7 @@ app.post('/actualizarDocs', asyncMiddleware(async (req, res) => {
             nArchivo,
           ]
           await pool.query('UPDATE documentos SET ruta=?, fechaSubida=NOW() WHERE refProyecto=? && tipo=2 && numero=?', data);
-          await pool.query('UPDATE carreras SET status=1 WHERE id=?',[req.body.refProyecto]);
+          await pool.query('UPDATE SolicitudAval SET status=1 WHERE id=?',[req.body.refProyecto]);
           console.log(req.body.refProyecto);
         }
         res.redirect('/success');
@@ -443,33 +451,23 @@ app.post('/agregarParticipantes', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.post('/descoUpdate', asyncMiddleware( async (req, res) => {
+
+app.post('/solicitudAvalUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE proyectos SET nota=?, status=? WHERE id=?', [nota, req.body.status, req.body.id]);
+    await pool.query('UPDATE SolicitudAval SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.status,dformat(), req.body.id]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
   }
 }) );
 
-app.post('/carreraUpdate', asyncMiddleware( async (req, res) => {
+app.post('/asesoriaUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE carreras SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.status,dformat(), req.body.id]);
-    res.redirect('/dashboard');
-  } else {
-    forbid(res);
-  }
-}) );
-
-app.post('/asesoriasUpdate', asyncMiddleware( async (req, res) => {
-  console.log(req.body);
-  if (await isValidSessionAndRol(req, 2)) {
-    let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE asesorias SET nota=?, status=?,fechaStatus=? WHERE idA=?', [nota, req.body.status,dformat(), req.body.id]);
+    await pool.query('UPDATE Asesoria SET nota=?, status=?,fechaStatus=? WHERE idA=?', [nota, req.body.statusA,dformat(), req.body.idA]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
@@ -480,15 +478,15 @@ app.post('/investigacionUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE actualizacion SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.status,dformat(), req.body.id]);
+    await pool.query('UPDATE Investigacion SET nota=?, status=?,fechaStatus=? WHERE id=?', [nota, req.body.statusI,dformat(), req.body.idI]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
   }
 }) );
 
-app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
-  console.log(req.body);
+app.post('/solicitudAvalCorregir', asyncMiddleware( async (req, res) => {
+  //console.log(req.body);
   if (await isValidSessionAndRol(req, 3)) {
     let proyData = [
       //req.session.user, // email
@@ -504,22 +502,20 @@ app.post('/carreraCorregir', asyncMiddleware( async (req, res) => {
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.disenno,
+      req.body.institucion,
+      req.body.dependencia,
+      req.body.disennador,
       req.body.coordinador,
-      req.body.introduccion,
-      req.body.participantes,
       req.body.descripcion,
+      req.body.miembros,
       1,
       dformat(),
       req.body.id,
       req.session.user,
     ]
+    console.log(proyData);
 
-    await pool.query('UPDATE carreras SET nombreSolicitud=?, solicitud=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitante=?, nombreSolicitante=?, disenno=?, coordinador=?, introduccion=?, participantes=?, descripcion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE SolicitudAval SET nombreSolicitud=?, solicitud=?, tipo=?, institucion=?, dependencia=?, disennador=?, coordinador=?, descripcion=?, miembros=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -531,28 +527,28 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 3)) {
     let proyData = [
-      req.body.titulo,
-      req.body.tipo,
+      req.body.nombreSolicitud,
+      req.body.etapa,
+      req.body.tipoA,
       /* ^ tipo-------------------------
       /* 1: Carrera
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.cantidadParticipantes,
+      req.body.institucionA,
+      req.body.dependenciaA,
+      req.body.cantidadBeneficiarios,
       req.body.lugar,
-      req.body.fechaCapacitacion,
-      req.body.introduccion,
+      req.body.fechaAsesoria,
+      req.body.horaAsesoria,
+      req.body.descripcionA,
       1,
       dformat(),
-      req.body.id,
+      req.body.idA,
       req.session.user, // email
     ]
 
-    await pool.query('UPDATE asesorias SET titulo=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitanteA=?, nombreSolicitanteA=?, cantidadParticipantes=?, lugar=?, fechaCapacitacion=?, introduccion=?, status=?,fechaStatus=? WHERE idA=? AND email=?', proyData);
+    await pool.query('UPDATE Asesoria SET nombreSolicitudA=?, etapa=?, tipoA=?, institucionA=?, dependenciaA=?, cantidadVeneficiarios=?, lugar=?, fechaAsesoria=?, horaAsesoria=?, descripcionA=?, statusA=?,fechaStatusA=? WHERE idA=? AND emailA=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -565,30 +561,28 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
   if (await isValidSessionAndRol(req, 3)) {
     //var d = new Date();
     let proyData = [
-      req.body.nombreSolicitud,
-      req.body.solicitud,
+      req.body.nombreSolicitudI,
+      req.body.solicitudI,
       /* ^ tipo-------------------------
       /* 1: Creacion
       /* 2: Redisenno
       /* ------------------------------*/
-      req.body.tipo,
+      req.body.tipoI,
       /* ^ asunto-------------------------
       /* 1: Creacion
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.introduccion,
+      req.body.institucionI,
+      req.body.dependenciaI,
+      req.body.descripcionI,
       1,
       dformat(),
-      req.body.id,
+      req.body.idI,
       req.session.user,
     ]
 
-    await pool.query('UPDATE actualizacion SET nombreSolicitud=?, solicitud=?, tipo=?, nacionalidad=?, cedula=?, apellidoSolicitante=?, nombreSolicitante=?, introduccion=?, status=?,fechaStatus=? WHERE id=? AND email=?', proyData);
+    await pool.query('UPDATE Investigacion SET nombreSolicitudI=?, solicitudI=?, tipoI=?, institucionI=?, dependenciaI=?, descripcionI=?, statusI=?,fechaStatusI=? WHERE idI=? AND emailI=?', proyData);
 
     res.redirect('/success');
   } else {
@@ -606,19 +600,6 @@ app.post('/editUser', asyncMiddleware( async (req, res) => {
       [req.body.email, req.body.pass, req.body.rol, req.body.facultad, req.body.email]);
     }
     res.json({data: 'ok'});
-  } else {
-    forbid(res);
-  }
-}) );
-
-app.post('/finalizarProyecto', asyncMiddleware(async (req, res) => {
-  if (await isValidSessionAndRol(req, 3)) {
-    if (!(await verificarAutoridad(req, req.body.refProyecto))) {
-      res.send(`${new Date().toLocaleString()} -> ${req.path}: Fallo en la autorización por ${req.session.user}`);
-      throw new Error(`${new Date().toLocaleString()} -> ${req.path}: Fallo en la autorización por ${req.session.user}`);
-    }
-    await pool.query('UPDATE proyectos SET status=7 WHERE id=?', [req.body.fP]);
-    res.redirect('/success');
   } else {
     forbid(res);
   }
@@ -657,12 +638,12 @@ app.post('/registerPersona', asyncMiddleware( async (req, res) => {
   }
 }) );
 
-app.post('/enviarSolicitudA', asyncMiddleware( async(req, res) => {
-   send(res, 'facultad/enviarSolicitudA.html');
+app.post('/enviarSolicitudAsesoria', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudAsesoria.html');
 }))
 
-app.get('/enviarActualizacion', asyncMiddleware( async(req, res) => {
-   send(res, 'facultad/enviarActualizacion.html');
+app.get('/enviarSolicitudInvestigacion', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudInvestigacion.html');
 }))
 
 app.post('/subirAval', asyncMiddleware(async (req, res) =>{
@@ -685,7 +666,7 @@ app.post('/subirAval', asyncMiddleware(async (req, res) =>{
           //numero -> 1
         ];
         await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,NOW(),3,1)', dataDoc);
-        await pool.query('UPDATE carreras SET status=7 WHERE id=? ', [req.body.refProyecto]);
+        await pool.query('UPDATE SolicitudAval SET status=7 WHERE id=? ', [req.body.refProyecto]);
         res.redirect('/success');
       }
     });
@@ -725,78 +706,30 @@ app.post('/subirAvalInvestigacion', asyncMiddleware(async (req, res) =>{
   }
 }) );
 
-app.post('/subirAvance', asyncMiddleware(async (req, res) => {
-  if(await isValidSessionAndRol(req, 3)) { // Si es valida la sesion
-    if (!(await verificarAutoridad(req, req.body.refProyecto))) {
-      res.send(`${new Date().toLocaleString()} -> ${req.path}: Fallo en la autorización por ${req.session.user}`);
-      throw new Error(`${new Date().toLocaleString()} -> ${req.path}: Fallo en la autorización por ${req.session.user}`);
-    }
-    await upload.array('inputFile',10)(req, res, async function(err) { // Sube los archivos
-      if(err) {
-        return res.end('Error al subir archivos. Esto puede ocurrir si algun archivo es mayor a 5MB.');
-      } else {
-        console.log(req.files);
-        console.log(req.body);
-        let numerosAvance = await pool.query('SELECT numero FROM avances WHERE refProyecto=?', [req.body.refProyecto]);
-        let lastAvance = Math.max.apply(Math, numerosAvance.map(x => x.numero));
-        lastAvance < 0 ? lastAvance = 0 : '';
-        let avanceData = [
-          // id
-          req.body.refProyecto,
-          lastAvance + 1,
-          `${req.body.anoInicio}-${req.body.mesInicio}-${req.body.diaInicio}`,
-          req.body.notaAvance,
-        ]
-        let qryRes = await pool.query('INSERT INTO avances VALUES(0,?,?,?,?)', avanceData);
-        await pool.query('UPDATE proyectos SET avances=avances+1 WHERE id=?', [req.body.refProyecto]);
-
-        for(let i = 0; i < req.files.length; i++) {
-          let docData = [
-            // id
-            req.body.refProyecto,
-            qryRes.insertId,
-            req.files[i].path,
-            req.files[i].filename,
-            // Fecha subida
-            // tipo -> 4: avances
-            i+1 // numero
-          ]
-          await pool.query('INSERT INTO documentos VALUES(0,?,?,?,?,NOW(),4,?)', docData);
-        }
-        res.redirect('/success');
-      }
-    });
-
-
-  } else {
-    forbid(res);
-  }
-}))
-
-app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+app.post('/uploadSolicicitudAval', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
   console.log(req.body);
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
-      req.body.nombreS,
-      "",
-      req.session.user,
-      "",
-      req.body.Carrera,
-      req.body.Decripcion,
-      req.body.tipo,
-      "",
-      "",
-      `${req.body.anoInicio}-${req.body.mesInicio}-${req.body.diaInicio}`,//fecha inicio
-      `${req.body.anoFin}-${req.body.mesFin}-${req.body.diaFin}`,//fechafin
-      req.body.objGeneral,
-      req.body.objsEspecificos,
-      req.body.tipo,
+      req.body.nombreSolicitud,
+      req.body.solicitud,
       /* ^ tipo-------------------------
-      /* 1: Servicio Comunitario
-      /* 2: Extension
+      /* 1: Creacion
+      /* 2: Redisenno
       /* ------------------------------*/
+      req.body.tipo,
+      /* ^ asunto-------------------------
+      /* 1: Carrera
+      /* 2: Diplomado
+      /* 3: Programa academico
+      /* ------------------------------*/
+      req.body.institucion,
+      req.body.dependencia,
+      req.body.disennador,
+      req.body.coordinador,
+      req.body.descripcion,
+      req.body.miembros,
       1,
       /* ^ status-----------------------
       /* 0: esperando correccion
@@ -808,10 +741,72 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
       /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
-      //nota
-      //avances -> 0
+      dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO proyectos VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NULL,0)', proyData);
+    let qryRes = await pool.query('INSERT INTO SolicitudAval VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
+    for(let i = 0; i < req.files.length; i++) {
+      let docData = [
+        //id: 0: auto
+        qryRes.insertId,
+        req.files[i].path,
+        req.files[i].filename,
+        (new Date()).toISOString().split('T')[0], // Obtiene solo la fecha en formato yyyy-mm-dd
+        //tipo: inicio, actualizado, etc.
+        i+1,
+      ];
+      console.log(docData);
+      await pool.query('INSERT INTO documentoSolicitudAval VALUES(0,?,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO documentoSolicitudAval VALUES(0,?,?,?,?,2,?)', docData);
+    }
+    res.redirect('/success');
+  } else {
+    forbid(res);
+  }
+
+
+}) );
+
+app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  if (await isValidSessionAndRol(req,3)) {
+    let asesoData = [
+      req.session.user, // email
+      req.body.nombreSolicitud,
+      req.body.etapa,
+      /* ^ tipo-------------------------
+      -- 1: Diagnostico
+      -- 2: Disenno
+      -- 3: Ejecusion
+      -- 4: Evaluacion
+      ------------------------------*/
+      req.body.tipo,
+      /* ^ tipo-------------------------
+      -- 1: Carrera
+      -- 2: Programa de postgrado
+      -- 3: Programa academico
+        ------------------------------*/
+      req.body.institucion,
+      req.body.dependencia,
+      req.body.cantidadBeneficiarios,
+      req.body.lugar,
+      req.body.fechaAsesoria,
+      req.body.horaAsesoria,
+      req.body.descripcion,
+      1,
+      /* ^ status-----------------------
+      /* 0: esperando correccion
+      /* 1: recibido
+      /* 2: para revisar
+      /* 3: Devuelto por correcciones
+      /* 4: validado
+      /* 5: rechazado por consejo
+      /* 6: aprobado
+      /* 7: finalizado
+      /* ------------------------- */
+      dformat()
+    ]
+    let qryRes = await pool.query('INSERT INTO Asesoria VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -824,18 +819,19 @@ app.post('/uploadProject', upload.array('inputFile', 10),asyncMiddleware(async (
         i+1,
       ];
       console.log(docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,1,?)', docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,2,?)', docData);
+      await pool.query('INSERT INTO documentoAsesoria VALUES(0,?,NULL,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO documentoAsesoria VALUES(0,?,NULL,?,?,?,2,?)', docData);
     }
     res.redirect('/success');
   } else {
     forbid(res);
   }
 
-
 }) );
-app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log("/uploadSolicitudActualizacion")
+
+
+app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+  console.log("*/uploadSolicitudInvestigacion*")
   console.log(req.body);
   //console.log("El user, asumo yo: ",req.session)
   console.log(req.files);
@@ -856,9 +852,9 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
       /* ------------------------------*/
       req.body.nacionalidad,
       req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.introduccion,
+      req.body.institucion,
+      req.body.dependencia,
+      req.body.descripcion,
       1,
       dformat()
     ]
@@ -886,118 +882,8 @@ app.post('/uploadSolicitudActualizacion', upload.array('inputFile', 10),asyncMid
   } else {
     forbid(res);
   }
-
-
 }) );
 
-
-app.post('/uploadProjectDDC', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  if (await isValidSessionAndRol(req,3)) {
-    let proyData = [
-      req.session.user, // email
-      req.body.nombreSolicitud,
-      req.body.solicitud,
-      /* ^ tipo-------------------------
-      /* 1: Creacion
-      /* 2: Redisenno
-      /* ------------------------------*/
-      req.body.tipo,
-      /* ^ asunto-------------------------
-      /* 1: Carrera
-      /* 2: Diplomado
-      /* 3: Programa academico
-      /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.disenno,
-      req.body.coordinador,
-      req.body.introduccion,
-      req.body.participantes,
-      req.body.descripcion,
-      1,
-      /* ^ status-----------------------
-      /* 0: esperando correccion
-      /* 1: recibido
-      /* 2: para revisar
-      /* 3: devuelto
-      /* 4: validado
-      /* 5: rechazado por consejo
-      /* 6: aprobado
-      /* 7: finalizado
-      /* ------------------------- */
-      dformat()
-    ]
-    let qryRes = await pool.query('INSERT INTO carreras VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', proyData);
-    for(let i = 0; i < req.files.length; i++) {
-      let docData = [
-        //id: 0: auto
-        qryRes.insertId,
-        //refAvance: NULL
-        req.files[i].path,
-        req.files[i].filename,
-        (new Date()).toISOString().split('T')[0], // Obtiene solo la fecha en formato yyyy-mm-dd
-        //tipo: inicio, actualizado, etc.
-        i+1,
-      ];
-      console.log(docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,1,?)', docData);
-      await pool.query('INSERT INTO documentos VALUES(0,?,NULL,?,?,?,2,?)', docData);
-    }
-    res.redirect('/success');
-  } else {
-    forbid(res);
-  }
-
-
-}) );
-
-app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  if (await isValidSessionAndRol(req,3)) {
-    let asesoData = [
-      req.session.user, // email
-      req.body.titulo,
-      req.body.tipo,
-      /* ^ tipo-------------------------
-      /* 1: Carrera
-      /* 2: Diplomado
-      /* 3: Programa Academico
-      /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.apellidoSolicitante,
-      req.body.nombreSolicitante,
-      req.body.cantidadParticipantes,
-      req.body.lugar,
-      req.body.fechaCapacitacion,
-      req.body.introduccion,
-      1,
-      /* ^ status-----------------------
-      /* 0: esperando correccion
-      /* 1: recibido
-      /* 2: para revisar
-      /* 3: rechazado por devuelto
-      /* 4: validado
-      /* 5: rechazado por consejo
-      /* 6: aprobado
-      /* 7: finalizado
-      /* ------------------------- */
-      dformat()
-    ]
-    let qryRes = await pool.query('INSERT INTO asesorias VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
-
-    res.redirect('/success');
-  } else {
-    forbid(res);
-  }
-
-
-}) );
 
 // Else
 
@@ -1039,7 +925,7 @@ async function verificarUser(req) {
 
 async function verificarAutoridad(req, id) {
 
-  let resp = await pool.query('SELECT id,email FROM carreras WHERE id=? AND email=?', [id,req.session.user]);
+  let resp = await pool.query('SELECT id,email FROM SolicitudAval WHERE id=? AND email=?', [id,req.session.user]);
   return resp.length ? true : false;
 }
 
@@ -1070,7 +956,5 @@ async function isValidSessionAndRol(req, rol1, rol2) {
     return false;
   }
 }
-
-
 
 module.exports = app;

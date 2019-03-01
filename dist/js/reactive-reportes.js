@@ -7,8 +7,8 @@ $(document).ready(function () {
   let user;
 
   //////////////////////////////////////////////////////////////////////////////
-  let tabla2 = $('#dataTableCarrerasCantTipos').DataTable({
-    ajax: '/getCarrerasCantTipos',
+  let tabla2 = $('#dataTableSolicitudAvalCantTipos').DataTable({
+    ajax: '/getSolicitudAvalCantTipos',
     columns: [
       { data: 'tipo' },
       { data: 'cant' },
@@ -17,14 +17,14 @@ $(document).ready(function () {
     createdRow: function (row, data, dataIndex) {
       switch (data.tipo) {
         case 1: data.tipo = 'Carrera'; break;
-        case 2: data.tipo = 'Diplomado'; break;
+        case 2: data.tipo = 'Programa de postgrado'; break;
         case 3: data.tipo = 'Programa Academico'; break;
       }
     },
     rowCallback: function (row, data) {
       switch (data.tipo) {
         case 'Carrera': $('td:eq(0)', row).html('Carrera'); break;
-        case 'Diplomado': $('td:eq(0)', row).html('Diplomado'); break;
+        case 'Programa de postgrado': $('td:eq(0)', row).html('Programa de postgrado'); break;
         case 'Programa Academico': $('td:eq(0)', row).html('Programa Academico'); break;
       }
     },
@@ -34,8 +34,8 @@ $(document).ready(function () {
     data2 = tabla2.ajax.json().data;
   });
 
-  let tabla3 = $('#dataTableCarrerasCantStatus').DataTable({
-    ajax: '/getCarrerasCantStatus',
+  let tabla3 = $('#dataTableSolicitudAvalCantStatus').DataTable({
+    ajax: '/getSolicitudAvalCantStatus',
     columns: [
       { data: 'status' },
       { data: 'cant' },
@@ -46,7 +46,7 @@ $(document).ready(function () {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'rechazado por D.D.Curricular'; break;
+        case 3: data.status = 'devuelto por correcciones'; break;
         case 4: data.status = 'validado'; break;
         case 5: data.status = 'rechazado por consejo'; break;
         case 6: data.status = 'aprobado'; break;

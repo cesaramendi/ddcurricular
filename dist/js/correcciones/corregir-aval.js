@@ -5,7 +5,7 @@ $(document).ready(function(){
   $('#myForm').addClass('isloading');
   $.ajax({
     method: 'get',
-    url: '/getProyectoCorregir?id=' + id,
+    url: '/getSolicitudAvalCorregir?id=' + id,
   }).done(function (res) {
     $('#myForm').removeClass('isloading');
       let datos = res.data[0];
@@ -14,9 +14,9 @@ $(document).ready(function(){
       $("#solicitud").val(datos.solicitud);
       $("#tipo").val(datos.tipo);
       $("#nombreSolicitud").val(datos.nombreSolicitud);
-      $("#introduccion").val(datos.introduccion);
-      $("#nacionalidad").val(datos.nacionalidad);
-      $("#cedula").val(datos.cedula);
+      $("#descripcion").val(datos.descripcion);
+      $("#institucion").val(datos.institucion);
+      $("#dependencia").val(datos.dependencia);
       if(datos.nacionalidad != "V" && datos.nacionalidad != "E"){
         $("#apellidoSolicitante").val(datos.apellidoSolicitante);
         $("#nombreSolicitante").val(datos.nombreSolicitante);
@@ -49,8 +49,7 @@ $(document).ready(function(){
           });
       }
       $("#coordinador").val(datos.coordinador);
-      $("#disenno").val(datos.disenno);
-      $("#participantes").val(datos.participantes);
-      $("#descripcion").val(datos.descripcion);
+      $("#disennador").val(datos.disennador);
+      $("#miembros").val(datos.miembros);
   });
 });

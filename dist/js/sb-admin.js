@@ -7,9 +7,6 @@
   $("#sidebarToggle").on('click',function(e) {
     e.preventDefault();
     $("body").toggleClass("sidebar-toggled");
-    /*$("a.navbar-brand.mr-1").text("Docencia y Desarrollo Curricular UC");
-    $("a.navbar-brand.mr-1").toggleClass("toggled");
-    $("a.navbar-brand.mr-1.toggled").text("DDC-UC");*/
     $(".sidebar").toggleClass("toggled");
     $("#content-wrapper").toggleClass("toggled");
   });

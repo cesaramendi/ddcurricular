@@ -20,7 +20,7 @@ CREATE TABLE usuarios(
   facultad  VARCHAR(15)
 );
 
-CREATE TABLE carreras(
+CREATE TABLE SolicitudAval(
   id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
   email                   VARCHAR(35) NOT NULL,
   fechaSolicitud          DATE NOT NULL,
@@ -29,18 +29,16 @@ CREATE TABLE carreras(
   -- 1: Creacion
   -- 2: Redise;o
   tipo                    TINYINT UNSIGNED NOT NULL,
-  -- 1: Pregrado
-  -- 2: Postgrado
-  -- 3: Diplomado
-  nacionalidad            VARCHAR(1),
-  cedula                  INT(12) UNSIGNED,
-  apellidoSolicitante     VARCHAR(30) NOT NULL,
-  nombreSolicitante       VARCHAR(30) NOT NULL,
-  disenno                 VARCHAR(100) NOT NULL,
+  -- 1: Carrera
+  -- 2: Programa de postgrado
+  -- 3: Programa academico
+
+  institucion              VARCHAR(30) NOT NULL,
+  dependencia             VARCHAR(30) NOT NULL,
+  disennador              VARCHAR(100) NOT NULL,
   coordinador             VARCHAR(60) NOT NULL,
-  introduccion            VARCHAR(300) NOT NULL,
-  participantes           VARCHAR(300) NOT NULL,
   descripcion             VARCHAR(300) NOT NULL,
+  miembros                VARCHAR(300) NOT NULL,
   status                  TINYINT UNSIGNED NOT NULL,
   -- 0: esperando correccion
   -- 1: recibido
@@ -49,7 +47,7 @@ CREATE TABLE carreras(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
-  fechaStatus             DATE NOT NULL,
+  fechaStatus             DATETIME NOT NULL,
   nota                    VARCHAR(200),
 
   PRIMARY KEY(id),
@@ -60,24 +58,30 @@ CREATE TABLE carreras(
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
-CREATE TABLE asesorias(
-  idA                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  email                   VARCHAR(35) NOT NULL,
-  fechaSolicitudA 	      DATE NOT NULL,
-  titulo                   VARCHAR(100) NOT NULL,
-  tipo                     TINYINT UNSIGNED NOT NULL,
-  -- 1: Curso
-  -- 2: Taller
-  -- 3: Formacion
-  nacionalidad            VARCHAR(1),
-  cedula                  INT(12) UNSIGNED,
-  apellidoSolicitanteA     VARCHAR(30) NOT NULL,
-  nombreSolicitanteA       VARCHAR(30) NOT NULL,
-  cantidadParticipantes    TINYINT UNSIGNED NOT NULL,
-  lugar                    VARCHAR(300) NOT NULL,
-  fechaCapacitacion        DATE NOT NULL,
-  introduccion             VARCHAR(300) NOT NULL,
-  status                   TINYINT UNSIGNED NOT NULL,
+CREATE TABLE Asesoria(
+  idA                     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  emailA                  VARCHAR(35) NOT NULL,
+  fechaSolicitudA	        DATE NOT NULL,
+  nombreSolicitudA        VARCHAR(100) NOT NULL,
+  etapa                   TINYINT UNSIGNED NOT NULL,
+  -- 1: Diagnostico
+  -- 2: Disenno
+  -- 3: Ejecusion
+  -- 4: Evaluacion
+  tipoA                    TINYINT UNSIGNED NOT NULL,
+  -- 1: Carreras
+  -- 2: Programas Postgrado
+  -- 3: Programas academico
+
+  institucionA            VARCHAR(30) NOT NULL,
+  dependenciaA            VARCHAR(30) NOT NULL,
+  comunidad                       VARCHAR(100) NOT NULL,
+  cantidadBeneficiarios           TINYINT UNSIGNED NOT NULL,
+  lugarA                  VARCHAR(300) NOT NULL,
+  fechaA                  DATE NOT NULL,
+  horaA                   TIME NOT NULL,
+  descripcionA            VARCHAR(300) NOT NULL,
+  statusA                  TINYINT UNSIGNED NOT NULL,
   -- 0: esperando correccion
   -- 1: recibido
   -- 2: para revisar
@@ -85,8 +89,8 @@ CREATE TABLE asesorias(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
-  fechaStatus             DATE NOT NULL,
-  nota                    VARCHAR(200),
+  fechaStatusA            DATETIME NOT NULL,
+  notaA                   VARCHAR(200),
   PRIMARY KEY(idA),
   INDEX fk_asesoria_email_idx (email DESC),
     CONSTRAINT fk_asesoria_email
@@ -96,24 +100,22 @@ CREATE TABLE asesorias(
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE actualizacion(
-  id                      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  email                   VARCHAR(35) NOT NULL,
-  fechaSolicitud   	      DATE NOT NULL,
-  nombreSolicitud         VARCHAR(100) NOT NULL,
-  solicitud               TINYINT UNSIGNED NOT NULL,
+CREATE TABLE Investigacion(
+  idI                     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  emailI                  VARCHAR(35) NOT NULL,
+  fechaSolicitudI  	      DATE NOT NULL,
+  nombreSolicitudI        VARCHAR(100) NOT NULL,
+  solicitudI              TINYINT UNSIGNED NOT NULL,
   -- 1: Creacion
   -- 2: Rediseño
-  tipo                     TINYINT UNSIGNED NOT NULL,
+  tipoI                    TINYINT UNSIGNED NOT NULL,
   -- 1: Carrera
   -- 2: Diplomado
   -- 3: Programa Academico
-  nacionalidad            VARCHAR(1),
-  cedula                  INT(12) UNSIGNED,
-  apellidoSolicitante     VARCHAR(30) NOT NULL,
-  nombreSolicitante       VARCHAR(30) NOT NULL,
-  introduccion             VARCHAR(500) NOT NULL,
-  status                   TINYINT UNSIGNED NOT NULL,
+  institucionI                  VARCHAR(30) NOT NULL,
+  dependenciaI            VARCHAR(30) NOT NULL,
+  descripcionI            VARCHAR(500) NOT NULL,
+  statusI                 TINYINT UNSIGNED NOT NULL,
   -- 0: esperando correccion
   -- 1: recibido
   -- 2: para revisar
@@ -121,21 +123,20 @@ CREATE TABLE actualizacion(
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
-  fechaStatus             DATE NOT NULL,
-  nota                    VARCHAR(200),
+  fechaStatusI            DATETIME NOT NULL,
+  notaI                   VARCHAR(200),
   PRIMARY KEY(id),
-  INDEX fk_actualizacion_email_idx (email DESC),
-    CONSTRAINT fk_actualizacion_email
+  INDEX fk_investigacion_email_idx (email DESC),
+    CONSTRAINT fk_investigacion_email
     FOREIGN KEY (email)
     REFERENCES usuarios (email)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
-
-CREATE TABLE documentos(
-  id                    INT UNSIGNED NOT NULL AUTO_INCREMENT,
+--//////////////Documentos////////////////////
+CREATE TABLE documentoSolicitudAval(
+  idDocSolAval          INT UNSIGNED NOT NULL AUTO_INCREMENT,
   refProyecto           INT UNSIGNED DEFAULT NULL,
-  refAvance             INT UNSIGNED DEFAULT NULL,
   ruta                  VARCHAR(380) NOT NULL,
   nombreDoc             VARCHAR(350) NOT NULL,
   fechaSubida           DATE NOT NULL,
@@ -148,20 +149,65 @@ CREATE TABLE documentos(
   numero                TINYINT UNSIGNED NOT NULL,
 -- Para, en dado caso, saber cual es el archivo que se corrige
 
-  PRIMARY KEY(id),
+  PRIMARY KEY(idDocSolAval),
   INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
   CONSTRAINT fk_documentos_refProyecto
     FOREIGN KEY (refProyecto)
-    REFERENCES carreras (id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  INDEX fk_documentos_refActualizacion_idx (refAvance DESC),
-  CONSTRAINT fk_documentos_refActualizacion
-    FOREIGN KEY (refAvance)
-    REFERENCES actualizacion (id)
+    REFERENCES SolicitudAval (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+CREATE TABLE DocumentoAsesoria(
+  idDocAses             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  refProyecto           INT UNSIGNED DEFAULT NULL,
+  ruta                  VARCHAR(380) NOT NULL,
+  nombreDoc             VARCHAR(350) NOT NULL,
+  fechaSubida           DATE NOT NULL,
+  tipo                  TINYINT UNSIGNED NOT NULL,
+-- 1: inicio,
+-- 2: actualizados,
+-- 3: aval,
+-- 4: avances,
+-- 5: final
+  numero                TINYINT UNSIGNED NOT NULL,
+-- Para, en dado caso, saber cual es el archivo que se corrige
+
+  PRIMARY KEY(idDocAses),
+  INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
+  CONSTRAINT fk_documentos_refProyecto
+    FOREIGN KEY (refProyecto)
+    REFERENCES Asesoria (idAsesoria)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
+CREATE TABLE DocumentoInvestigacion(
+  idDocI                INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  refProyecto           INT UNSIGNED DEFAULT NULL,
+  ruta                  VARCHAR(380) NOT NULL,
+  nombreDoc             VARCHAR(350) NOT NULL,
+  fechaSubida           DATE NOT NULL,
+  tipo                  TINYINT UNSIGNED NOT NULL,
+-- 1: inicio,
+-- 2: actualizados,
+-- 3: aval,
+-- 4: avances,
+-- 5: final
+  numero                TINYINT UNSIGNED NOT NULL,
+-- Para, en dado caso, saber cual es el archivo que se corrige
+
+  PRIMARY KEY(idDocInvest),
+  INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
+  CONSTRAINT fk_documentos_refProyecto
+    FOREIGN KEY (refProyecto)
+    REFERENCES Investigacion (idInvest)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+
+);
+
+
 
 /* SE AGREGARON CAMPOS NACIONALIDAD Y CEDULA A LAS TABLAS
 ALTER TABLE `actualizacion` ADD `nacionalidad` VARCHAR(1) NULL DEFAULT NULL AFTER `tipo`, ADD `cedula` INT(12) UNSIGNED NULL DEFAULT NULL AFTER `nacionalidad`;

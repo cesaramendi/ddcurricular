@@ -93,19 +93,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/enviarProyecto">
+          <a class="nav-link" href="/enviarSolicitudAval">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Aval</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarSolicitudA">
+          <a class="nav-link" href="/enviarSolicitudAsesoria">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Asesoría</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarActualizacion">
+          <a class="nav-link" href="/enviarSolicitudInvestigacion">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Investigación</span>
           </a>
@@ -132,7 +132,7 @@
           <!-- Page Content -->
           <h1>Enviar solicitud de Aval</h1>
           <hr>
-          <form method="post" id="myForm" action="/uploadProjectDDC" enctype="multipart/form-data">
+          <form method="post" id="myForm" action="/uploadSolicicitudAval" enctype="multipart/form-data">
 
             <div class="form-row">
               <div class="input-group mb-3">
@@ -153,9 +153,9 @@
                 </div>
                 <select required name="tipo" class="custom-select" id="tipo">
                   <option value="">Seleccione...</option>
-                  <option value="1">Carrera</option>
-                  <option value="3">Diplomado</option>
-                  <option value="2">Programa académico</option>
+                  <option value="1">Carrera (Pregrado, TSU, ...)</option>
+                  <option value="2">Programa de Postgrado</option>
+                  <option value="3">Programa académico</option>
                 </select>
               </div>
             </div>
@@ -166,11 +166,12 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="introduccion">Introducción</label>
-              <textarea class="form-control" rows="5" id="introduccion" name="introduccion"></textarea>
+              <label for="descripcion">Descripción</label>
+              <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
             <label>Datos Solicitante</label>
+            <!--
             <div class="form-group form-row">
               <div class="input-group-prepend">
                 <label class="input-group-text">Nacionalidad</label>
@@ -187,19 +188,21 @@
               </div>
               <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
             </div>
+            -->
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="apellidoSolicitante" class="form-control" placeholder="apellidoSolicitante"   name="apellidoSolicitante">
-                <label for="apellidoSolicitante">Apellido del Solicitante</label>
+                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
+                <label for="institucion">Institución</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="nombreSolicitante" class="form-control" placeholder="nombreSolicitante"   name="nombreSolicitante">
-                <label for="nombreSolicitante">Nombre del Solicitante</label>
+                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
+                <label for="dependencia">Dependencia</label>
               </div>
             </div>
             <hr>
+              <label>Datos de proponentes</label>
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
@@ -208,18 +211,14 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input required type="text" id="Disenno" class="form-control" placeholder="Diseño"   name="disenno">
-                <label for="Disenno">Diseño curricular de:</label>
+                <input required type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
+                <label for="disennador">Diseñador curricular:</label>
               </div>
             </div>
             <div class="form-group">
-              <label for="participantes">Miembros</label>
-              <textarea class="form-control" rows="5" id="participantes" name="participantes"></textarea>
+              <label for="miembros">Miembros</label>
+              <textarea class="form-control" rows="5" id="miembros" name="miembros"></textarea>
             </div>
-        <div class="form-group">
-          <label for="descripcion">Descripción</label>
-          <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
-        </div>
             <div class="form-group">
 
 

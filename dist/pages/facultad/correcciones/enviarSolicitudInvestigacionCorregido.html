@@ -9,8 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
-    <title>DDC - Aval</title>
+    <title>DDC - Investigación</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -94,22 +93,22 @@
             <span>Inicio</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/enviarProyecto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/enviarSolicitudAval">
             <i class="fas fa-fw fa-plus-square"></i>
             <span>Solicitar Aval</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/enviarSolicitudA">
+          <a class="nav-link" href="/enviarSolicitudAsesoria">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Asesoria</span>
+            <span>Solicitar Asesoría</span>
           </a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/enviarActualizacion">
+        <li class="nav-item">
+          <a class="nav-link" href="/enviarSolicitudInvestigacion">
             <i class="fas fa-fw fa-plus-square"></i>
-            <span>Solicitar Investigacion</span>
+            <span>Solicitar Investigación</span>
           </a>
         </li>
          <li class="nav-item active">
@@ -134,106 +133,69 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
               <!--a href="#">Dashboard</a-->
-              Aval
+              Solicitud
             </li>
           </ol>
 
           <!-- Page Content -->
-          <h1>Enviar correcciones de Aval</h1>
+          <h1>Enviar corrección de investigación</h1>
           <hr>
-          <form method="post" id="myForm" action="/carreraCorregir">
+          <form method="post" action="/investigacionCorregir">
             <input class="d-none" type="text" id="id" name="id">
-            <div class="form-row">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="tipo">Solicitud</label>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="Solicitud">Solicitud</label>
+                  </div>
+                  <select required name="solicitud" class="custom-select" id="solicitud">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Creación</option>
+                    <option value="2">Rediseño</option>
+                  </select>
                 </div>
-                <select required name="solicitud" class="custom-select" id="solicitud">
-                  <option value="">Seleccione...</option>
-                  <option value="1">Creacion</option>
-                  <option value="2">Rediseño</option>
-                </select>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="tipo">Tipo</label>
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="tipo">Tipo</label>
+                  </div>
+                  <select required name="tipo" class="custom-select" id="tipo">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Carrera (Pregrado, TSU, ...)</option>
+                    <option value="2">Programa de Postgrado</option>
+                    <option value="3">Programa académico</option>
+                  </select>
                 </div>
-                <select required name="tipo" class="custom-select" id="tipo">
-                  <option value="">Seleccione...</option>
-                  <option value="1">Carrera</option>
-                  <option value="3">Diplomado</option>
-                  <option value="2">Programa academico</option>
-                </select>
               </div>
+              <span id="errorPlace"></span>
             </div>
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
-                <label for="nombreSolicitud">Razón de la solicitud</label>
+                <label for="nombreSolicitud">Razón de la solicitud </label>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="introduccion">Introducción</label>
-              <textarea class="form-control" rows="5" id="introduccion" name="introduccion"></textarea>
-            </div>
-            <hr>
-            <label>Datos Solicitante</label>
-            <div class="form-group form-row">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Nacionalidad</label>
-              </div>
-              <div class="">
-                <select required id="nacionalidad" name="nacionalidad" class="custom-select">
-                  <option value="">...</option>
-                  <option value="V">V</option>
-                  <option value="E">E</option>
-                </select>
-              </div>
-              <div class="">
-                <input required type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
-              </div>
-              <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="apellidoSolicitante" class="form-control" placeholder="apellidoSolicitante"   name="apellidoSolicitante">
-                <label for="apellidoSolicitante">Apellido del Solicitante</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="nombreSolicitante" class="form-control" placeholder="nombreSolicitante"   name="nombreSolicitante">
-                <label for="nombreSolicitante">Nombre del Solicitante</label>
-              </div>
-            </div>
-            <hr>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
-                <label for="coordinador">Coordinado por:</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input required type="text" id="disenno" class="form-control" placeholder="Diseño"   name="disenno">
-                <label for="Disenno">Diseño curricular de:</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="participantes">Miembros</label>
-              <textarea class="form-control" rows="5" id="participantes" name="participantes"></textarea>
             </div>
             <div class="form-group">
               <label for="descripcion">Descripción</label>
-              <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
-            </div>
-            <div>
-              <span id="errorPlace"></span>
+              <textarea required class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
-            <input id="editButton" class="btn btn-success btn-block" type="submit" value="Enviar correccion">
+            <label>Datos Solicitante</label>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
+                <label for="institucion">Institución</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
+                <label for="dependencia">Dependencia</label>
+              </div>
+            </div>
+            <hr>
+            <input id="editButton" class="btn btn-success btn-block" type="submit" value="Enviar correcion">
           </form>
 
         </div>
@@ -297,9 +259,8 @@
     <script src="js/i18n/es.js"></script>
 
     <script src="js/reactive-fa-enviar.js"></script>
-    <script src="js/correcciones/corregir-aval.js"></script>
+    <script src="js/correcciones/corregir-investigacion.js"></script>
     <script src="js/buscarPersona/buscarPersona.js"></script>
-
 
   </body>
 
