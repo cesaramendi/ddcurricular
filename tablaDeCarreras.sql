@@ -85,16 +85,16 @@ CREATE TABLE Asesoria(
   -- 0: esperando correccion
   -- 1: recibido
   -- 2: para revisar
-  -- 3: rechazado por DDC
+  -- 3: devuelto por DDC
   -- 4: validado
   -- 5: rechazado por consejo
   -- 6: aprobado
   fechaStatusA            DATETIME NOT NULL,
   notaA                   VARCHAR(200),
   PRIMARY KEY(idA),
-  INDEX fk_asesoria_email_idx (email DESC),
+  INDEX fk_asesoria_email_idx (emailA DESC),
     CONSTRAINT fk_asesoria_email
-    FOREIGN KEY (email)
+    FOREIGN KEY (emailA)
     REFERENCES usuarios (email)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
@@ -133,7 +133,9 @@ CREATE TABLE Investigacion(
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
---//////////////Documentos////////////////////
+
+--//////////////Documentos//////////////////////////////////////////////////////
+
 CREATE TABLE documentoSolicitudAval(
   idDocSolAval          INT UNSIGNED NOT NULL AUTO_INCREMENT,
   refProyecto           INT UNSIGNED DEFAULT NULL,
@@ -159,8 +161,8 @@ CREATE TABLE documentoSolicitudAval(
 );
 
 CREATE TABLE DocumentoAsesoria(
-  idDocAses             INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  refProyecto           INT UNSIGNED DEFAULT NULL,
+  idDocA             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  refProyectoA           INT UNSIGNED DEFAULT NULL,
   ruta                  VARCHAR(380) NOT NULL,
   nombreDoc             VARCHAR(350) NOT NULL,
   fechaSubida           DATE NOT NULL,
@@ -173,11 +175,11 @@ CREATE TABLE DocumentoAsesoria(
   numero                TINYINT UNSIGNED NOT NULL,
 -- Para, en dado caso, saber cual es el archivo que se corrige
 
-  PRIMARY KEY(idDocAses),
-  INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
-  CONSTRAINT fk_documentos_refProyecto
-    FOREIGN KEY (refProyecto)
-    REFERENCES Asesoria (idAsesoria)
+  PRIMARY KEY(idDocA),
+  INDEX fk_documentosAsesoria_refProyecto_idx (refProyectoA DESC),
+  CONSTRAINT fk_documentosAsesoria_refProyecto
+    FOREIGN KEY (refProyectoA)
+    REFERENCES Asesoria (idA)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
@@ -197,11 +199,11 @@ CREATE TABLE DocumentoInvestigacion(
   numero                TINYINT UNSIGNED NOT NULL,
 -- Para, en dado caso, saber cual es el archivo que se corrige
 
-  PRIMARY KEY(idDocInvest),
+  PRIMARY KEY(idDocI),
   INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
   CONSTRAINT fk_documentos_refProyecto
     FOREIGN KEY (refProyecto)
-    REFERENCES Investigacion (idInvest)
+    REFERENCES Investigacion (idI)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 

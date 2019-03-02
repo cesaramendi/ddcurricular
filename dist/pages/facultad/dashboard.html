@@ -201,6 +201,7 @@
                       <th>Razón</th>
                       <th>Solicitante</th>
                       <th>Pautada</th>
+                      <th>Etapa</th>
                       <th>Tipo</th>
                       <th>Estatus</th>
                       <th>Fecha</th>
@@ -589,39 +590,47 @@
           <div class="modal-body">
             <table id="tableProject" class="table-bordered" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; margin:auto">
               <tr>
-                <th>Razón:</th>
-                <td colspan="3" id="projectModalTitulo"></td>
+                <th>Fecha:</th>
+                <td colspan="3" id="projectModalFechaSolicitudA"></td>
               </tr>
               <tr>
+                <th>Etapa:</th>
+                <td id="projectModalEtapa"></td>
                 <th>Tipo:</th>
                 <td id="projectModalTipoA"></td>
-                <th>Fecha:</th>
-                <td id="projectModalFechaA"></td>
+              </tr>
+              <tr>
+                <th>Razón:</th>
+                <td colspan="3" id="projectModalNombreA"></td>
+              </tr>
+              <tr>
+                <th>Descripción:</th>
+                <td colspan="3" id="projectModalDescripcionA"></td>
               </tr>
               <tr>
                 <th>Solicitante:</th>
                 <td colspan="3" id="projectModalSolicitanteA"></td>
               </tr>
               <tr>
-                <th>Participantes:</th>
-                <td id="projectModalCantParticipantes"></td>
+                <th>Comunidad:</th>
+                <td colspan="3" id="projectModalComunidad"></td>
+              </tr>
+              <tr>
+                <th>Beneficiarios:</th>
+                <td id="projectModalBeneficirios"></td>
                 <th>Fecha pautada:</th>
-                <td id="projectModalFechaCapacitacion"></td>
+                <td id="projectModalFechaAsesoria"></td>
               </tr>
               <tr>
                 <th>Lugar:</th>
                 <td colspan="3" id="projectModalLugar"></td>
               </tr>
-              <tr>
-                <th>Introducción:</th>
-                <td colspan="3" id="projectModalIntroduccionA"></td>
-              </tr>
-              <!--
-              <tr id="projectModalFilesHeads">
-              </tr>
-              <tbody id="tableProjectFiles">
+
+              <!--<tr id="projectModalFilesHeads">
+              </tr>-->
+              <tbody id="tableProjectFilesA">
               </tbody>
-            -->
+
             </table>
             <div id="projectModalPlusesA">
             </div>

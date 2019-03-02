@@ -7,51 +7,64 @@ $(document).ready(function () {
     ajax: '/getAsesorias',
     columns: [
       { data: 'idA' },
-      { data: 'titulo' },
+      { data: 'nombreSolicitudA' },
       { data: 'institucionA' },
-      { data: 'fechaCapacitacion' },
-      { data: 'tipo' },
-      { data: 'status' },
-      { data: 'fechaStatus' },
+      { data: 'fechaA' },
+      { data: 'etapa' },
+      { data: 'tipoA' },
+      { data: 'statusA' },
+      { data: 'fechaStatusA' },
     ],
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
-      switch (data.tipo) {
-        case 1: data.tipo = 'Carrera'; break;
-        case 2: data.tipo = 'Programa de postgrado'; break;
-        case 3: data.tipo = 'Programa Academico'; break;
+      switch (data.etapa) {
+        case 1: data.etapa = 'Diagnostico'; break;
+        case 2: data.etapa = 'Diseño'; break;
+        case 3: data.etapa = 'Ejecusion'; break;
+        case 4: data.etapa = 'Evaluacion'; break;
+      }
+      switch (data.tipoA) {
+        case 1: data.tipoA = 'Carrera'; break;
+        case 2: data.tipoA = 'Programa de postgrado'; break;
+        case 3: data.tipoA = 'Programa Academico'; break;
       }
 
-      switch (data.status) {
-        case 0: data.status = 'esperando correccion'; break;
-        case 1: data.status = 'recibido'; break;
-        case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'devuelto por D.D.Curricular'; break;
-        case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
-        case 6: data.status = 'aprobado'; break;
-        case 7: data.status = 'finalizado'; break;
+      switch (data.statusA) {
+        case 0: data.statusA = 'esperando correccion'; break;
+        case 1: data.statusA = 'recibido'; break;
+        case 2: data.statusA = 'para revisar'; break;
+        case 3: data.statusA = 'devuelto por D.D.Curricular'; break;
+        case 4: data.statusA = 'validado'; break;
+        case 5: data.statusA = 'rechazado por consejo'; break;
+        case 6: data.statusA = 'aprobado'; break;
+        case 7: data.statusA = 'finalizado'; break;
       }
     },
     rowCallback: function (row, data) {
-      switch (data.tipo) {
-        case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
-        case 'Programa de postgrado': $('td:eq(4)', row).html('Programa de postgrado'); break;
-        case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
+      switch (data.etapa) {
+        case 'Diagnostico': $('td:eq(4)', row).html('Diagnostico'); break;
+        case 'Diseño': $('td:eq(4)', row).html('Diseño'); break;
+        case 'Ejecusion': $('td:eq(4)', row).html('Ejecusion'); break;
+        case 'Evaluacion': $('td:eq(4)', row).html('Evaluacion'); break;
       }
-      switch (data.status) {
-        case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
-        case 'recibido': $('td:eq(5)', row).html('recibido'); break;
-        case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
-        case 'validado': $('td:eq(5)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
-        case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+      switch (data.tipoA) {
+        case 'Carrera': $('td:eq(5)', row).html('Carrera'); break;
+        case 'Programa de postgrado': $('td:eq(5)', row).html('Programa de postgrado'); break;
+        case 'Programa Academico': $('td:eq(5)', row).html('Programa Academico'); break;
+      }
+      switch (data.statusA) {
+        case 'esperando correccion': $('td:eq(6)', row).html('esperando correccion'); break;
+        case 'recibido': $('td:eq(6)', row).html('recibido'); break;
+        case 'para revisar': $('td:eq(6)', row).html('para revisar'); break;
+        case 'devuelto por D.D.Curricular': $('td:eq(6)', row).html('devuelto por D.D.Curricular'); break;
+        case 'validado': $('td:eq(6)', row).html('validado'); break;
+        case 'rechazado por consejo': $('td:eq(6)', row).html('rechazado por consejo'); break;
+        case 'aprobado': $('td:eq(6)', row).html('aprobado'); break;
+        case 'finalizado': $('td:eq(6)', row).html('finalizado'); break;
       }
       //$('td:eq(2)', row).html(data.institucionA.split('\n')[0]);
-      $('td:eq(3)', row).html(data.fechaCapacitacion.split('T')[0]);
-      $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
+      $('td:eq(3)', row).html(data.fechaA.split('T')[0]);
+      $('td:eq(7)', row).html(new Date(data.fechaStatusA).toLocaleString());
     },
   });
 
@@ -71,38 +84,57 @@ $(document).ready(function () {
         $(projectModalAsesoria).off('shown.bs.modal').on('shown.bs.modal', function () {
 
           let fields = {};
-          fields.idA = document.getElementById('projectModalLabelA');
-          fields.tituloA = document.getElementById('projectModalTitulo');
-          fields.tipoA = document.getElementById('projectModalTipoA');
-          fields.statusA = document.getElementById('projectModalStatusA');
-          fields.fechaA = document.getElementById('projectModalFechaA');
-          fields.solicitanteA = document.getElementById('projectModalSolicitanteA');
-          fields.participantesA = document.getElementById('projectModalCantParticipantes');
-          fields.fechaCapacitacion = document.getElementById('projectModalFechaCapacitacion');
-          fields.lugarA = document.getElementById('projectModalLugar');
-          fields.descripcionA = document.getElementById('projectModalDescripcionA');
+          fields.id = document.getElementById('projectModalLabelA');
+          fields.fechaSolicitud = document.getElementById('projectModalFechaSolicitudA');
+          fields.etapa = document.getElementById('projectModalEtapa');
+          fields.tipo = document.getElementById('projectModalTipoA');
+          fields.nombre = document.getElementById('projectModalNombreA');
+          fields.descripcion = document.getElementById('projectModalDescripcionA');
+          fields.status = document.getElementById('projectModalStatusA');
+          fields.solicitante = document.getElementById('projectModalSolicitanteA');
 
+          fields.comunidad = document.getElementById('projectModalComunidad');
+          fields.beneficiarios = document.getElementById('projectModalBeneficirios');
+          fields.fechaA = document.getElementById('projectModalFechaAsesoria');
+          fields.lugar = document.getElementById('projectModalLugar');
+
+
+          //fields.filesHeads = document.getElementById('projectModalFilesHeads');
+          fields.files = document.getElementById('tableProjectFilesA');
           fields.pluses = document.getElementById('projectModalPlusesA');
-          ///////////////
+          ////////////////
 
-          fields.idA.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
-          fields.tituloA.innerText = rowData.titulo;
-          fields.tipoA.innerText = rowData.tipo;
-          fields.fechaA.innerText = rowData.fechaSolicitudA.split('T')[0];
-          fields.solicitanteA.innerText = rowData.institucionA+' '+rowData.dependenciaA;
-          fields.participantesA.innerText = rowData.cantidadParticipantes;
-          fields.fechaCapacitacion.innerText = rowData.fechaCapacitacion.split('T')[0];
-          fields.lugarA.innerText = rowData.lugar;
-          fields.descripcionA.innerText = rowData.descripcion;
+          fields.id.innerText = 'Solicitud Asesoria ID: ' + rowData.idA;
+          fields.fechaSolicitud.innerText = rowData.fechaSolicitudA.split('T')[0];
+          fields.fechaStatusA = new Date(rowData.fechaStatusA).toLocaleString();
+          fields.descripcion.innerText = rowData.descripcionA;
+          fields.fechaStatus = new Date(rowData.fechaStatusA).toLocaleString();
+          fields.etapa.innerText = rowData.etapa;
+          fields.tipo.innerText = rowData.tipoA;
+          fields.nombre.innerText = rowData.nombreSolicitudA;
+          //fields.statusP.innerText = rowData.status;
+          //fields.fechaP.innerText = (new Date(rowData.fechaSolicitud)) == 'Invalid Date' ? rowData.fechaSolicitud.split('T')[0] : (new Date(rowData.fechaSolicitud)).toLocaleDateString();*/
+          fields.solicitante.innerText = rowData.institucionA+' '+rowData.dependenciaA;
+          fields.comunidad.innerText = rowData.comunidad;
+          fields.beneficiarios.innerText = rowData.cantidadBeneficiarios;
+          fields.fechaA.innerText = rowData.fechaA.split('T')[0]+' '+rowData.horaA;
+          fields.lugar.innerText = rowData.lugarA;
 
 
           $.ajax({
             method: 'get',
-            url: '/getDocsFromSolicitudAval?id=' + rowData.idA,
+            url: '/getDocsFromAsesoria?id=' + rowData.idA,
           }).done(function (res) {
-            $(projectModalAsesoria).removeClass('isloading');
+            $(projectModal).removeClass('isloading');
+
+            rowData.files = res.data;
+
+            // Para mostrar los documentos del proyecto
+            fields.files.innerHTML = files(res);
+
+            let plusesHtml = '';
             // PAra mostrar el select de estatus si aun no está aprobado ASESORIA
-            fields.pluses.innerHTML = pluses(rowData.idA,rowData.tipo,rowData.status,rowData.nota,'/asesoriasUpdate');
+            fields.pluses.innerHTML = pluses(rowData.idA,rowData.tipoA,rowData.statusA,rowData.notaA,'/asesoriaUpdate');
           });
         });
       });
@@ -356,7 +388,7 @@ $(document).ready(function () {
 
         // PAra mostrar el select de estatus si aun no está aprobado
         let plusesHtml = '';
-        plusesHtml = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/carreraUpdate');
+        plusesHtml = pluses(rowData.id,rowData.tipo,rowData.status,rowData.nota,'/solicitudAvalUpdate');
 
         // Si está aprobado & no ha subido el aval
         //if (status2Num(rowData.status) >= 6 && !(filesByTipo.find(x => x[0].tipo == 3)) ) { // Falta modificar para que ingrese aval, no cualquier archivo

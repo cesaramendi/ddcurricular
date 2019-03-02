@@ -152,7 +152,7 @@ app.get('/getDocsFromSolicitudAval', asyncMiddleware( async (req, res) => {
 
 app.get('/getDocsFromAsesoria', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
-    let data = await pool.query('SELECT ruta,tipo,numero FROM documentoAsesoria WHERE refProyecto=?',[req.query.id]);
+    let data = await pool.query('SELECT ruta,tipo,numero FROM DocumentoAsesoria WHERE refProyectoA=?',[req.query.id]);
     res.json({ data });
   } else {
     forbid(res);
@@ -284,10 +284,11 @@ app.get('/getAsesorias', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT * FROM Asesoria WHERE email=?',[req.session.user]);
-    } else {
+      data = await pool.query('SELECT * FROM Asesoria WHERE emailA=?',[req.session.user]);
+    }else if (req.session.rol == 2) {
       data = await pool.query('SELECT * FROM Asesoria');
     }
+
     res.json({ data });
   } else {
     forbid(res);
@@ -329,9 +330,10 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 })
 
-app.get('/SolicitudAval/:tipo/:nombre', (req, res) => {
+
+app.get('/Documentos/:tipo/:nombre', (req, res) => { //ruta para documentos
   console.log(req.params);
-  res.sendFile(`${req.params.tipo}/${req.params.nombre}`, {root: __dirname + '/proyectos/'});
+  res.sendFile(`${req.params.tipo}/${req.params.nombre}`, {root: __dirname + '/Documentos/'});
 })
 
 app.get('/register', asyncMiddleware( async (req, res) => {
@@ -467,7 +469,7 @@ app.post('/asesoriaUpdate', asyncMiddleware( async (req, res) => {
   console.log(req.body);
   if (await isValidSessionAndRol(req, 2)) {
     let nota = req.body.nota == ''? null : req.body.nota;
-    await pool.query('UPDATE Asesoria SET nota=?, status=?,fechaStatus=? WHERE idA=?', [nota, req.body.statusA,dformat(), req.body.idA]);
+    await pool.query('UPDATE Asesoria SET notaA=?, statusA=?,fechaStatusA=? WHERE idA=?', [nota, req.body.status,dformat(), req.body.id]);
     res.redirect('/dashboard');
   } else {
     forbid(res);
@@ -788,6 +790,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
         ------------------------------*/
       req.body.institucion,
       req.body.dependencia,
+      req.body.comunidad,
       req.body.cantidadBeneficiarios,
       req.body.lugar,
       req.body.fechaAsesoria,
@@ -806,7 +809,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* ------------------------- */
       dformat()
     ]
-    let qryRes = await pool.query('INSERT INTO Asesoria VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO Asesoria VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -819,8 +822,8 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
         i+1,
       ];
       console.log(docData);
-      await pool.query('INSERT INTO documentoAsesoria VALUES(0,?,NULL,?,?,?,1,?)', docData);
-      await pool.query('INSERT INTO documentoAsesoria VALUES(0,?,NULL,?,?,?,2,?)', docData);
+      await pool.query('INSERT INTO DocumentoAsesoria VALUES(0,?,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO DocumentoAsesoria VALUES(0,?,?,?,?,2,?)', docData);
     }
     res.redirect('/success');
   } else {
