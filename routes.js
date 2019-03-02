@@ -328,13 +328,17 @@ app.get('/', (req, res) => {
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
-})
+});
 
 
 app.get('/Documentos/:tipo/:nombre', (req, res) => { //ruta para documentos
-  console.log(req.params);
-  res.sendFile(`${req.params.tipo}/${req.params.nombre}`, {root: __dirname + '/Documentos/'});
-})
+  if(req.session.isPopulated) {
+    console.log(req.params);
+    res.sendFile(`${req.params.tipo}/${req.params.nombre}`, {root: __dirname + '/Documentos/'});
+  }else {
+    res.redirect('/');
+  }
+});
 
 app.get('/register', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 1)) {
@@ -899,7 +903,7 @@ function forbid(res) {
 }
 
 function send(res, file) {
-  res.sendFile(file, options);
+    res.sendFile(file, options);
 }
 
 Number.prototype.padLeft = function(base,chr){

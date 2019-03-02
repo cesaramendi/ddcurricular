@@ -1,5 +1,10 @@
 (function($) {
   "use strict"; // Start of use strict
+
+  history.forward();
+  /*if(history.forward(1)){//Deshabilitar el boton “atras” del navegador
+    location.replace( history.forward() );
+  }*/
   //creando cookie
     //document.cookie = "tema=0";
     let temaCookie = document.cookie;
