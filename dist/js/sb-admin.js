@@ -1,7 +1,13 @@
 (function($) {
   "use strict"; // Start of use strict
 
-  history.forward();
+  window.location.hash="no-back-button";
+  window.location.hash="Again-No-back-button" //chrome
+  window.onhashchange=function(){window.location.hash="no-back-button";}
+  /*window.onbeforeunload = function() {
+      return "¿Estás seguro que deseas salir de la actual página?"
+  }*/
+
   /*if(history.forward(1)){//Deshabilitar el boton “atras” del navegador
     location.replace( history.forward() );
   }*/
