@@ -28,17 +28,17 @@ $(document).ready(function() {
       });
   });
 
-  buscarPersonaYllenarInput('#buscarCoordinador','#coordinador');
+  buscarPersonaYllenarInput('#buscarCoordinador','#coordinador','#coordinadorNAC','#coordinadorCI');
 
-  buscarPersonaYllenarInput('#buscarDisennador','#disennador');
+  buscarPersonaYllenarInput('#buscarDisennador','#disennador','#disennadorNAC','#disennadorCI');
 
-  buscarPersonaYllenarInput('#buscarMiembro','#miembros');
+  buscarPersonaYllenarInput('#buscarMiembro','#miembros','#miembrosNAC','#miembrosCI');
 
 
-  function buscarPersonaYllenarInput(idBoton,idInput){
+  function buscarPersonaYllenarInput(idBoton,idInput,nacionalidad,cedula){
     $(idBoton).click(function () {
 
-      var data = $('#nacionalidad').serialize()+'&'+$('#cedula').serialize()
+      var data = $(nacionalidad).serialize()+'&'+$(cedula).serialize()
       //alert('Datos serializados: '+data);
 
       $.ajax({
@@ -48,7 +48,7 @@ $(document).ready(function() {
       }).done(function (res) {
         let datos = res.data[0];
           //si encuentra apellido llena el campo
-          $(idInput).val($(idInput).val()+datos.apellido+' '+datos.nombre+', ');
+          $(idInput).val($(idInput).val()+', '+datos.apellido+' '+datos.nombre);
         });
     });
 

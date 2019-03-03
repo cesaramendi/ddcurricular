@@ -157,7 +157,7 @@ $(document).ready(function() {
           </table>
           <br>`;
 
-          if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
+          if(status2Num(rowData.statusA) == 1 || status2Num(rowData.statusA) == 3) {
 
             plusesHtml = plusesHtml +
             `<form method="get" action="/enviarAsesoriaCorregido">

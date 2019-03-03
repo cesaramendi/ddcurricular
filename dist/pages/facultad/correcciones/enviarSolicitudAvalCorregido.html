@@ -179,6 +179,38 @@
               <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
+            <label>Datos Solicitante</label>
+            <!--
+            <div class="form-group form-row">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Nacionalidad</label>
+              </div>
+              <div class="">
+                <select required id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <option value="">...</option>
+                  <option value="V">V</option>
+                  <option value="E">E</option>
+                </select>
+              </div>
+              <div class="">
+                <input required type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+              </div>
+              <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
+            </div>
+            -->
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
+                <label for="institucion">Institución</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
+                <label for="dependencia">Dependencia</label>
+              </div>
+            </div>
+            <hr>
             <label>Datos de proponentes</label>
             <div class="form-group">
               <div class="form-group form-row">
@@ -186,14 +218,14 @@
                   <label class="input-group-text">Nacionalidad</label>
                 </div>
                 <div class="">
-                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <select id="coordinadorNAC" name="nacionalidad" class="custom-select">
                     <option value="">...</option>
                     <option value="V">V</option>
                     <option value="E">E</option>
                   </select>
                 </div>
                 <div class="">
-                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                  <input type="number" id="coordinadorCI" class="form-control" name="cedula" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarCoordinador" class="btn btn-link fa fa-search"> Buscar coordinador</button>
               </div>
@@ -208,14 +240,14 @@
                   <label class="input-group-text">Nacionalidad</label>
                 </div>
                 <div class="">
-                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <select id="disennadorNAC" name="nacionalidad" class="custom-select">
                     <option value="">...</option>
                     <option value="V">V</option>
                     <option value="E">E</option>
                   </select>
                 </div>
                 <div class="">
-                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                  <input type="number" id="disennadorCI" class="form-control" name="cedula" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarDisennador" class="btn btn-link fa fa-search"> Buscar diseñador</button>
               </div>
@@ -231,14 +263,14 @@
                   <label class="input-group-text">Nacionalidad</label>
                 </div>
                 <div class="">
-                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <select id="miembrosNAC" name="nacionalidad" class="custom-select">
                     <option value="">...</option>
                     <option value="V">V</option>
                     <option value="E">E</option>
                   </select>
                 </div>
                 <div class="">
-                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                  <input type="number" id="miembrosCI" class="form-control" name="cedula" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarMiembro" class="btn btn-link fa fa-search"> Buscar miembro</button>
               </div>
@@ -312,6 +344,7 @@
     <script src="js/i18n/es.js"></script>
 
     <script src="js/reactive-fa-enviar.js"></script>>
+    <script src="js/correcciones/corregir-aval.js"></script>>
     <script src="js/buscarPersona/buscarPersona.js"></script>
 
 
