@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var url = document.URL;
-  var id = url.substring(url.lastIndexOf('=') + 1);
+  var id = url.substring(url.lastIndexOf('=') + 1).split('#')[0];
   //alert(id);
   $('#myForm').addClass('isloading');
   $.ajax({

@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var url = document.URL;
-  var id = url.substring(url.lastIndexOf('=') + 1);
-
+  var id = url.substring(url.lastIndexOf('=') + 1).split('#')[0];
+  //alert(id);
   $('#myForm').addClass('isloading');
   $.ajax({
     method: 'get',
@@ -15,7 +15,7 @@ $(document).ready(function(){
       $("#id").val(id);
       $("#etapa").val(datos.etapa);
       $("#tipo").val(datos.tipoA);
-      $("#titulo").val(datos.nombreSolicitudA);
+      $("#nombreSolicitud").val(datos.nombreSolicitudA);
       $("#descripcion").val(datos.descripcionA);
       $("#institucion").val(datos.institucionA);
       $("#dependencia").val(datos.dependenciaA);
@@ -51,7 +51,7 @@ $(document).ready(function(){
           });
       }
       $("#comunidad").val(datos.comunidad);
-      $("#cantidad").val(datos.cantidadBeneficiarios);
+      $("#cantidadBeneficiarios").val(datos.cantidadBeneficiarios);
       $("#lugar").val(datos.lugarA);
       $("#fechaAsesoria").val(datos.fechaA.split('T')[0]);
       $("#horaAsesoria").val(datos.horaA);

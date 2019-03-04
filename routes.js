@@ -535,26 +535,26 @@ app.post('/asesoriaCorregir', asyncMiddleware( async (req, res) => {
     let proyData = [
       req.body.nombreSolicitud,
       req.body.etapa,
-      req.body.tipoA,
+      req.body.tipo,
       /* ^ tipo-------------------------
       /* 1: Carrera
       /* 2: Diplomado
       /* 3: Programa Academico
       /* ------------------------------*/
-      req.body.institucionA,
-      req.body.dependenciaA,
+      req.body.institucion,
+      req.body.dependencia,
       req.body.cantidadBeneficiarios,
       req.body.lugar,
       req.body.fechaAsesoria,
       req.body.horaAsesoria,
-      req.body.descripcionA,
+      req.body.descripcion,
       1,
       dformat(),
-      req.body.idA,
+      req.body.id,
       req.session.user, // email
     ]
 
-    await pool.query('UPDATE Asesoria SET nombreSolicitudA=?, etapa=?, tipoA=?, institucionA=?, dependenciaA=?, cantidadVeneficiarios=?, lugar=?, fechaAsesoria=?, horaAsesoria=?, descripcionA=?, statusA=?,fechaStatusA=? WHERE idA=? AND emailA=?', proyData);
+    await pool.query('UPDATE Asesoria SET nombreSolicitudA=?, etapa=?, tipoA=?, institucionA=?, dependenciaA=?, cantidadBeneficiarios=?, lugarA=?, fechaA=?, horaA=?, descripcionA=?, statusA=?,fechaStatusA=? WHERE idA=? AND emailA=?', proyData);
 
     res.redirect('/success');
   } else {
