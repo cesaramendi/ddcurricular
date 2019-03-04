@@ -130,7 +130,7 @@
           <!-- Page Content -->
           <h1>Enviar solicitud de investigación</h1>
           <hr>
-          <form method="post" action="/uploadSolicitudActualizacion" enctype="multipart/form-data">
+          <form method="post" action="/uploadSolicitudInvestigacion" enctype="multipart/form-data">
             <input class="d-none" type="text" id="id" name="id">
             <div class="form-group">
               <div class="form-row">
@@ -140,8 +140,10 @@
                   </div>
                   <select required name="solicitud" class="custom-select" id="solicitud">
                     <option value="">Seleccione...</option>
-                    <option value="1">Creación</option>
-                    <option value="2">Rediseño</option>
+                    <option value="1">Diagnostico</option>
+                    <option value="2">Diseño</option>
+                    <option value="3">Ejecución</option>
+                    <option value="4">Evaluación</option>
                   </select>
                 </div>
               </div>
@@ -154,7 +156,8 @@
                     <option value="">Seleccione...</option>
                     <option value="1">Carrera (Pregrado, TSU, ...)</option>
                     <option value="2">Programa de Postgrado</option>
-                    <option value="3">Programa académico</option>
+                    <option value="3">programas de formación continua y permanente
+</option>
                   </select>
                 </div>
               </div>
@@ -199,6 +202,31 @@
                 </div>
 
               </div>
+              <label>Datos del responsable</label>
+            <div class="form-group">
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarCoordinador" class="btn btn-link fa fa-search"> Buscar coordinador</button>
+              </div>
+              <div class="form-label-group">
+                <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
+                <label for="coordinador">nombre</label>
+              </div>
+            </div>
+           
+         
           <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
         </form>
 

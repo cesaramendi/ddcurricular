@@ -125,6 +125,9 @@ CREATE TABLE Investigacion(
   -- 6: aprobado
   fechaStatusI            DATETIME NOT NULL,
   notaI                   VARCHAR(200),
+  Nacionalidad VARCHAR(500) NOT NULL,
+  cedulaR INT,
+  nombreR VARCHAR(500) NOT NULL,
   PRIMARY KEY(id),
   INDEX fk_investigacion_email_idx (email DESC),
     CONSTRAINT fk_investigacion_email

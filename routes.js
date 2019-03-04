@@ -863,10 +863,15 @@ app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMid
       req.body.dependencia,
       req.body.descripcion,
       1,
-      dformat()
+      dformat(),
+      req.body.nacionalidad,
+      req.body.cedula,
+      req.body.coordinador
+
     ]
     let fecha= (new Date()).toISOString().split('T')[0]
-    let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO Investigacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL,?,?,?)', asesoData);
+   // let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
 
     console.log("El pakage a enviar: ", asesoData)
     console.log("El qryRes: ", qryRes)
@@ -882,7 +887,7 @@ app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMid
         i+1,
       ];
       console.log(docData);
-      await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO DocumentoInvestigacion VALUES(0,NULL,?,?,?,?,1,?)', docData);
       await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,?,2,?)', docData);
     }
     res.redirect('/success');
