@@ -87,6 +87,10 @@ app.get('/enviarSolicitudAsesoria', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudAsesoria.html');
 }));
 
+app.get('/enviarSolicitudInvestigacion', asyncMiddleware( async(req, res) => {
+   send(res, 'facultad/enviarSolicitudInvestigacion.html');
+}));
+
 app.get('/Reporte', (req, res) => {
   if(req.session.rol == 2) {
     send(res, 'burocratas/Reporte.html');
@@ -98,7 +102,7 @@ app.get('/Reporte', (req, res) => {
 });
 
 app.get('/enviarSolicitudAval', asyncMiddleware( async (req, res) => {
-  if(true) {
+  if(req.session.rol == 3) {
     send(res, 'facultad/enviarSolicitudAval.html');
   } else {
     forbid(res);
@@ -645,15 +649,15 @@ app.post('/registerPersona', asyncMiddleware( async (req, res) => {
     forbid(res);
   }
 }) );
-
+/*
 app.post('/enviarSolicitudAsesoria', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudAsesoria.html');
-}))
+}));
 
-app.get('/enviarSolicitudInvestigacion', asyncMiddleware( async(req, res) => {
+app.post('/enviarSolicitudInvestigacion', asyncMiddleware( async(req, res) => {
    send(res, 'facultad/enviarSolicitudInvestigacion.html');
-}))
-
+}));
+*/
 app.post('/subirAval', asyncMiddleware(async (req, res) =>{
   if (await isValidSessionAndRol(req, 2)) {
 

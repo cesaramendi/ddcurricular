@@ -125,9 +125,9 @@ CREATE TABLE Investigacion(
   -- 6: aprobado
   fechaStatusI            DATETIME NOT NULL,
   notaI                   VARCHAR(200),
-  Nacionalidad VARCHAR(500) NOT NULL,
-  cedulaR INT,
-  nombreR VARCHAR(500) NOT NULL,
+  -- Nacionalidad VARCHAR(500) NOT NULL,
+  -- cedulaR INT,
+  -- nombreR VARCHAR(500) NOT NULL,
 
   PRIMARY KEY(idI),
   INDEX fk_investigacion_email_idx (emailI DESC),
@@ -138,7 +138,7 @@ CREATE TABLE Investigacion(
     ON UPDATE NO ACTION
 );
 
---//////////////Documentos//////////////////////////////////////////////////////
+-- //////////////Documentos//////////////////////////////////////////////////////
 
 CREATE TABLE documentoSolicitudAval(
   idDocSolAval          INT UNSIGNED NOT NULL AUTO_INCREMENT,
