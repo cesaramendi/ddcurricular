@@ -30,19 +30,19 @@ $(document).ready(function() {
       }
       switch (data.tipoA) {
         case 1: data.tipoA = 'Carrera'; break;
-        case 2: data.tipoA = 'Programa de postgrado'; break;
-        case 3: data.tipoA = 'Programa Academico'; break;
+        case 2: data.tipoA = 'Programa de Postgrado'; break;
+        case 3: data.tipoA = 'Programa de Formación'; break;
       }
 
       switch (data.statusA) {
         case 0: data.statusA = 'esperando correccion'; break;
         case 1: data.statusA = 'recibido'; break;
         case 2: data.statusA = 'para revisar'; break;
-        case 3: data.statusA = 'devuelto por D.D.Curricular'; break;
+        case 3: data.statusA = 'devuelto por correcciones'; break;
         case 4: data.statusA = 'validado'; break;
-        case 5: data.statusA = 'rechazado por consejo'; break;
+        case 5: data.statusA = 'rechazado'; break;
         case 6: data.statusA = 'aprobado'; break;
-        case 7: data.statusA = 'finalizado'; break;
+        case 7: data.statusA = 'aprobado con documento'; break;
       }
     },
     rowCallback: function (row, data) {
@@ -54,18 +54,18 @@ $(document).ready(function() {
       }
       switch (data.tipoA) {
         case 'Carrera': $('td:eq(5)', row).html('Carrera'); break;
-        case 'Programa de postgrado': $('td:eq(5)', row).html('Programa de postgrado'); break;
-        case 'Programa Academico': $('td:eq(5)', row).html('Programa Academico'); break;
+        case 'Programa de Postgrado': $('td:eq(5)', row).html('Programa de Postgrado'); break;
+        case 'Programa de Formación': $('td:eq(5)', row).html('Programa de Formación'); break;
       }
       switch (data.statusA) {
         case 'esperando correccion': $('td:eq(6)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(6)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(6)', row).html('para revisar'); break;
-        case 'devuelto por D.D.Curricular': $('td:eq(6)', row).html('devuelto por D.D.Curricular'); break;
+        case 'devuelto por correcciones': $('td:eq(6)', row).html('devuelto por correcciones'); break;
         case 'validado': $('td:eq(6)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(6)', row).html('rechazado por consejo'); break;
+        case 'rechazado': $('td:eq(6)', row).html('rechazado'); break;
         case 'aprobado': $('td:eq(6)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(6)', row).html('finalizado'); break;
+        case 'aprobado con documento': $('td:eq(6)', row).html('aprobado con documento'); break;
       }
       //$('td:eq(2)', row).html(data.institucionA.split('\n')[0]);
       $('td:eq(3)', row).html(data.fechaA.split('T')[0]);
@@ -136,7 +136,7 @@ $(document).ready(function() {
 
         // Para mostrar los documentos del proyecto
           fields.files.innerHTML = files(res);
-
+        });
         // Para mostrar detalles segun estatus
           let plusesHtml = '';
           plusesHtml = `<br>
@@ -167,7 +167,6 @@ $(document).ready(function() {
           }
 
           fields.pluses.innerHTML = plusesHtml;
-        });
       });
     });
 
@@ -175,58 +174,62 @@ $(document).ready(function() {
     let tablaI = $('#dataTableInvestigacion').DataTable({
       ajax: '/getInvestigacion',
       columns: [
-        { data: 'id' },
-        { data: 'nombreSolicitud' },
-        { data: 'institucion'},
-        { data: 'solicitud' },
-        { data: 'tipo' },
-        { data: 'status' },
-        { data: 'fechaStatus' },
+        { data: 'idI' },
+        { data: 'nombreSolicitudI' },
+        { data: 'institucionI'},
+        { data: 'solicitudI' },
+        { data: 'tipoI' },
+        { data: 'statusI' },
+        { data: 'fechaStatusI' },
       ],
       order: [[0, 'desc']],
       createdRow: function (row, data, dataIndex) {
-        switch (data.solicitud) {
-          case 1: data.solicitud = 'Creacion'; break;
-          case 2: data.solicitud = 'Rediseño'; break;
+        switch (data.solicitudI) {
+          case 1: data.solicitudI = 'Creacion'; break;
+          case 2: data.solicitudI = 'Rediseño'; break;
+          case 3: data.solicitudI = 'Acreditación'; break;
+          case 4: data.solicitudI = 'Renovación'; break;
         }
-        switch (data.tipo) {
-          case 1: data.tipo = 'Carrera'; break;
-          case 2: data.tipo = 'Programa de postgrado'; break;
-          case 3: data.tipo = 'Programa Academico'; break;
+        switch (data.tipoI) {
+          case 1: data.tipoI = 'Carrera'; break;
+          case 2: data.tipoI = 'Programa de Postgrado'; break;
+          case 3: data.tipoI = 'Programa de Formación'; break;
         }
-        switch (data.status) {
-          case 0: data.status = 'esperando correccion'; break;
-          case 1: data.status = 'recibido'; break;
-          case 2: data.status = 'para revisar'; break;
-          case 3: data.status = 'devuelto por D.D.Curricular'; break;
-          case 4: data.status = 'validado'; break;
-          case 5: data.status = 'rechazado por consejo'; break;
-          case 6: data.status = 'aprobado'; break;
-          case 7: data.status = 'finalizado'; break;
+        switch (data.statusI) {
+          case 0: data.statusI = 'esperando correccion'; break;
+          case 1: data.statusI = 'recibido'; break;
+          case 2: data.statusI = 'para revisar'; break;
+          case 3: data.statusI = 'devuelto por correcciones'; break;
+          case 4: data.statusI = 'validado'; break;
+          case 5: data.statusI = 'rechazado'; break;
+          case 6: data.statusI = 'aprobado'; break;
+          case 7: data.statusI = 'aprobado con documento'; break;
         }
       },
       rowCallback: function (row, data) {
-        switch (data.solicitud) {
+        switch (data.solicitudI) {
           case 'Creacion': $('td:eq(3)', row).html('Creación'); break;
           case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
+          case 'Acreditación': $('td:eq(3)', row).html('Acreditación'); break;
+          case 'Renovación': $('td:eq(3)', row).html('Renovación'); break;
         }
-        switch (data.tipo) {
+        switch (data.tipoI) {
           case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
-          case 'Programa de postgrado': $('td:eq(4)', row).html('Programa de postgrado'); break;
-          case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
+          case 'Programa de Postgrado': $('td:eq(4)', row).html('Programa de Postgrado'); break;
+          case 'Programa de Formación': $('td:eq(4)', row).html('Programa de Formación'); break;
         }
-        switch (data.status) {
+        switch (data.statusI) {
           case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
           case 'recibido': $('td:eq(5)', row).html('recibido'); break;
           case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-          case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
+          case 'devuelto por correcciones': $('td:eq(5)', row).html('devuelto por correcciones'); break;
           case 'validado': $('td:eq(5)', row).html('validado'); break;
-          case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+          case 'rechazado': $('td:eq(5)', row).html('rechazado'); break;
           case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
-          case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+          case 'aprobado con documento': $('td:eq(5)', row).html('aprobado con documento'); break;
         }
-        $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
-        $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
+        $('td:eq(1)', row).html(data.nombreSolicitudI.split('\n')[0]);
+        $('td:eq(6)', row).html(new Date(data.fechaStatusI).toLocaleString());
       },
     });
 
@@ -255,27 +258,27 @@ $(document).ready(function() {
           fields.statusI = document.getElementById('projectModalStatusI');
           fields.fechaStatusI = document.getElementById('projectModalFechaStatusI');
           fields.solicitanteI = document.getElementById('projectModalSolicitanteI');
-          fields.introduccionI = document.getElementById('projectModalIntroduccionI');
+          fields.descripcionI = document.getElementById('projectModalDescripcionI');
 
           /*fields.filesHeads = document.getElementById('projectModalFilesHeads');*/
           fields.files = document.getElementById('tableProjectFilesI');
           fields.pluses = document.getElementById('projectModalPlusesI');
           ////////////////
 
-          fields.idI.innerText = 'Solicitud Investigacion ID: ' + rowData.id;
-          fields.fechaI.innerText = rowData.fechaSolicitud.split('T')[0];
-          fields.fechaStatusI = new Date(rowData.fechaStatus).toLocaleString();
-          fields.solicitudI.innerText = rowData.solicitud;
-          fields.tipoI.innerText = rowData.tipo;
-          fields.nombreI.innerText = rowData.nombreSolicitud;
+          fields.idI.innerText = 'Solicitud Investigacion ID: ' + rowData.idI;
+          fields.fechaI.innerText = rowData.fechaSolicitudI.split('T')[0];
+          fields.fechaStatusI = new Date(rowData.fechaStatusI).toLocaleString();
+          fields.solicitudI.innerText = rowData.solicitudI;
+          fields.tipoI.innerText = rowData.tipoI;
+          fields.nombreI.innerText = rowData.nombreSolicitudI;
           //fields.statusP.innerText = rowData.status;
           //fields.fechaP.innerText = (new Date(rowData.fechaSolicitud)) == 'Invalid Date' ? rowData.fechaSolicitud.split('T')[0] : (new Date(rowData.fechaSolicitud)).toLocaleDateString();
-          fields.solicitanteI.innerText = rowData.institucion+' '+rowData.dependencia;
-          fields.introduccionI.innerText = rowData.introduccion;
+          fields.solicitanteI.innerText = rowData.institucionI+' '+rowData.dependenciaI;
+          fields.descripcionI.innerText = rowData.descripcionI;
 
           $.ajax({
             method: 'get',
-            url: '/getDocsFromProjectI?id=' + rowData.id,
+            url: '/getDocsFromInvestigacion?id=' + rowData.idI,
           }).done(function (res) {
             $(projectModal).removeClass('isloading');
 
@@ -283,6 +286,8 @@ $(document).ready(function() {
 
           // Para mostrar los documentos del proyecto
             fields.files.innerHTML = files(res);
+
+          });
 
           // Para mostrar detalles segun estatus
             let plusesHtml = '';
@@ -292,29 +297,26 @@ $(document).ready(function() {
             style="padding-left:50px; margin:auto;">
             <tr>
               <td ROWSPAN="2">Estatus:</td>
-              <td>${rowData.status}</td>
+              <td>${rowData.statusI}</td>
             </tr>
             <tr>
               <td>${fields.fechaStatusI}</td>
             </tr>
             <tr>
               <td>Nota:</td>
-              <td>${rowData.nota ? rowData.nota:''}</td>
+              <td>${rowData.notaI ? rowData.notaI:''}</td>
             </tr>
             </table>
             <br>`;
 
-            if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
-
+            if(status2Num(rowData.statusI) == 1 || status2Num(rowData.statusI) == 3) {
               plusesHtml = plusesHtml +
               `<form method="get" action="/enviarInvestigacionCorregido">
-              <input type="hidden" id="id" name="id" value="${rowData.id}"/>
+              <input type="hidden" id="id" name="id" value="${rowData.idI}"/>
               <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
               </form>`;
             }
-
             fields.pluses.innerHTML = plusesHtml;
-          });
         });
       });
 
@@ -336,42 +338,46 @@ $(document).ready(function() {
       switch (data.solicitud) {
         case 1: data.solicitud = 'Creacion'; break;
         case 2: data.solicitud = 'Rediseño'; break;
+        case 3: data.solicitud = 'Acreditación'; break;
+        case 4: data.solicitud = 'Renovación'; break;
       }
       switch (data.tipo) {
         case 1: data.tipo = 'Carrera'; break;
-        case 2: data.tipo = 'Programa de postgrado'; break;
-        case 3: data.tipo = 'Programa Academico'; break;
+        case 2: data.tipo = 'Programa de Postgrado'; break;
+        case 3: data.tipo = 'Programa de Formación'; break;
       }
       switch (data.status) {
         case 0: data.status = 'esperando correccion'; break;
         case 1: data.status = 'recibido'; break;
         case 2: data.status = 'para revisar'; break;
-        case 3: data.status = 'devuelto por D.D.Curricular'; break;
+        case 3: data.status = 'devuelto por correcciones'; break;
         case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
+        case 5: data.status = 'rechazado'; break;
         case 6: data.status = 'aprobado'; break;
-        case 7: data.status = 'finalizado'; break;
+        case 7: data.status = 'aprobado con documento'; break;
       }
     },
     rowCallback: function (row, data) {
       switch (data.solicitud) {
         case 'Creacion': $('td:eq(3)', row).html('Creacion'); break;
         case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
+        case 'Acreditación': $('td:eq(3)', row).html('Acreditación'); break;
+        case 'Renovación': $('td:eq(3)', row).html('Renovación'); break;
       }
       switch (data.tipo) {
         case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
-        case 'Programa de postgrado': $('td:eq(4)', row).html('Programa de postgrado'); break;
-        case 'Programa Academico': $('td:eq(4)', row).html('Programa Academico'); break;
+        case 'Programa de Postgrado': $('td:eq(4)', row).html('Programa de Postgrado'); break;
+        case 'Programa de Formación': $('td:eq(4)', row).html('Programa de Formación'); break;
       }
       switch (data.status) {
         case 'esperando correccion': $('td:eq(5)', row).html('esperando correccion'); break;
         case 'recibido': $('td:eq(5)', row).html('recibido'); break;
         case 'para revisar': $('td:eq(5)', row).html('para revisar'); break;
-        case 'devuelto por D.D.Curricular': $('td:eq(5)', row).html('devuelto por D.D.Curricular'); break;
+        case 'devuelto por correcciones': $('td:eq(5)', row).html('devuelto por correcciones'); break;
         case 'validado': $('td:eq(5)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(5)', row).html('rechazado por consejo'); break;
+        case 'rechazado': $('td:eq(5)', row).html('rechazado'); break;
         case 'aprobado': $('td:eq(5)', row).html('aprobado'); break;
-        case 'finalizado': $('td:eq(5)', row).html('finalizado'); break;
+        case 'aprobado con documento': $('td:eq(5)', row).html('aprobado con documento'); break;
       }
       $('td:eq(1)', row).html(data.nombreSolicitud.split('\n')[0]);
       $('td:eq(6)', row).html(new Date(data.fechaStatus).toLocaleString());
@@ -478,60 +484,7 @@ $(document).ready(function() {
         }
         fields.files.innerHTML = htmlFiles;
         //Fin mostrar archivos
-        // Para mostrar detalles segun estatus
-        let plusesHtml = '';
-        plusesHtml = `<br>
-        <table id="projectPluses" class="table-bordered"
-        cellpadding="5" cellspacing="0" border="0"
-        style="padding-left:50px; margin:auto;">
-        <tr>
-          <td ROWSPAN="2">Estatus:</td>
-          <td>${rowData.status}</td>
-        </tr>
-        <tr>
-          <td>${fields.fechaStatusP}</td>
-        </tr>
-        <tr>
-          <td>Nota:</td>
-          <td>${rowData.nota ? rowData.nota:''}</td>
-        </tr>
-        </table>
-        <br>`;
 
-        // Si es para revisar v
-        if(status2Num(rowData.status) == 0) {
-          plusesHtml = plusesHtml +
-          `<form method="post" action="/actualizarDocs" enctype="multipart/form-data">
-          <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
-          <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
-          <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
-          for(let i = 0; i < maxNumero; i++){
-            plusesHtml = plusesHtml +
-            `<div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Archivo ${i+1}</span>
-            </div>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" name="inputFile${i+1}" id="inputFile${i+1}" accept=".pdf, .doc, .docx, .xlsx">
-              <label id="inputFile${i+1}Label" class="custom-file-label" for="inputFile${i+1}">Escoger Archivo PDF, Word, Excel</label>
-            </div>
-          </div>`
-          }
-          plusesHtml = plusesHtml +
-          `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
-          </form>`;
-        }
-
-        if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
-
-          plusesHtml = plusesHtml +
-          `<form method="get" action="/enviarSolicitudAvalCorregido">
-          <input type="hidden" id="id" name="id" value="${rowData.id}"/>
-          <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
-          </form>`;
-        }
-
-        fields.pluses.innerHTML = plusesHtml;
 
         // Si esta aprobado
         /*
@@ -721,6 +674,61 @@ $(document).ready(function() {
         })
 
       });// fin ajax proyectos
+      
+      // Para mostrar detalles segun estatus
+      let plusesHtml = '';
+      plusesHtml = `<br>
+      <table id="projectPluses" class="table-bordered"
+      cellpadding="5" cellspacing="0" border="0"
+      style="padding-left:50px; margin:auto;">
+      <tr>
+        <td ROWSPAN="2">Estatus:</td>
+        <td>${rowData.status}</td>
+      </tr>
+      <tr>
+        <td>${fields.fechaStatusP}</td>
+      </tr>
+      <tr>
+        <td>Nota:</td>
+        <td>${rowData.nota ? rowData.nota:''}</td>
+      </tr>
+      </table>
+      <br>`;
+
+      // Si es para revisar v
+      if(status2Num(rowData.status) == 0) {
+        plusesHtml = plusesHtml +
+        `<form method="post" action="/actualizarDocs" enctype="multipart/form-data">
+        <input class="d-none" type="text" name="nombreSolicitud" value="${rowData.nombreSolicitud}"/>
+        <input class="d-none" name="tipo" value="${tipo2Num(rowData.tipo)}"/>
+        <input class="d-none" name="refProyecto" value="${rowData.id}"/>`;
+        for(let i = 0; i < maxNumero; i++){
+          plusesHtml = plusesHtml +
+          `<div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Archivo ${i+1}</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="inputFile${i+1}" id="inputFile${i+1}" accept=".pdf, .doc, .docx, .xlsx">
+            <label id="inputFile${i+1}Label" class="custom-file-label" for="inputFile${i+1}">Escoger Archivo PDF, Word, Excel</label>
+          </div>
+        </div>`
+        }
+        plusesHtml = plusesHtml +
+        `<input class="btn btn-primary mx-auto d-block" type="submit" value="Actualizar">
+        </form>`;
+      }
+
+      if(status2Num(rowData.status) == 1 || status2Num(rowData.status) == 3) {
+
+        plusesHtml = plusesHtml +
+        `<form method="get" action="/enviarSolicitudAvalCorregido">
+        <input type="hidden" id="id" name="id" value="${rowData.id}"/>
+        <input class="btn btn-primary mx-auto d-block" type="submit" value="Corregir datos">
+        </form>`;
+      }
+
+      fields.pluses.innerHTML = plusesHtml;
 
     });// fin evento shown modal proyecto
 
@@ -794,11 +802,11 @@ $(document).ready(function() {
       case 'esperando correccion': return 0; break;
       case 'recibido': return 1; break;
       case 'para revisar': return 2; break;
-      case 'devuelto por D.D.Curricular': return 3; break;
+      case 'devuelto por correcciones': return 3; break;
       case 'validado': return 4; break;
-      case 'rechazado por consejo': return 5; break;
+      case 'rechazado': return 5; break;
       case 'aprobado': return 6; break;
-      case 'finalizado': return 7; break;
+      case 'aprobado con documento': return 7; break;
 
     }
   }
@@ -808,11 +816,11 @@ $(document).ready(function() {
       case 0: return 'esperando correccion'; break;
       case 1: return 'recibido'; break;
       case 2: return 'para revisar'; break;
-      case 3: return 'devuelto por D.D.Curricular'; break;
+      case 3: return 'devuelto por correcciones'; break;
       case 4: return 'validado'; break;
-      case 5: return 'rechazado por consejo'; break;
+      case 5: return 'rechazado'; break;
       case 6: return 'aprobado'; break;
-      case 7: return 'finalizado'; break;
+      case 7: return 'aprobado con documento'; break;
     }
   }
 
@@ -827,7 +835,7 @@ $(document).ready(function() {
     switch(tipo) {
       case 'Carrera': return 1; break;
       case 'Diplomado': return 2; break;
-      case 'Programa Academico': return 3; break;
+      case 'Programa de Formación': return 3; break;
     }
   }
 

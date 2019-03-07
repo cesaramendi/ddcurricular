@@ -131,50 +131,64 @@
           <h1>Enviar solicitud de investigación</h1>
           <hr>
           <form method="post" action="/uploadSolicitudInvestigacion" enctype="multipart/form-data">
-            <input class="d-none" type="text" id="id" name="id">
-            <div class="form-group">
-              <div class="form-row">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="Solicitud">Solicitud</label>
-                  </div>
-                  <select required name="solicitud" class="custom-select" id="solicitud">
-                    <option value="">Seleccione...</option>
-                    <option value="1">Diagnostico</option>
-                    <option value="2">Diseño</option>
-                    <option value="3">Ejecución</option>
-                    <option value="4">Evaluación</option>
-                  </select>
+
+            <div class="form-row">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="tipo">Solicitud</label>
                 </div>
+                <select required name="solicitud" class="custom-select" id="solicitud">
+                  <option value="">Seleccione...</option>
+                  <option value="1">Creación</option>
+                  <option value="2">Rediseño</option>
+                  <option value="3">Acreditación</option>
+                  <option value="4">Renovación</option>
+                </select>
               </div>
-              <div class="form-row">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="tipo">Tipo</label>
-                  </div>
-                  <select required name="tipo" class="custom-select" id="tipo">
-                    <option value="">Seleccione...</option>
-                    <option value="1">Carrera (Pregrado, TSU, ...)</option>
-                    <option value="2">Programa de Postgrado</option>
-                    <option value="3">programas de formación continua y permanente
-</option>
-                  </select>
+            </div>
+            <div class="form-row">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="tipo">Tipo</label>
                 </div>
+                <select required name="tipo" class="custom-select" id="tipo">
+                  <option value="">Seleccione...</option>
+                  <option value="1">Carrera (Pregrado, TSU, ...)</option>
+                  <option value="2">Programa de Postgrado</option>
+                  <option value="3">Programas de Formación Continua y Permanente</option>
+                </select>
               </div>
-              <span id="errorPlace"></span>
             </div>
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
-                <label for="nombreSolicitud">Razón de la solicitud </label>
+                <label for="nombreSolicitud">Razón de la solicitud</label>
               </div>
             </div>
             <div class="form-group">
               <label for="descripcion">Descripción</label>
-              <textarea required class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
+              <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
             </div>
             <hr>
             <label>Datos Solicitante</label>
+            <!--
+            <div class="form-group form-row">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Nacionalidad</label>
+              </div>
+              <div class="">
+                <select required id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <option value="">...</option>
+                  <option value="V">V</option>
+                  <option value="E">E</option>
+                </select>
+              </div>
+              <div class="">
+                <input required type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+              </div>
+              <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
+            </div>
+            -->
             <div class="form-group">
               <div class="form-label-group">
                 <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
@@ -188,8 +202,8 @@
               </div>
             </div>
             <hr>
+            
             <div class="form-group">
-
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -202,7 +216,10 @@
                 </div>
 
               </div>
-              <label>Datos del responsable</label>
+              <span id="errorPlace"></span>
+              <hr>
+            <!--
+            <label>Datos del responsable</label>
             <div class="form-group">
               <div class="form-group form-row">
                 <div class="input-group-prepend">
@@ -225,8 +242,8 @@
                 <label for="coordinador">nombre</label>
               </div>
             </div>
-           
-         
+            -->
+
           <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
         </form>
 

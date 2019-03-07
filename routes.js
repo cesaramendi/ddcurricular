@@ -161,7 +161,7 @@ app.get('/getDocsFromAsesoria', asyncMiddleware( async (req, res) => {
 
 app.get('/getDocsFromInvestigacion', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 2, 3)) {
-    let data = await pool.query('SELECT ruta,tipo,numero,refProyecto FROM documentoInvestigacion WHERE refProyecto=?',[req.query.id]);
+    let data = await pool.query('SELECT ruta,tipo,numero FROM DocumentoInvestigacion WHERE refProyectoI=?',[req.query.id]);
     res.json({ data });
   } else {
     forbid(res);
@@ -199,7 +199,7 @@ app.get('/getAsesoriaCorregir', asyncMiddleware( async (req, res) => {
 
 app.get('/getInvestigacionCorregir', asyncMiddleware( async (req, res) => {
   if(Number.isSafeInteger(Number(req.query.id)) && await isValidSessionAndRol(req, 3)) {
-    let data = await pool.query('SELECT * FROM investigacion WHERE id=?',[req.query.id]);
+    let data = await pool.query('SELECT * FROM Investigacion WHERE idI=?',[req.query.id]);
     console.log(data);
     res.json({ data });
   } else {
@@ -299,9 +299,9 @@ app.get('/getInvestigacion', asyncMiddleware( async (req, res) => {
   if(await isValidSessionAndRol(req, 2, 3)) {
     let data;
     if(req.session.rol == 3) {
-      data = await pool.query('SELECT * FROM actualizacion WHERE email=?',[req.session.user]);
+      data = await pool.query('SELECT * FROM Investigacion WHERE emailI=?',[req.session.user]);
     } else {
-      data = await pool.query('SELECT * FROM actualizacion');
+      data = await pool.query('SELECT * FROM Investigacion');
     }
     res.json({ data });
   } else {
@@ -567,26 +567,28 @@ app.post('/investigacionCorregir', asyncMiddleware( async (req, res) => {
   if (await isValidSessionAndRol(req, 3)) {
     //var d = new Date();
     let proyData = [
-      req.body.nombreSolicitudI,
-      req.body.solicitudI,
+      //req.session.user, // email
+      req.body.nombreSolicitud,
+      req.body.solicitud,
       /* ^ tipo-------------------------
       /* 1: Creacion
       /* 2: Redisenno
       /* ------------------------------*/
-      req.body.tipoI,
+      req.body.tipo,
       /* ^ asunto-------------------------
       /* 1: Creacion
       /* 2: Diplomado
       /* 3: Programa academico
       /* ------------------------------*/
-      req.body.institucionI,
-      req.body.dependenciaI,
-      req.body.descripcionI,
+      req.body.institucion,
+      req.body.dependencia,
+      req.body.descripcion,
       1,
       dformat(),
-      req.body.idI,
+      req.body.id,
       req.session.user,
     ]
+    console.log(proyData);
 
     await pool.query('UPDATE Investigacion SET nombreSolicitudI=?, solicitudI=?, tipoI=?, institucionI=?, dependenciaI=?, descripcionI=?, statusI=?,fechaStatusI=? WHERE idI=? AND emailI=?', proyData);
 
@@ -790,7 +792,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* ^ tipo-------------------------
       -- 1: Carrera
       -- 2: Programa de postgrado
-      -- 3: Programa academico
+      -- 3: Programa de formacion
         ------------------------------*/
       req.body.institucion,
       req.body.dependencia,
@@ -811,7 +813,7 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
       /* 6: aprobado
       /* 7: finalizado
       /* ------------------------- */
-      dformat()
+      dformat(),
     ]
     let qryRes = await pool.query('INSERT INTO Asesoria VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
     for(let i = 0; i < req.files.length; i++) {
@@ -838,43 +840,45 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
 
 
 app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log("*/uploadSolicitudInvestigacion*")
+  console.log("*/uploadSolicitudInvestigacion*");
   console.log(req.body);
   //console.log("El user, asumo yo: ",req.session)
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
-    let asesoData = [
-      req.session.user,
+    let investData = [
+      req.session.user, // email
       req.body.nombreSolicitud,
       req.body.solicitud,
-      /* ^ Solicitud-------------------------
+      /* ^ tipo-------------------------
       /* 1: Creacion
-      /* 2: Rediseño
+      /* 2: Redisenno
       /* ------------------------------*/
       req.body.tipo,
-      /* ^ tipo-------------------------
+      /* ^ asunto-------------------------
       /* 1: Carrera
       /* 2: Diplomado
-      /* 3: Programa Academico
+      /* 3: Programa academico
       /* ------------------------------*/
-      req.body.nacionalidad,
-      req.body.cedula,
       req.body.institucion,
       req.body.dependencia,
       req.body.descripcion,
       1,
+      /* ^ status-----------------------
+      /* 0: esperando correccion
+      /* 1: recibido
+      /* 2: para revisar
+      /* 3: devuelto
+      /* 4: validado
+      /* 5: rechazado por consejo
+      /* 6: aprobado
+      /* 7: finalizado
+      /* ------------------------- */
       dformat(),
-      req.body.nacionalidad,
-      req.body.cedula,
-      req.body.coordinador
-
     ]
-    let fecha= (new Date()).toISOString().split('T')[0]
-    let qryRes = await pool.query('INSERT INTO Investigacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL,?,?,?)', asesoData);
-   // let qryRes = await pool.query('INSERT INTO actualizacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,?,?,NULL)', asesoData);
+    let qryRes = await pool.query('INSERT INTO Investigacion VALUES(0,?,CURDATE(),?,?,?,?,?,?,?,?,NULL)', investData);
 
-    console.log("El pakage a enviar: ", asesoData)
-    console.log("El qryRes: ", qryRes)
+    //console.log("El pakage a enviar: ", asesoData)
+    //console.log("El qryRes: ", qryRes)
     for(let i = 0; i < req.files.length; i++) {
       let docData = [
         //id: 0: auto
@@ -887,8 +891,8 @@ app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMid
         i+1,
       ];
       console.log(docData);
-      await pool.query('INSERT INTO DocumentoInvestigacion VALUES(0,NULL,?,?,?,?,1,?)', docData);
-      await pool.query('INSERT INTO documentos VALUES(0,NULL,?,?,?,?,2,?)', docData);
+      await pool.query('INSERT INTO DocumentoInvestigacion VALUES(0,?,?,?,?,1,?)', docData);
+      await pool.query('INSERT INTO DocumentoInvestigacion VALUES(0,?,?,?,?,2,?)', docData);
     }
     res.redirect('/success');
   } else {
