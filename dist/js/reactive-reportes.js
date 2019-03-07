@@ -16,9 +16,9 @@ $(document).ready(function () {
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       switch (data.tipo) {
-        case 1: data.tipo = 'Carrera'; break;
-        case 2: data.tipo = 'Programa de postgrado'; break;
-        case 3: data.tipo = 'Programa Academico'; break;
+        case 1: data.tipoA = 'Carrera'; break;
+        case 2: data.tipoA = 'Programa de Postgrado'; break;
+        case 3: data.tipoA = 'Programa de Formación'; break;
       }
     },
     rowCallback: function (row, data) {
@@ -48,7 +48,7 @@ $(document).ready(function () {
         case 2: data.status = 'para revisar'; break;
         case 3: data.status = 'devuelto por correcciones'; break;
         case 4: data.status = 'validado'; break;
-        case 5: data.status = 'rechazado por consejo'; break;
+        case 5: data.status = 'rechazado por correcciones'; break;
         case 6: data.status = 'aprobado'; break;
         case 7: data.status = 'finalizado'; break;
       }
@@ -60,7 +60,7 @@ $(document).ready(function () {
         case 'para revisar': $('td:eq(0)', row).html('para revisar'); break;
         case 'rechazado por D.D.Curricular': $('td:eq(0)', row).html('rechazado por D.D.Curricular'); break;
         case 'validado': $('td:eq(0)', row).html('validado'); break;
-        case 'rechazado por consejo': $('td:eq(0)', row).html('rechazado por consejo'); break;
+        case 'rechazado por correcciones': $('td:eq(0)', row).html('rechazado por correcciones'); break;
         case 'aprobado': $('td:eq(0)', row).html('aprobado'); break;
         case 'finalizado': $('td:eq(0)', row).html('finalizado'); break;
       }
