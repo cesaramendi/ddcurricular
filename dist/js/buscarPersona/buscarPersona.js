@@ -44,7 +44,8 @@ $(document).ready(function() {
       $("#tipo").append(new Option("Diplomado", "1"));
       $("#tipo").append(new Option("Acreditación", "2"));
       $("#tipo").append(new Option("Planes", "3"));
-    }else{
+    }
+    if(($('#etapa').val()) == 2){
       //alert('capacitacion');
       $("#tipo").append(new Option("Charla", "1"));
       $("#tipo").append(new Option("Taller", "2"));

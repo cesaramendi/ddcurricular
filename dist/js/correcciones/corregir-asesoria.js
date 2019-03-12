@@ -15,17 +15,19 @@ $(document).ready(function(){
       $("#id").val(id);
       $("#etapa").val(datos.etapa);
 
-      if(($('#etapa').val()) == 1){
+      if(datos.etapa == 1){
         //alert('formacion');
         $("#tipo").append(new Option("Diplomado", "1"));
         $("#tipo").append(new Option("Acreditación", "2"));
         $("#tipo").append(new Option("Planes", "3"));
-      }else{
+      }
+      if(datos.etapa == 2){
         //alert('capacitacion');
         $("#tipo").append(new Option("Charla", "1"));
         $("#tipo").append(new Option("Taller", "2"));
       }
       $("#tipo").val(datos.tipoA);
+      
       $("#nombreSolicitud").val(datos.nombreSolicitudA);
       $("#descripcion").val(datos.descripcionA);
       $("#institucion").val(datos.institucionA);
