@@ -1,3 +1,6 @@
+CREATE DATABASE interoperables;
+USE interoperables;
+
 CREATE TABLE persona(
   nacionalidad    VARCHAR(1) NOT NULL,
   -- V: Venezolano

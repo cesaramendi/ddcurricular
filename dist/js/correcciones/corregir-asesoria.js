@@ -14,6 +14,17 @@ $(document).ready(function(){
 
       $("#id").val(id);
       $("#etapa").val(datos.etapa);
+
+      if(($('#etapa').val()) == 1){
+        //alert('formacion');
+        $("#tipo").append(new Option("Diplomado", "1"));
+        $("#tipo").append(new Option("Acreditación", "2"));
+        $("#tipo").append(new Option("Planes", "3"));
+      }else{
+        //alert('capacitacion');
+        $("#tipo").append(new Option("Charla", "1"));
+        $("#tipo").append(new Option("Taller", "2"));
+      }
       $("#tipo").val(datos.tipoA);
       $("#nombreSolicitud").val(datos.nombreSolicitudA);
       $("#descripcion").val(datos.descripcionA);
@@ -56,4 +67,8 @@ $(document).ready(function(){
       $("#fechaAsesoria").val(datos.fechaA.split('T')[0]);
       $("#horaAsesoria").val(datos.horaA);
   });
+  //$('#etapa').change(function () {
+
+  //});
+
 });

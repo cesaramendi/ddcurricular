@@ -18,15 +18,21 @@ $(document).ready(function () {
     order: [[0, 'desc']],
     createdRow: function (row, data, dataIndex) {
       switch (data.etapa) {
-        case 1: data.etapa = 'Diagnostico'; break;
-        case 2: data.etapa = 'Diseño'; break;
-        case 3: data.etapa = 'Ejecusion'; break;
-        case 4: data.etapa = 'Evaluacion'; break;
+        case 1: data.etapa = 'Formación'; break;
+        case 2: data.etapa = 'Capacitación'; break;
       }
-      switch (data.tipoA) {
-        case 1: data.tipoA = 'Carrera'; break;
-        case 2: data.tipoA = 'Programa de postgrado'; break;
-        case 3: data.tipoA = 'Programa de Formación'; break;
+
+      if(data.etapa == 'Formación'){
+        switch (data.tipoA) {
+          case 1: data.tipoA = 'Diplomado'; break;
+          case 2: data.tipoA = 'Acreditación'; break;
+          case 3: data.tipoA = 'Planes'; break;
+        }
+      }else{
+        switch (data.tipoA) {
+          case 1: data.tipoA = 'Charla'; break;
+          case 2: data.tipoA = 'Taller'; break;
+        }
       }
 
       switch (data.statusA) {
@@ -42,15 +48,20 @@ $(document).ready(function () {
     },
     rowCallback: function (row, data) {
       switch (data.etapa) {
-        case 'Diagnostico': $('td:eq(4)', row).html('Diagnostico'); break;
-        case 'Diseño': $('td:eq(4)', row).html('Diseño'); break;
-        case 'Ejecusion': $('td:eq(4)', row).html('Ejecusion'); break;
-        case 'Evaluacion': $('td:eq(4)', row).html('Evaluacion'); break;
+        case 'Formación': $('td:eq(4)', row).html('Formación'); break;
+        case 'Capacitación': $('td:eq(4)', row).html('Capacitación'); break;
       }
-      switch (data.tipoA) {
-        case 'Carrera': $('td:eq(5)', row).html('Carrera'); break;
-        case 'Programa de postgrado': $('td:eq(5)', row).html('Programa de postgrado'); break;
-        case 'Programa de Formación': $('td:eq(5)', row).html('Programa de Formación'); break;
+      if(data.etapa == 'Formación'){
+        switch (data.tipoA) {
+          case 'Diplomado': $('td:eq(5)', row).html('Diplomado'); break;
+          case 'Acreditación': $('td:eq(5)', row).html('Acreditación'); break;
+          case 'Planes': $('td:eq(5)', row).html('Planes'); break;
+        }
+      }else{
+        switch (data.tipoA) {
+          case 'Charla': $('td:eq(5)', row).html('Charla'); break;
+          case 'Taller': $('td:eq(5)', row).html('Taller'); break;
+        }
       }
       switch (data.statusA) {
         case 'esperando correccion': $('td:eq(6)', row).html('esperando correccion'); break;
@@ -153,10 +164,10 @@ $(document).ready(function () {
         order: [[0, 'desc']],
         createdRow: function (row, data, dataIndex) {
           switch (data.solicitudI) {
-            case 1: data.solicitudI = 'Creacion'; break;
-            case 2: data.solicitudI = 'Rediseño'; break;
-            case 3: data.solicitudI = 'Acreditación'; break;
-            case 4: data.solicitudI = 'Renovación'; break;
+            case 1: data.solicitudI = 'Diagnostico'; break;
+            case 2: data.solicitudI = 'Diseño'; break;
+            case 3: data.solicitudI = 'Ejecusión'; break;
+            case 4: data.solicitudI = 'Evaluación'; break;
           }
           switch (data.tipoI) {
             case 1: data.tipoI = 'Carrera'; break;
@@ -176,10 +187,10 @@ $(document).ready(function () {
         },
         rowCallback: function (row, data) {
           switch (data.solicitudI) {
-            case 'Creacion': $('td:eq(3)', row).html('Creación'); break;
-            case 'Rediseño': $('td:eq(3)', row).html('Rediseño'); break;
-            case 'Acreditación': $('td:eq(3)', row).html('Acreditación'); break;
-            case 'Renovación': $('td:eq(3)', row).html('Renovación'); break;
+            case 'Diagnostico': $('td:eq(3)', row).html('Diagnostico'); break;
+            case 'Diseño': $('td:eq(3)', row).html('Diseño'); break;
+            case 'Ejecusión': $('td:eq(3)', row).html('Ejecusión'); break;
+            case 'Evaluación': $('td:eq(3)', row).html('Evaluación'); break;
           }
           switch (data.tipoI) {
             case 'Carrera': $('td:eq(4)', row).html('Carrera'); break;
