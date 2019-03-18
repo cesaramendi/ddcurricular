@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var url = document.URL;
-  var id = url.substring(url.lastIndexOf('=') + 1);
-
+  var id = url.substring(url.lastIndexOf('=') + 1).split('#')[0];
+  //alert(id);
   $('#myForm').addClass('isloading');
   $.ajax({
     method: 'get',
@@ -9,13 +9,29 @@ $(document).ready(function(){
   }).done(function (res) {
     $('#myForm').removeClass('isloading');
       let datos = res.data[0];
-      alert("Por favor, corrija los datos y re-envielos ID:"+id);
+      //alert("fecha"+datos.fechaA.split('T')[0]);
+      alert("*Por favor, corrija los datos y re-envielos*");
+
       $("#id").val(id);
-      $("#tipo").val(datos.tipo);
-      $("#titulo").val(datos.titulo);
-      $("#Introduccion").val(datos.introduccion);
-      $("#nacionalidad").val(datos.nacionalidad);
-      $("#cedula").val(datos.cedula);
+      $("#etapa").val(datos.etapa);
+
+      if(datos.etapa == 1){
+        //alert('formacion');
+        $("#tipo").append(new Option("Diplomado", "1"));
+        $("#tipo").append(new Option("Acreditación", "2"));
+        $("#tipo").append(new Option("Planes", "3"));
+      }
+      if(datos.etapa == 2){
+        //alert('capacitacion');
+        $("#tipo").append(new Option("Charla", "1"));
+        $("#tipo").append(new Option("Taller", "2"));
+      }
+      $("#tipo").val(datos.tipoA);
+      
+      $("#nombreSolicitud").val(datos.nombreSolicitudA);
+      $("#descripcion").val(datos.descripcionA);
+      $("#institucion").val(datos.institucionA);
+      $("#dependencia").val(datos.dependenciaA);
       if(datos.nacionalidad != "V" && datos.nacionalidad != "E"){
         $("#apellidoSolicitante").val(datos.apellidoSolicitanteA);
         $("#nombreSolicitante").val(datos.nombreSolicitanteA);
@@ -47,8 +63,14 @@ $(document).ready(function(){
             $(nombre).prop("readonly", true);
           });
       }
-      $("#Cantidad").val(datos.cantidadParticipantes);
-      $("#lugar").val(datos.lugar);
-      $("#FechaCapacitacion").val(datos.fechaCapacitacion);
+      $("#comunidad").val(datos.comunidad);
+      $("#cantidadBeneficiarios").val(datos.cantidadBeneficiarios);
+      $("#lugar").val(datos.lugarA);
+      $("#fechaAsesoria").val(datos.fechaA.split('T')[0]);
+      $("#horaAsesoria").val(datos.horaA);
   });
+  //$('#etapa').change(function () {
+
+  //});
+
 });

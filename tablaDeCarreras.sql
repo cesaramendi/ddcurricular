@@ -1,3 +1,6 @@
+CREATE DATABASE interoperables;
+USE interoperables;
+
 CREATE TABLE persona(
   nacionalidad    VARCHAR(1) NOT NULL,
   -- V: Venezolano
@@ -125,16 +128,20 @@ CREATE TABLE Investigacion(
   -- 6: aprobado
   fechaStatusI            DATETIME NOT NULL,
   notaI                   VARCHAR(200),
-  PRIMARY KEY(id),
-  INDEX fk_investigacion_email_idx (email DESC),
+  -- Nacionalidad VARCHAR(500) NOT NULL,
+  -- cedulaR INT,
+  -- nombreR VARCHAR(500) NOT NULL,
+
+  PRIMARY KEY(idI),
+  INDEX fk_investigacion_email_idx (emailI DESC),
     CONSTRAINT fk_investigacion_email
-    FOREIGN KEY (email)
+    FOREIGN KEY (emailI)
     REFERENCES usuarios (email)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 
---//////////////Documentos//////////////////////////////////////////////////////
+-- //////////////Documentos//////////////////////////////////////////////////////
 
 CREATE TABLE documentoSolicitudAval(
   idDocSolAval          INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -186,7 +193,7 @@ CREATE TABLE DocumentoAsesoria(
 
 CREATE TABLE DocumentoInvestigacion(
   idDocI                INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  refProyecto           INT UNSIGNED DEFAULT NULL,
+  refProyectoI           INT UNSIGNED DEFAULT NULL,
   ruta                  VARCHAR(380) NOT NULL,
   nombreDoc             VARCHAR(350) NOT NULL,
   fechaSubida           DATE NOT NULL,
@@ -200,13 +207,12 @@ CREATE TABLE DocumentoInvestigacion(
 -- Para, en dado caso, saber cual es el archivo que se corrige
 
   PRIMARY KEY(idDocI),
-  INDEX fk_documentos_refProyecto_idx (refProyecto DESC),
-  CONSTRAINT fk_documentos_refProyecto
-    FOREIGN KEY (refProyecto)
+  INDEX fk_documentosInvestigacion_refProyecto_idx (refProyectoI DESC),
+  CONSTRAINT fk_documentosInvestigacion_refProyecto
+    FOREIGN KEY (refProyectoI)
     REFERENCES Investigacion (idI)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-
+    ON UPDATE NO ACTION
 );
 
 

@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var url = document.URL;
-  var id = url.substring(url.lastIndexOf('=') + 1);
+  var id = url.substring(url.lastIndexOf('=') + 1).split('#')[0];
 
   $('#myForm').addClass('isloading');
   $.ajax({
@@ -9,14 +9,14 @@ $(document).ready(function(){
   }).done(function (res) {
     $('#myForm').removeClass('isloading');
       let datos = res.data[0];
-      alert("Por favor, corrija los datos y re-envielos ID:"+id);
+      alert("*Por favor, corrija los datos y re-envielos*");
       $("#id").val(id);
-      $("#solicitud").val(datos.solicitud);
-      $("#tipo").val(datos.tipo);
-      $("#nombreSolicitud").val(datos.nombreSolicitud);
-      $("#Introduccion").val(datos.introduccion);
-      $("#nacionalidad").val(datos.nacionalidad);
-      $("#cedula").val(datos.cedula);
+      $("#solicitud").val(datos.solicitudI);
+      $("#tipo").val(datos.tipoI);
+      $("#nombreSolicitud").val(datos.nombreSolicitudI);
+      $("#descripcion").val(datos.descripcionI);
+      $("#institucion").val(datos.institucionI);
+      $("#dependencia").val(datos.dependenciaI);
       if(datos.nacionalidad != "V" && datos.nacionalidad != "E"){
         $("#apellidoSolicitante").val(datos.apellidoSolicitante);
         $("#nombreSolicitante").val(datos.nombreSolicitante);

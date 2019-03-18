@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var url = document.URL;
-  var id = url.substring(url.lastIndexOf('=') + 1);
-
+  var id = url.substring(url.lastIndexOf('=') + 1).split('#')[0];
+  //alert(id);
   $('#myForm').addClass('isloading');
   $.ajax({
     method: 'get',
@@ -9,7 +9,7 @@ $(document).ready(function(){
   }).done(function (res) {
     $('#myForm').removeClass('isloading');
       let datos = res.data[0];
-      alert("Por favor, corrija los datos y re-envielos ID:"+id);
+      alert("*Por favor, corrija los datos y re-envielos*");
       $("#id").val(id);
       $("#solicitud").val(datos.solicitud);
       $("#tipo").val(datos.tipo);

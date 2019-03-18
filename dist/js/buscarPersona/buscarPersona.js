@@ -28,17 +28,35 @@ $(document).ready(function() {
       });
   });
 
-  buscarPersonaYllenarInput('#buscarCoordinador','#coordinador');
+  buscarPersonaYllenarInput('#buscarCoordinador','#coordinador','#coordinadorNAC','#coordinadorCI');
 
-  buscarPersonaYllenarInput('#buscarDisennador','#disennador');
+  buscarPersonaYllenarInput('#buscarDisennador','#disennador','#disennadorNAC','#disennadorCI');
 
-  buscarPersonaYllenarInput('#buscarMiembro','#miembros');
+  buscarPersonaYllenarInput('#buscarMiembro','#miembros','#miembrosNAC','#miembrosCI');
+
+  $('#etapa').change(function () {
+    $('#tipo option[value="1"]').remove();
+    $('#tipo option[value="2"]').remove();
+    $('#tipo option[value="3"]').remove();
+
+    if(($('#etapa').val()) == 1){
+      //alert('formacion');
+      $("#tipo").append(new Option("Diplomado", "1"));
+      $("#tipo").append(new Option("Acreditación", "2"));
+      $("#tipo").append(new Option("Planes", "3"));
+    }
+    if(($('#etapa').val()) == 2){
+      //alert('capacitacion');
+      $("#tipo").append(new Option("Charla", "1"));
+      $("#tipo").append(new Option("Taller", "2"));
+    }
+  });
 
 
-  function buscarPersonaYllenarInput(idBoton,idInput){
+  function buscarPersonaYllenarInput(idBoton,idInput,nacionalidad,cedula){
     $(idBoton).click(function () {
 
-      var data = $('#nacionalidad').serialize()+'&'+$('#cedula').serialize()
+      var data = $(nacionalidad).serialize()+'&'+$(cedula).serialize()
       //alert('Datos serializados: '+data);
 
       $.ajax({
@@ -48,7 +66,7 @@ $(document).ready(function() {
       }).done(function (res) {
         let datos = res.data[0];
           //si encuentra apellido llena el campo
-          $(idInput).val($(idInput).val()+datos.apellido+' '+datos.nombre+', ');
+          $(idInput).val($(idInput).val()+', '+datos.apellido+' '+datos.nombre);
         });
     });
 
