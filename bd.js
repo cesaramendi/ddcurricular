@@ -10,6 +10,7 @@ const pool = mysql.createPool({
   password: '22552994',
   database: 'interoperables',
 })
+
 /*const pool = mysql.createPool({
   connectionLimit: 100,
 

@@ -1,14 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
 
-                  <input type="number" id="cedulaCoordinador" class="form-control" name="cedulaCoordinador" placeholder="Ingrese cedula" >
-                  <input type="number" id="cedulaDisenador" class="form-control" name="cedulaDisenador" placeholder="Ingrese cedula" >
-<<<<<<< HEAD
-                  <input type="number" id="cedulaMiembro" class="form-control" name="cedulaMiembro" placeholder="Ingrese cedula" >
-=======
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>DDC - Aval</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="css/datatables.min.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
+    <link href="css/select2-bootstrap4.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+         <img class="logo" src=".../../img/logos/log_uc_2.png">
+        </a>
+      <a class="navbar-brand mr-1" href="index.html"></a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <button class="btn btn-link btn-sm order-1 order-sm-0" id="temaToggle" href="#">
+              <i class="fas fa-bars">Cambiar apariencia</i>
+            </button>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Desconectarse</a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/dashboard">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/enviarSolicitudAval">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Solicitar Aval</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/enviarSolicitudAsesoria">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Solicitar Asesoría</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/enviarSolicitudInvestigacion">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Solicitar Investigación</span>
+          </a>
+        </li>
+         <li class="nav-item active">
+          <a class="nav-link" href="/Reporte">
+            <i class="fas fa-fw fa-plus-square"></i>
+            <span>Reportes</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+           <i class="fas fa-fw fa-sign-out-alt"></i>
+           <span>Salir</span>
+         </a>
+       </li>
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+
+          <!-- Page Content -->
+          <h1>Enviar solicitud de Aval</h1>
+          <hr>
+          <form method="post" id="myForm" action="/uploadSolicicitudAval" enctype="multipart/form-data">
+
+            <div class="form-row">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="tipo">Solicitud</label>
+                </div>
+                <select required name="solicitud" class="custom-select" id="solicitud">
+                  <option value="">Seleccione...</option>
+                  <option value="1">Creación</option>
+                  <option value="2">Rediseño</option>
+                  <option value="3">Acreditación</option>
+                  <option value="4">Renovación</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="tipo">Tipo</label>
+                </div>
+                <select required name="tipo" class="custom-select" id="tipo">
+                  <option value="">Seleccione...</option>
+                  <option value="1">Carrera (Pregrado, TSU, ...)</option>
+                  <option value="2">Programa de Postgrado</option>
+                  <option value="3">Programa de Formación Continua y Permanente</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="nombreSolicitud" class="form-control" placeholder="Nombre del Proyecto" name="nombreSolicitud">
+                <label for="nombreSolicitud">Razón de la solicitud</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <textarea class="form-control" rows="5" id="descripcion" name="descripcion"></textarea>
+            </div>
+            <hr>
+            <label>Datos Solicitante</label>
+            <!--
+            <div class="form-group form-row">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Nacionalidad</label>
+              </div>
+              <div class="">
+                <select required id="nacionalidad" name="nacionalidad" class="custom-select">
+                  <option value="">...</option>
+                  <option value="V">V</option>
+                  <option value="E">E</option>
+                </select>
+              </div>
+              <div class="">
+                <input required type="number" id="cedula" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+              </div>
+              <button type="button" id="buscarPersona" class="btn btn-link">Buscar Persona</button>
+            </div>
+            -->
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="institucion" class="form-control" placeholder="institucion"   name="institucion">
+                <label for="institucion">Institución</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input required type="text" id="dependencia" class="form-control" placeholder="dependencia"   name="dependencia">
+                <label for="dependencia">Dependencia</label>
+              </div>
+            </div>
+            <hr>
+            <label>Datos de proponentes</label>
+            <div class="form-group">
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="coordinadorNAC" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="coordinadorCI" class="form-control" name="cedula" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarCoordinador" class="btn btn-link fa fa-search"> Buscar coordinador</button>
+              </div>
+              <div class="form-label-group">
+                <input type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
+                <label for="coordinador">Coordinado por:</label>
+              </div>
+              <!-- boton para anhadir Coordinador -->
+              <button type="button" class="btn btn-primary" onclick="addTable('c')">Agregar Diseñador</button>
+              <!-- Tabla de Coordinadores involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Coordinador">
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="disennadorNAC" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="disennadorCI" class="form-control" name="cedula" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarDisennador" class="btn btn-link fa fa-search"> Buscar diseñador</button>
               </div>
               <div class="form-label-group">
-                <input required type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
+                <input type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
                 <label for="disennador">Diseñador curricular:</label>
               </div>
               <!-- boton para anhadir Disenadores -->
@@ -43,12 +297,12 @@
                   </select>
                 </div>
                 <div class="">
-                  <input type="number" id="cedulaMiembro" class="form-control" name="cedulaMiembro" placeholder="Ingrese cedula" >
+                  <input type="number" id="miembroCI" class="form-control" name="miembroCI" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarMiembro" class="btn btn-link fa fa-search"> Buscar miembro</button>
               </div>
               <div class="form-label-group">
-                  <input required type="text" id="miembro" class="form-control" placeholder="Miembro Participante"   name="disennador">
+                  <input type="text" id="miembro" class="form-control" placeholder="Miembro Participante" name="disennador">
                   <label for="miembro">Miembro/Participante</label>
               </div>
               <!-- boton para anhadir Miembros -->
@@ -168,16 +422,19 @@
         let cedu;
         let nombre;
         let band = true;
+        let nacionalidad;
 
         switch (opc) {
           case 'c':
-            tabla =  document.getElementById("tabla-coordinador");
-            cedu = document.getElementById("cedulaCoordinador").value;
+            tabla =  document.getElementById("tabla-Coordinador");
+            cedu = document.getElementById("coordinadorCI").value;
             nombre = document.getElementById("coordinador").value;
+            nacionalidad = document.getElementById("coordinadorNAC").value;
             document.getElementById("coordinador").value = "";
-            document.getElementById("cedulaCoordinador").value = "";
-            if (nombre == '' || cedu == '') {
-              alert('El campo Coordinado por y el campo Ingrese Cedula no puede estar vacio');
+            document.getElementById("coordinadorNAC").value = "";
+            document.getElementById("coordinadorCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Coordinado por, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio');
               band = false;
             }
             else{
@@ -192,12 +449,14 @@
           break;
           case 'd':
             tabla =  document.getElementById("tabla-Disenador");
-            cedu = document.getElementById("cedulaDisenador").value;
+            cedu = document.getElementById("disennadorCI").value;
             nombre = document.getElementById("disennador").value;
+            nacionalidad = document.getElementById("disennadorNAC").value;            
             document.getElementById("disennador").value = "";
-            document.getElementById("cedulaCoordinador").value = "";
-            if (nombre == '' || cedu == '') {
-              alert('El campo Diseñador Curricular y el campo Ingrese Cedula no puede estar vacio');
+            document.getElementById("disennadorNAC").value = "";
+            document.getElementById("disennadorCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Diseñador Curricular, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio');
               band = false;
             }
             else{
@@ -212,12 +471,14 @@
           break;
           case 'm':
             tabla =  document.getElementById("tabla-Miembro");
-            cedu = document.getElementById("cedulaMiembro").value;
+            cedu = document.getElementById("miembroCI").value;
             nombre = document.getElementById("miembro").value;
-            document.getElementById("miembro").value = ""; 
-            document.getElementById("cedulaCoordinador").value = "";
-            if (nombre == '' || cedu == '') {
-              alert('El campo Miembro/Participante y el campo Ingrese Cedula no puede estar vacio');
+            nacionalidad = document.getElementById("nacionalidad").value;
+            document.getElementById("miembro").value = "";
+            document.getElementById("nacionalidad").value = "";
+            document.getElementById("miembroCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Miembro/Participante, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio ');
               band = false;
             }
             else{
@@ -233,7 +494,7 @@
         }
         if (band) {
           const code ='<tr id="'+ opc + id +'">' 
-                     +'<th id="cedu' + opc + id + '">' + cedu + '</th>'
+                     +'<th id="cedu' + opc + id + '">' + nacionalidad + '-' + cedu + '</th>'
                      + '<th id="nomb' + opc + id + '">' + nombre + ' </th>'
                      + '<th>'
                      + '<button type="button" class="btn btn-outline-primary" onclick="deleteTable('+ opc + id +')">Eliminar</button>'
@@ -248,10 +509,13 @@
       function deleteTable(id){
         $(id).remove();
       }
+
+      function enviarDatos() {
+        
+      }
     </script>
 
 
   </body>
 
 </html>
->>>>>>> parent of 7da0f3a... dejar en blanco el form cedula despues de ingresar a tabla
