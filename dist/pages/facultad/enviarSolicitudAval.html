@@ -1,4 +1,257 @@
 
                   <input type="number" id="cedulaCoordinador" class="form-control" name="cedulaCoordinador" placeholder="Ingrese cedula" >
                   <input type="number" id="cedulaDisenador" class="form-control" name="cedulaDisenador" placeholder="Ingrese cedula" >
+<<<<<<< HEAD
                   <input type="number" id="cedulaMiembro" class="form-control" name="cedulaMiembro" placeholder="Ingrese cedula" >
+=======
+                </div>
+                <button type="button" id="buscarDisennador" class="btn btn-link fa fa-search"> Buscar diseñador</button>
+              </div>
+              <div class="form-label-group">
+                <input required type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
+                <label for="disennador">Diseñador curricular:</label>
+              </div>
+              <!-- boton para anhadir Disenadores -->
+              <button type="button" class="btn btn-primary" onclick="addTable('d')">Agregar Diseñador</button>
+              <!-- Tabla de Disenadores involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Disenador">
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="miembros">Miembros</label>
+              <div class="form-group form-row">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Nacionalidad</label>
+                </div>
+                <div class="">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
+                    <option value="">...</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+                <div class="">
+                  <input type="number" id="cedulaMiembro" class="form-control" name="cedulaMiembro" placeholder="Ingrese cedula" >
+                </div>
+                <button type="button" id="buscarMiembro" class="btn btn-link fa fa-search"> Buscar miembro</button>
+              </div>
+              <div class="form-label-group">
+                  <input required type="text" id="miembro" class="form-control" placeholder="Miembro Participante"   name="disennador">
+                  <label for="miembro">Miembro/Participante</label>
+              </div>
+              <!-- boton para anhadir Miembros -->
+              <button type="button" class="btn btn-primary" onclick="addTable('m')">Agregar Diseñador</button>
+              <!-- Tabla de Miembros involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Miembro">
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Documento</span>
+                  </div>
+                  <div class="custom-file">
+                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
+                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
+                  </div>
+                </div>
+
+              </div>
+              <span id="errorPlace"></span>
+              <hr>
+            <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
+          </form>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright </span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Seleccione "Salir" si está listo para terminar la sesión.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <a class="btn btn-primary" href="/logout">Salir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style type="text/css">
+    h1{
+      text-align: center;
+    }
+    </style>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.js"></script>
+
+    <script src="js/datatables.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/i18n/es.js"></script>
+
+    <script src="js/reactive-fa-enviar.js"></script>
+    <script src="js/buscarPersona/buscarPersona.js"></script>
+
+    <!-- scripts para la insercion modificacion y eliminacion de las tablas -->
+
+    <!-- variables globales que serviran para llevar la cuenta de los coordinadores, miembreos y disenhadores -->
+    <script>
+      var coord = 0;
+      var dise = 0;
+      var miembros = 0;
+    </script>
+
+    <script>
+      // Esta funcion anhade items a las tablas de coordinador, disenador y miembros. 
+      function addTable(opc) {
+        
+        let id;
+        let tabla;
+        let cedu;
+        let nombre;
+        let band = true;
+
+        switch (opc) {
+          case 'c':
+            tabla =  document.getElementById("tabla-coordinador");
+            cedu = document.getElementById("cedulaCoordinador").value;
+            nombre = document.getElementById("coordinador").value;
+            document.getElementById("coordinador").value = "";
+            document.getElementById("cedulaCoordinador").value = "";
+            if (nombre == '' || cedu == '') {
+              alert('El campo Coordinado por y el campo Ingrese Cedula no puede estar vacio');
+              band = false;
+            }
+            else{
+              coord += 1;
+              if (coord > 10) {
+                alert("solo se permiten un maximo de 10 coordinadores.");
+                coord -= 1;
+                band = false;
+              } 
+              id = coord;
+            } 
+          break;
+          case 'd':
+            tabla =  document.getElementById("tabla-Disenador");
+            cedu = document.getElementById("cedulaDisenador").value;
+            nombre = document.getElementById("disennador").value;
+            document.getElementById("disennador").value = "";
+            document.getElementById("cedulaCoordinador").value = "";
+            if (nombre == '' || cedu == '') {
+              alert('El campo Diseñador Curricular y el campo Ingrese Cedula no puede estar vacio');
+              band = false;
+            }
+            else{
+              dise += 1;
+              if (dise > 10) {
+                alert("solo se permiten un maximo de 10 diseñadores.");
+                dise -= 1;
+                band = false;
+              } 
+              id = dise;
+            } 
+          break;
+          case 'm':
+            tabla =  document.getElementById("tabla-Miembro");
+            cedu = document.getElementById("cedulaMiembro").value;
+            nombre = document.getElementById("miembro").value;
+            document.getElementById("miembro").value = ""; 
+            document.getElementById("cedulaCoordinador").value = "";
+            if (nombre == '' || cedu == '') {
+              alert('El campo Miembro/Participante y el campo Ingrese Cedula no puede estar vacio');
+              band = false;
+            }
+            else{
+              miembros += 1;
+              if (miembros > 10) {
+                alert("solo se permiten un maximo de 10 miembros/participantes.");
+                miembros -= 1;
+                band = false;
+              }
+              id = miembros;
+            }
+          break;
+        }
+        if (band) {
+          const code ='<tr id="'+ opc + id +'">' 
+                     +'<th id="cedu' + opc + id + '">' + cedu + '</th>'
+                     + '<th id="nomb' + opc + id + '">' + nombre + ' </th>'
+                     + '<th>'
+                     + '<button type="button" class="btn btn-outline-primary" onclick="deleteTable('+ opc + id +')">Eliminar</button>'
+                     + '</th>'
+                     + '</tr>'; 
+
+          tabla.insertAdjacentHTML('beforeend', code);  
+        }
+             
+      }
+
+      function deleteTable(id){
+        $(id).remove();
+      }
+    </script>
+
+
+  </body>
+
+</html>
+>>>>>>> parent of 7da0f3a... dejar en blanco el form cedula despues de ingresar a tabla
