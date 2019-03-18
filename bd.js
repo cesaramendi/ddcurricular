@@ -11,6 +11,15 @@ const pool = mysql.createPool({
   database: 'interoperables',
 })
 
+// const pool = mysql.createPool({
+//   connectionLimit: 1000,
+//   host: 'localhost',
+//   user: 'root',
+//   port: '',
+//   password: '',
+//   database: 'interoperables',
+// })
+
 pool.getConnection((err, connection) => {
   if (err) {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
