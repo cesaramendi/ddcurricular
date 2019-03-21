@@ -718,9 +718,9 @@ app.post('/subirAvalInvestigacion', asyncMiddleware(async (req, res) =>{
   }
 }) );
 
-app.post('/uploadSolicicitudAval', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
+app.post('/uploadSolicicitudAval', upload.array('fileselect[]', 10),asyncMiddleware(async (req, res) => {
+  console.log("Ladataaaa------->>>>>>",req.body);
+  console.log("Las files----> ",req.files);
   if (await isValidSessionAndRol(req,3)) {
     let proyData = [
       req.session.user, // email
@@ -843,10 +843,10 @@ app.post('/uploadSolicicitudAsesoria', upload.array('inputFile', 10),asyncMiddle
 }) );
 
 
-app.post('/uploadSolicitudInvestigacion', upload.array('inputFile', 10),asyncMiddleware(async (req, res) => {
+app.post('/uploadSolicitudInvestigacion', upload.array('fileselect[]', 10),asyncMiddleware(async (req, res) => {
   console.log("*/uploadSolicitudInvestigacion*");
   console.log(req.body);
-  //console.log("El user, asumo yo: ",req.session)
+  console.log("El user, asumo yo: ",req.session)
   console.log(req.files);
   if (await isValidSessionAndRol(req,3)) {
     let investData = [

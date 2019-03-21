@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>DDC - Investigación</title>
 
     <!-- Bootstrap core CSS-->
@@ -24,6 +25,11 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- importing style for drag and drop -->
+    <link rel = "stylesheet"
+          type = "text/css"
+          href = "css/dragDrop.css" />
 
   </head>
 
@@ -204,15 +210,121 @@
             <hr>
 
             <div class="form-group">
+              <fieldset>
+                
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                
+                <div>
+                    <span class="input-group-text">Documentos:</span>
+                  <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="display:none"/>
+                  <div id="filedrag"> 
+                    <p>Presione para seleccionar archivos</p>
+                    <p>   ó </p>
+                      
+                    <p>Arrástrelos aquí</p>
+                    </div>
+                </div>
+                
+                </fieldset>
+                
+                <div id="messages" >
+                <p></p>
+                </div>
+            
+              <script>
+                // getElementById
+                function $id(id) {
+                  return document.getElementById(id);
+                }
+            
+                //
+                // output information
+                function Output(msg) {
+                  var m = $id("messages");
+                  m.innerHTML = msg + m.innerHTML;
+                }
+                // call initialization file
+                  if (window.File && window.FileList && window.FileReader) {
+                    Init();
+                  }
+            
+                  //
+                  // initialize
+                  function Init() {
+            
+                    var fileselect = $id("fileselect"),
+                      filedrag = $id("filedrag"),
+                      submitbutton = $id("submitbutton");
+            
+                    // file select
+                    fileselect.addEventListener("change", FileSelectHandler, false);
+            
+                    // is XHR2 available?
+                    var xhr = new XMLHttpRequest();
+                    if (xhr.upload) {
+                    
+                      // file drop
+                      filedrag.addEventListener("dragover", FileDragHover, false);
+                      filedrag.addEventListener("dragleave", FileDragHover, false);
+                      filedrag.addEventListener("drop", FileSelectHandler, false);
+                      filedrag.style.display = "block";
+                      
+                      // remove submit button
+                      submitbutton.style.display = "none";
+                    }
+            
+                  }
+            
+                  // file drag hover
+                function FileDragHover(e) {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  e.target.className = (e.type == "dragover" ? "hover" : "");
+                }
+            
+                // file selection
+                function FileSelectHandler(e) {
+            
+                // cancel event and hover styling
+                FileDragHover(e);
+                  console.log("Mi e------->",e)
+                // fetch FileList object
+                let files = e.target.files || e.dataTransfer.files;
+                if(window.files===undefined|| window.files=== null){
+                  window.files = [];
 
+                }
+                window.files = files;
+                console.log("Mis files dropeadas ------>",files)
+                // process all File objects
+                $('#fileselect')[0].files = files;
+                console.log("fileselect luego de soltar archivos---->",$('#fileselect')[0].files);
+                }
+                function ParseFile(file) {
+            
+                  Output(
+                    "<p>Documento: <strong>" + file.name +
+                    "</strong> tipo: <strong>" + file.type +
+                    "</strong> tamaño: <strong>" + file.size +
+                    "</strong> bytes</p>"
+                  );
+            
+                  }
+              </script>
+              <script>
+                  $(function(){
+                      let inputFile = $('#fileselect');
+                      let button = $('#filedrag');
+                    console.log("ASDASD")
+                      button.click(function() {
+                        inputFile.click();
+                      });
+                      
+                  });
+                
+                </script>
                 <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Documento</span>
-                  </div>
-                  <div class="custom-file">
-                    <input multiple required type="file" class="custom-file-input" name="inputFile" id="inputFile" accept=".pdf, .doc, .docx, .xlsx">
-                    <label class="custom-file-label" for="inputFile">Escoger Archivo PDF, Word, Excel</label>
-                  </div>
+                  
                 </div>
 
               </div>
@@ -244,7 +356,45 @@
             </div>
             -->
 
-          <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
+          <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar" onclick="pressEnviar()">
+          <script>
+            function pressEnviar(){
+              console.log("hola", $('#fileselect')[0].files)
+              console.log("hola", window)
+              console.log("hola", window.File)
+              console.log("Mis files al enviar", window.files)
+              console.log("Solicitud", $('#solicitud')[0].value);
+
+                if($('#fileselect')[0].files.length > 10){
+                  alert("Excede el número de archivos permitido, máximo 10")
+                }else{
+                  let form = document.getElementById("myForm"),
+                      formData = new FormData(form);
+                  console.log("Las file drag----> ",$('#filedrag')[0].files)
+                  fetch('/uploadSolicicitudAval', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: formData
+                  })
+                    .then(function(response) {
+                      if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                          response.status);
+                        return;
+                      }
+                      console.log("volvi")
+                        
+                    })
+                    .catch(function(err) {
+                        console.log("Fetch Error :-S", err);
+                    });
+
+                }
+            }
+          
+          </script>
         </form>
 
       </div>
