@@ -6,13 +6,11 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
   user: 'root',
-  port: 80,
+  port: '',
   password: '',
   database: 'interoperables',
 })
 
-<<<<<<< Updated upstream
-=======
 // const pool = mysql.createPool({
 //   connectionLimit: 10,
 //   host: 'www.db4free.net',
@@ -21,7 +19,6 @@ const pool = mysql.createPool({
 //   password: '22552994',
 //   database: 'interoperables',
 // })
->>>>>>> Stashed changes
 /*const pool = mysql.createPool({
   connectionLimit: 100,
 
@@ -39,15 +36,6 @@ const pool = mysql.createPool({
   //debug: true
   //method: 'POST'
 })*/
-
-// const pool = mysql.createPool({
-//   connectionLimit: 1000,
-//   host: 'localhost',
-//   user: 'root',
-//   port: '',
-//   password: '',
-//   database: 'interoperables',
-// })
 
 pool.getConnection((err, connection) => {
   if (err) {

@@ -340,6 +340,7 @@
               <hr>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar">
           </form>
+          <button class="btn btn-primary btn-block" onclick="enviarDatos()">prueba</button>
 
         </div>
         <!-- /.container-fluid -->
@@ -494,11 +495,11 @@
         }
         if (band) {
           const code ='<tr id="'+ opc + id +'">' 
-                     +'<th id="cedu' + opc + id + '">' + nacionalidad + '-' + cedu + '</th>'
-                     + '<th id="nomb' + opc + id + '">' + nombre + ' </th>'
-                     + '<th>'
-                     + '<button type="button" class="btn btn-outline-primary" onclick="deleteTable('+ opc + id +')">Eliminar</button>'
-                     + '</th>'
+                     +'<td id="cedu' + opc + id + '">' + nacionalidad + '-' + cedu + '</td>'
+                     + '<td id="nomb' + opc + id + '">' + nombre + ' </td>'
+                     + '<td>'
+                     + '<button type="button" class="btn btn-outline-primary" onclick="deleteTable(\''+ opc + id +'\', \'' + opc + '\')">Eliminar</button>'
+                     + '</td>'
                      + '</tr>'; 
 
           tabla.insertAdjacentHTML('beforeend', code);  
@@ -506,12 +507,73 @@
              
       }
 
-      function deleteTable(id){
-        $(id).remove();
-      }
+     
 
       function enviarDatos() {
+
+        if (coord == 0 || dise == 0 || miembros == 0) {
+
+          alert('Asegurese haber añadido por lo menos 1 coordinador, 1 diseñador y 1 miembro/participante ')
+          
+        } else {
+            /*************************CARGA DATOS DE LAS TABLAS EN ARRAYS DE JSON***************************************************************/
+            const tablaC = document.getElementById('tabla-Coordinador');
+            const tablaD = document.getElementById('tabla-Disenador');
+            const tablaM = document.getElementById('tabla-Miembro');
+
+            let datosC = []; //datos tabla coordinador
+            let datosD = []; //datos tabla disennador
+            let datosM = []; //datos tabla miembro
+
+            let persona = new Object();
+
+            for (let i = 0; i < tablaC.rows.length; i++) {
+              persona['cedula'] = tablaC.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaC.rows[i].getElementsByTagName('td')[1].innerText;
+              datosC[i] = persona;
+            }
+          
+            for (let i = 0; i < tablaD.rows.length; i++) {
+              persona['cedula'] = tablaD.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaD.rows[i].getElementsByTagName('td')[1].innerText;
+              datosD[i] = persona;
+            }
+          
+            for (let i = 0; i < tablaM.rows.length; i++) {
+              persona['cedula'] = tablaM.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaM.rows[i].getElementsByTagName('td')[1].innerText;
+              datosM[i] = persona;
+            }
+          
+          /*************************CARGA DATOS DE LAS TABLAS EN ARRAYS DE JSON***************************************************************/
+
+        }
+
+
         
+      }
+    </script>
+
+    <script>
+     function deleteTable(id, opc){
+        console.log(opc);
+        const elemento = document.getElementById(id);
+        elemento.parentNode.removeChild(elemento);
+
+        switch (opc) {
+          case 'c':
+            coord -= 1; 
+            console.log('pase por aqui'); 
+          break;
+          case 'd':
+            dise -= 1;  
+          break;
+          case 'm':
+            miembros -= 1;  
+          break;
+      
+        }
+
       }
     </script>
 
