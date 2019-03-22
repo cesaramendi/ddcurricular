@@ -4,12 +4,21 @@ const util = require('util');
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: 'www.db4free.net',
-  user: 'aramendi',
-  port: 3307,
-  password: '22552994',
+  host: 'localhost',
+  user: 'root',
+  port: '',
+  password: '',
   database: 'interoperables',
 })
+
+// const pool = mysql.createPool({
+//   connectionLimit: 10,
+//   host: 'www.db4free.net',
+//   user: 'aramendi',
+//   port: 3307,
+//   password: '22552994',
+//   database: 'interoperables',
+// })
 /*const pool = mysql.createPool({
   connectionLimit: 100,
 

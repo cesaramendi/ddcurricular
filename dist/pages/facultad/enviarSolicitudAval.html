@@ -230,8 +230,25 @@
                 <button type="button" id="buscarCoordinador" class="btn btn-link fa fa-search"> Buscar coordinador</button>
               </div>
               <div class="form-label-group">
-                <input required type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
+                <input type="text" id="coordinador" class="form-control" placeholder="Coordinador"   name="coordinador">
                 <label for="coordinador">Coordinado por:</label>
+              </div>
+              <!-- boton para anhadir Coordinador -->
+              <button type="button" class="btn btn-primary" onclick="addTable('c')">Agregar Diseñador</button>
+              <!-- Tabla de Coordinadores involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Coordinador">
+                   
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="form-group">
@@ -252,8 +269,25 @@
                 <button type="button" id="buscarDisennador" class="btn btn-link fa fa-search"> Buscar diseñador</button>
               </div>
               <div class="form-label-group">
-                <input required type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
+                <input type="text" id="disennador" class="form-control" placeholder="Diseño"   name="disennador">
                 <label for="disennador">Diseñador curricular:</label>
+              </div>
+              <!-- boton para anhadir Disenadores -->
+              <button type="button" class="btn btn-primary" onclick="addTable('d')">Agregar Diseñador</button>
+              <!-- Tabla de Disenadores involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Disenador">
+                   
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="form-group">
@@ -263,18 +297,38 @@
                   <label class="input-group-text">Nacionalidad</label>
                 </div>
                 <div class="">
-                  <select id="miembrosNAC" name="nacionalidad" class="custom-select">
+                  <select id="nacionalidad" name="nacionalidad" class="custom-select">
                     <option value="">...</option>
                     <option value="V">V</option>
                     <option value="E">E</option>
                   </select>
                 </div>
                 <div class="">
-                  <input type="number" id="miembrosCI" class="form-control" name="cedula" placeholder="Ingrese cédula" >
+                  <input type="number" id="miembroCI" class="form-control" name="miembroCI" placeholder="Ingrese cedula" >
                 </div>
                 <button type="button" id="buscarMiembro" class="btn btn-link fa fa-search"> Buscar miembro</button>
               </div>
-              <textarea class="form-control" rows="5" id="miembros" name="miembros"></textarea>
+              <div class="form-label-group">
+                  <input type="text" id="miembro" class="form-control" placeholder="Miembro Participante" name="disennador">
+                  <label for="miembro">Miembro/Participante</label>
+              </div>
+              <!-- boton para anhadir Miembros -->
+              <button type="button" class="btn btn-primary" onclick="addTable('m')">Agregar Diseñador</button>
+              <!-- Tabla de Miembros involucrados -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">cedula</th>
+                      <th scope="col">Nombre y Apellido</th>
+                      <th scope="col">opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-Miembro">
+                    
+                  </tbody>
+                </table>
+              </div>
             </div>
             
             <div class="form-group">
@@ -416,6 +470,7 @@
               <hr>
             <input id="editButton" class="btn btn-primary btn-block" type="submit" value="Enviar" onclick="pressEnviar()">
           </form>
+          <button class="btn btn-primary btn-block" onclick="enviarDatos()">prueba</button>
 
 
           <script>
@@ -519,6 +574,178 @@
 
     <script src="js/reactive-fa-enviar.js"></script>
     <script src="js/buscarPersona/buscarPersona.js"></script>
+
+    <!-- scripts para la insercion modificacion y eliminacion de las tablas -->
+
+    <!-- variables globales que serviran para llevar la cuenta de los coordinadores, miembreos y disenhadores -->
+    <script>
+      var coord = 0;
+      var dise = 0;
+      var miembros = 0;
+    </script>
+
+    <script>
+      // Esta funcion anhade items a las tablas de coordinador, disenador y miembros. 
+      function addTable(opc) {
+        
+        let id;
+        let tabla;
+        let cedu;
+        let nombre;
+        let band = true;
+        let nacionalidad;
+
+        switch (opc) {
+          case 'c':
+            tabla =  document.getElementById("tabla-Coordinador");
+            cedu = document.getElementById("coordinadorCI").value;
+            nombre = document.getElementById("coordinador").value;
+            nacionalidad = document.getElementById("coordinadorNAC").value;
+            document.getElementById("coordinador").value = "";
+            document.getElementById("coordinadorNAC").value = "";
+            document.getElementById("coordinadorCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Coordinado por, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio');
+              band = false;
+            }
+            else{
+              coord += 1;
+              if (coord > 10) {
+                alert("solo se permiten un maximo de 10 coordinadores.");
+                coord -= 1;
+                band = false;
+              } 
+              id = coord;
+            } 
+          break;
+          case 'd':
+            tabla =  document.getElementById("tabla-Disenador");
+            cedu = document.getElementById("disennadorCI").value;
+            nombre = document.getElementById("disennador").value;
+            nacionalidad = document.getElementById("disennadorNAC").value;            
+            document.getElementById("disennador").value = "";
+            document.getElementById("disennadorNAC").value = "";
+            document.getElementById("disennadorCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Diseñador Curricular, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio');
+              band = false;
+            }
+            else{
+              dise += 1;
+              if (dise > 10) {
+                alert("solo se permiten un maximo de 10 diseñadores.");
+                dise -= 1;
+                band = false;
+              } 
+              id = dise;
+            } 
+          break;
+          case 'm':
+            tabla =  document.getElementById("tabla-Miembro");
+            cedu = document.getElementById("miembroCI").value;
+            nombre = document.getElementById("miembro").value;
+            nacionalidad = document.getElementById("nacionalidad").value;
+            document.getElementById("miembro").value = "";
+            document.getElementById("nacionalidad").value = "";
+            document.getElementById("miembroCI").value = "";
+            if (nombre == '' || cedu == '' || nacionalidad == '') {
+              alert('El campo Miembro/Participante, el campo Ingrese Cedula y el select de nacionalidad no puede estar vacio ');
+              band = false;
+            }
+            else{
+              miembros += 1;
+              if (miembros > 10) {
+                alert("solo se permiten un maximo de 10 miembros/participantes.");
+                miembros -= 1;
+                band = false;
+              }
+              id = miembros;
+            }
+          break;
+        }
+        if (band) {
+          const code ='<tr id="'+ opc + id +'">' 
+                     +'<td id="cedu' + opc + id + '">' + nacionalidad + '-' + cedu + '</td>'
+                     + '<td id="nomb' + opc + id + '">' + nombre + ' </td>'
+                     + '<td>'
+                     + '<button type="button" class="btn btn-outline-primary" onclick="deleteTable(\''+ opc + id +'\', \'' + opc + '\')">Eliminar</button>'
+                     + '</td>'
+                     + '</tr>'; 
+
+          tabla.insertAdjacentHTML('beforeend', code);  
+        }
+             
+      }
+
+     
+
+      function enviarDatos() {
+
+        if (coord == 0 || dise == 0 || miembros == 0) {
+
+          alert('Asegurese haber añadido por lo menos 1 coordinador, 1 diseñador y 1 miembro/participante ')
+          
+        } else {
+            /*************************CARGA DATOS DE LAS TABLAS EN ARRAYS DE JSON***************************************************************/
+            const tablaC = document.getElementById('tabla-Coordinador');
+            const tablaD = document.getElementById('tabla-Disenador');
+            const tablaM = document.getElementById('tabla-Miembro');
+
+            let datosC = []; //datos tabla coordinador
+            let datosD = []; //datos tabla disennador
+            let datosM = []; //datos tabla miembro
+
+            let persona = new Object();
+
+            for (let i = 0; i < tablaC.rows.length; i++) {
+              persona['cedula'] = tablaC.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaC.rows[i].getElementsByTagName('td')[1].innerText;
+              datosC[i] = persona;
+            }
+          
+            for (let i = 0; i < tablaD.rows.length; i++) {
+              persona['cedula'] = tablaD.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaD.rows[i].getElementsByTagName('td')[1].innerText;
+              datosD[i] = persona;
+            }
+          
+            for (let i = 0; i < tablaM.rows.length; i++) {
+              persona['cedula'] = tablaM.rows[i].getElementsByTagName('td')[0].innerText;
+              persona['nombre'] = tablaM.rows[i].getElementsByTagName('td')[1].innerText;
+              datosM[i] = persona;
+            }
+          
+          /*************************CARGA DATOS DE LAS TABLAS EN ARRAYS DE JSON***************************************************************/
+
+        }
+
+
+        
+      }
+    </script>
+
+    <script>
+     function deleteTable(id, opc){
+        console.log(opc);
+        const elemento = document.getElementById(id);
+        elemento.parentNode.removeChild(elemento);
+
+        switch (opc) {
+          case 'c':
+            coord -= 1; 
+            console.log('pase por aqui'); 
+          break;
+          case 'd':
+            dise -= 1;  
+          break;
+          case 'm':
+            miembros -= 1;  
+          break;
+      
+        }
+
+      }
+    </script>
 
 
   </body>
